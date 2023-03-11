@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "80275054021",
+    "project_id": "i-financas",
+    "storage_bucket": "i-financas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80275054021:android:9bf983af905d2e4f09ffac",
+        "android_client_info": {
+          "package_name": "com.ifinancas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80275054021-f9f5rlrol6nrfbnvb61r5h8cllmjemuv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ifinancas",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "80275054021-2ebrkt9e9mu9fq8d2r59l747rmn7hnvs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUd7Gz43-msLxDbG9W2cflmZQ2_WL8mzs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80275054021-2ebrkt9e9mu9fq8d2r59l747rmn7hnvs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
