@@ -6,7 +6,8 @@ O propósito desse aplicativo é atender a usuários exigentes que querem utiliz
 
 ## Protótipo
 
-![financas](https://user-images.githubusercontent.com/93846923/224460669-d545c8de-15df-4235-a03c-042386ee7d89.jpg)
+![financas](https://user-images.githubusercontent.com/93846923/224574735-d9600cc0-c3f5-4d71-a7ab-abce5508998b.png)
+
 
 
 ## Funcionalidades
