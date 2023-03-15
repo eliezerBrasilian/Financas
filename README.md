@@ -14,6 +14,7 @@ O propósito desse aplicativo é atender a usuários exigentes que querem utiliz
 
 - Registrar gasto
 - Registrar entrada
+- Registrar reserva
 - Excluir registro
 - Filtrar registro por uma data específica
 - Exibir gráfico com as informações
