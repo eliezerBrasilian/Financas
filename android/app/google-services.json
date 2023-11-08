@@ -14,15 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "80275054021-f9f5rlrol6nrfbnvb61r5h8cllmjemuv.apps.googleusercontent.com",
+          "client_id": "80275054021-ioahpkf0l493iirj4931rclag6v5t8mh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ifinancas",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "ed5b97ea4e2d2c4b1d1a48957ad48c53b8f77731"
           }
         },
         {
-          "client_id": "80275054021-2ebrkt9e9mu9fq8d2r59l747rmn7hnvs.apps.googleusercontent.com",
+          "client_id": "80275054021-ds2pdpkki041lum3c6l1mrc3htpcv8sp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -40,7 +40,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-4318787550457876~2983349427"
     }
   ],
   "configuration_version": "1"

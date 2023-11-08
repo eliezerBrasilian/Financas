@@ -1,21 +1,21 @@
-import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+import Routes from './src/routes/routes';
 import {StatusBar} from 'react-native';
-import Routes from './src/routes';
-import AuthProvider from './src/contexts/auth';
-import {colors} from './src/assets/colors';
-const App = () => {
+import {FirebaseProvider} from './src/contexts/AuthContext';
+import {FileProvider} from './src/contexts/FileContext';
+import {FabButtonContextProvider} from './src/contexts/FabButtonContext';
+
+export default function App() {
   return (
     <NavigationContainer>
-      <StatusBar
-        backgroundColor={colors.gradiente_1}
-        barStyle={'light-content'}
-      />
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
+      <FirebaseProvider>
+        <FileProvider>
+          <FabButtonContextProvider>
+            <Routes />
+          </FabButtonContextProvider>
+        </FileProvider>
+      </FirebaseProvider>
     </NavigationContainer>
   );
-};
-
-export default App;
+}

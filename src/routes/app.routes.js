@@ -1,22 +1,22 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../pages/Home';
-import Registro from '../pages/Registro';
-import GastoOuEntrada from '../pages/GastoOuEntrada';
-import Reserva from '../pages/Reserva';
-import Perfil from '../pages/Perfil';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
+import Profile from '../screens/Profile/Profile';
+import DadosPessoais from '../screens/PersonalData/DadosPessoais';
+import Register from '../screens/Register/Register';
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+export default function AppRoutes() {
   return (
     <Stack.Navigator
+      initialRouteName="HomeScreen"
       screenOptions={{
         headerShown: false,
+        orientation: 'portrait',
       }}>
-      <Stack.Screen component={Home} name="Home" />
-      <Stack.Screen component={Registro} name="Registro" />
-      <Stack.Screen component={GastoOuEntrada} name="GastoOuEntrada" />
-      <Stack.Screen component={Reserva} name="Reserva" />
-      <Stack.Screen component={Perfil} name="Perfil" />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="DadosPessoais" component={DadosPessoais} />
+      <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   );
 }
