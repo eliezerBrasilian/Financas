@@ -7,7 +7,7 @@ import HomeHeader from './HomeHeader';
 import HomeCards from './HomeCards';
 import HomeRegistros from './HomeRegistros';
 import FabButton from '../../components/FabButton';
-import ModalSelectFinanceOption from '../../components/ModalSelectFinanceOption';
+import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
 export default function HomeScreen() {
   const nav = useNavigation();
   const {user} = useFirebase();

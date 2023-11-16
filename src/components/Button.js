@@ -2,8 +2,7 @@ import {Text, TouchableOpacity, ActivityIndicator, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 export default function Button({
   title,
-  fontSize = 19,
-  marginTop = 0,
+  fontSize = 18,
   color = '#fff',
   fontWeight = 'bold',
   backgroundColor = 'transparent',
@@ -13,6 +12,8 @@ export default function Button({
   iconName,
   iconColor = '#fff',
   iconSize = 25,
+  borderRadius = 10,
+  padding = 10,
 }) {
   function executeMethod() {
     onClick();
@@ -23,13 +24,15 @@ export default function Button({
         style={{
           flexDirection: 'row',
           alignItems: 'center',
+          justifyContent: 'center',
           columnGap: 10,
+          borderRadius: borderRadius,
+          padding: padding,
         }}>
         <Text
           style={{color: color, fontSize: fontSize, fontWeight: fontWeight}}>
           {title}
         </Text>
-        <AntDesign name={iconName} color={iconColor} size={iconSize} />
       </View>
     );
   }
@@ -41,10 +44,9 @@ export default function Button({
         paddingHorizontal: 18,
         paddingVertical: 15,
         width: width,
-        borderRadius: 10,
+        borderRadius: borderRadius,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: marginTop,
       }}>
       {isLoading ? <ActivityIndicator size={17} color="#fff" /> : <Content />}
     </TouchableOpacity>

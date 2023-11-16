@@ -1,13 +1,13 @@
-import {View, TouchableOpacity, Touchable} from 'react-native';
-import Button from './Button';
+import {TouchableOpacity} from 'react-native';
+import Button from '../Button';
 import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
 export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
   const nav = useNavigation();
-  function navTo(title) {
+  function navTo(tag) {
     setModalVisible(false);
     nav.navigate('Register', {
-      title: title,
+      tag: tag,
     });
   }
   return (

@@ -5,7 +5,7 @@ import {firebase} from '@react-native-firebase/firestore';
 import {
   formatarCelular,
   dateFromFirestoreToBrasilianFormat,
-} from '../../utils/utils';
+} from '../../utils/Utils';
 import Header from '../../components/Header';
 import {useFirebase} from '../../contexts/AuthContext';
 import {Loading} from '../../components/Loading';
