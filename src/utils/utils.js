@@ -1,13 +1,82 @@
 import {format, fromUnixTime} from 'date-fns';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import {ToastAndroid} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {colors} from '../assets/colors/colors';
+
 class Utils {
+  static getAppropriateBackgroundColor(tag, strong = false) {
+    if (tag == 'receita')
+      return {backgroundColor: strong ? 'green' : '#C5E6A6', title: 'Receita'};
+    else if (tag === 'reserva')
+      return {
+        backgroundColor: strong ? 'blue' : colors.main_gray,
+        title: 'Reserva',
+      };
+    return {
+      backgroundColor: strong ? 'red' : colors.main_pink,
+      title: 'Despesa',
+    };
+  }
+
+  static getBrazilianCurrency(value) {
+    const formatedCurrency = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value + 0.0);
+    return formatedCurrency;
+  }
+
+  static increaseMonth(data) {
+    const newDate = new Date(data);
+
+    // Adiciona 1 ao mês
+    newDate.setMonth(newDate.getMonth() + 1);
+
+    return newDate;
+  }
+  static decreaseMonth(data) {
+    const newDate = new Date(data);
+
+    newDate.setMonth(newDate.getMonth() - 1);
+
+    return newDate;
+  }
+
   static getDateFormated(data) {
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
 
     return `${dia}/${mes}/${ano}`;
+  }
+  static getMonthAndYear(data) {
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+
+    return `${mes}/${ano}`;
+  }
+  static getMonth(data) {
+    const meses = [
+      'Janeiro',
+      'Fevereiro',
+      'Março',
+      'Abril',
+      'Maio',
+      'Junho',
+      'Julho',
+      'Agosto',
+      'Setembro',
+      'Outubro',
+      'Novembro',
+      'Dezembro',
+    ];
+
+    const numberOfMonth = data.getMonth();
+
+    return meses[numberOfMonth];
   }
 
   static formatarDataMilissegundos(milissegundos) {
@@ -57,9 +126,6 @@ class Utils {
   }
   static print(content) {
     console.log(content);
-  }
-  static leftIcon() {
-    return <AntDesign name="left" color={'#fff'} size={25} />;
   }
 
   static calendarIcon() {

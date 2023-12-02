@@ -1,7 +1,9 @@
-import {TouchableOpacity} from 'react-native';
-import Button from '../Button';
-import Modal from 'react-native-modal';
 import {useNavigation} from '@react-navigation/native';
+import {TouchableOpacity} from 'react-native';
+import Modal from 'react-native-modal';
+import {colors} from '../../assets/colors/colors';
+import Button from '../Button';
+
 export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
   const nav = useNavigation();
   function navTo(tag) {
@@ -27,19 +29,19 @@ export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
           }}>
           <Button
             title={'Registrar Receita'}
-            backgroundColor="#C6F9A9"
+            backgroundColor={colors.main_green}
             color="#000"
             onClick={() => navTo('receita')}
           />
           <Button
             title={'Registrar Gasto'}
-            backgroundColor="#FFE3E0"
+            backgroundColor={colors.main_pink}
             color="#000"
             onClick={() => navTo('gasto')}
           />
           <Button
             title={'Registrar Reserva'}
-            backgroundColor="#DEE5E5"
+            backgroundColor={colors.main_gray}
             color="#000"
             onClick={() => navTo('reserva')}
           />

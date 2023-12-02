@@ -9,12 +9,12 @@ export default function HomeHeader() {
         width: '100%',
         alignItems: 'center',
         columnGap: 15,
-        justifyContent: 'flex-end',
+        marginLeft: 20,
       }}>
+      <ProfileImage size={30} />
       <TextContent fontWeight="bold" fontSize={24}>
         Matias
       </TextContent>
-      <ProfileImage size={30} />
     </View>
   );
 }

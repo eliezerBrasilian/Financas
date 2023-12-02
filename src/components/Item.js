@@ -1,14 +1,16 @@
-import {View} from 'react-native';
-import {TextContent} from './TextContent';
-import ProfileImage from './ProfileImage';
 import React from 'react';
+import {View} from 'react-native';
+import {Utils} from '../utils/Utils';
+import ProfileImage from './ProfileImage';
+import {TextContent} from './TextContent';
+
 export default function Item({data}) {
-  const {tag} = data;
-  const backgroundColor = React.useMemo(() => {
-    if (tag === 'reserva') return '#DEE5E5';
-    else if (tag === 'receita') return '#C5E6A6';
-    else return '#FFE3E0';
-  }, [data.tag]);
+  const {tag, amount, description} = data;
+
+  const backgroundColor = React.useMemo(
+    () => Utils.getAppropriateBackgroundColor(tag).backgroundColor,
+    [data.tag],
+  );
   return (
     <View
       style={{
@@ -20,17 +22,19 @@ export default function Item({data}) {
         justifyContent: 'space-between',
         alignItems: 'center',
       }}>
-      <Left />
-      <TextContent fontWeight="bold">R$ 9.00</TextContent>
+      <Left description={description} />
+      <TextContent fontWeight="bold">
+        {Utils.getBrazilianCurrency(amount)}
+      </TextContent>
     </View>
   );
 }
 
-function Left() {
+function Left({description}) {
   return (
     <View style={{flexDirection: 'row', columnGap: 15, alignItems: 'center'}}>
       <ProfileImage size={15} />
-      <TextContent fontSize={17}>Descricao do item</TextContent>
+      <TextContent fontSize={17}>{description}</TextContent>
     </View>
   );
 }

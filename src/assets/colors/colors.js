@@ -1,6 +1,6 @@
 const colors = {
   main_blue: '#355EB4',
-  main_green: '#35C43F',
+  //main_green: '#35C43F',
   gray: '#F1F1F1',
   gray_line: '#F2F2F2',
   bottom_tab_bg: '#F0F0F0',
@@ -13,6 +13,9 @@ const colors = {
   search_bar_icon: '#1859ff',
   search_bar_input_background: '#ebecf1',
   search_bar_input_placeholder: '#7E8A95',
+  main_green: '#C6F9A9',
+  main_pink: '#FFE3E0',
+  main_gray: '#DEE5E5',
 };
 
 export {colors};

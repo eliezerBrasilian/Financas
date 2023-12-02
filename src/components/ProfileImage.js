@@ -1,6 +1,6 @@
 import {Image} from 'react-native';
 
-export default function ProfileImage({profilePhoto = null, size}) {
+export default function ProfileImage({profilePhoto = null, size = 30}) {
   return (
     <Image
       style={{

@@ -2,7 +2,12 @@ import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
-export default function Header({title, onClick, numberOfLines = undefined}) {
+export default function Header({
+  title,
+  onClick,
+  numberOfLines = undefined,
+  color = colors.blue_thirdy,
+}) {
   const nav = useNavigation();
 
   function executeMethod() {
@@ -12,7 +17,7 @@ export default function Header({title, onClick, numberOfLines = undefined}) {
   return (
     <View style={s.header}>
       <TouchableOpacity style={{zIndex: 2}} onPress={executeMethod}>
-        <AntDesign name="left" color={colors.blue_thirdy} size={25} />
+        <AntDesign name="left" color={color} size={25} />
       </TouchableOpacity>
       <View
         style={{
@@ -21,7 +26,7 @@ export default function Header({title, onClick, numberOfLines = undefined}) {
           zIndex: 1,
           marginLeft: -10,
         }}>
-        <Text numberOfLines={numberOfLines} style={s.title}>
+        <Text numberOfLines={numberOfLines} style={[s.title, {color: color}]}>
           {title}
         </Text>
       </View>
@@ -37,7 +42,6 @@ const s = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    color: colors.blue_thirdy,
     fontWeight: '700',
     marginRight: 30,
   },
