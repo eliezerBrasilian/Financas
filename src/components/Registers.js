@@ -2,11 +2,11 @@ import {FlatList, View} from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
-import Item from '../../components/Item';
-import {useFirebase} from '../../contexts/AuthContext';
-import {Utils} from '../../utils/Utils';
+import {useFirebase} from '../contexts/AuthContext';
+import {Utils} from '../utils/Utils';
+import Item from './Item';
 
-export default function HomeRegistros({date}) {
+export default function Registers({date}) {
   const {user} = useFirebase();
 
   const [registers, setRegisters] = React.useState([]);

@@ -1,7 +1,8 @@
 import {View} from 'react-native';
-import ProfileImage from '../../components/ProfileImage';
-import {TextContent} from '../../components/TextContent';
-export default function HomeHeader() {
+import ProfileImage from '../../../components/ProfileImage';
+import {TextContent} from '../../../components/TextContent';
+
+export default function Header() {
   return (
     <View
       style={{

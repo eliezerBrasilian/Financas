@@ -11,7 +11,7 @@ export function Top({title, value, setValue}) {
   const nav = useNavigation();
 
   const properties = React.useMemo(
-    () => Utils.getAppropriateBackgroundColor(title, true),
+    () => Utils.getUsefulInformationsAboutCurrentBalance(title, true),
     [title],
   );
 

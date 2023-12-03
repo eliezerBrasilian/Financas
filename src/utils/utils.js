@@ -5,17 +5,24 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
 
 class Utils {
-  static getAppropriateBackgroundColor(tag, strong = false) {
-    if (tag == 'receita')
-      return {backgroundColor: strong ? 'green' : '#C5E6A6', title: 'Receita'};
-    else if (tag === 'reserva')
+  static getUsefulInformationsAboutCurrentBalance(tag, strong = false) {
+    const tagToLowerCase = tag?.toLowerCase();
+    if (tagToLowerCase == 'receita')
+      return {
+        backgroundColor: strong ? 'green' : '#C5E6A6',
+        title: 'Receita',
+        icon: require('../assets/images/increase.png'),
+      };
+    else if (tagToLowerCase === 'reserva')
       return {
         backgroundColor: strong ? 'blue' : colors.main_gray,
         title: 'Reserva',
+        icon: require('../assets/images/growth.png'),
       };
     return {
       backgroundColor: strong ? 'red' : colors.main_pink,
       title: 'Despesa',
+      icon: require('../assets/images/decrease.png'),
     };
   }
 

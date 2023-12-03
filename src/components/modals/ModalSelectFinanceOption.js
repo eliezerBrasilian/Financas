@@ -37,7 +37,7 @@ export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
             title={'Registrar Gasto'}
             backgroundColor={colors.main_pink}
             color="#000"
-            onClick={() => navTo('gasto')}
+            onClick={() => navTo('despesa')}
           />
           <Button
             title={'Registrar Reserva'}

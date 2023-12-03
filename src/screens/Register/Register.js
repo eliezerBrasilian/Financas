@@ -1,13 +1,13 @@
 import {TextInput, TouchableOpacity, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
-import React from 'react';
-import DatePicker from 'react-native-date-picker';
 import Button from '../../components/Button';
+import DatePicker from 'react-native-date-picker';
+import React from 'react';
 import {TextContent} from '../../components/TextContent';
-import {useFirebase} from '../../contexts/AuthContext';
-import {Utils} from '../../utils/Utils';
 import {Top} from './widgets/Top';
+import {Utils} from '../../utils/Utils';
+import firestore from '@react-native-firebase/firestore';
+import {useFirebase} from '../../contexts/AuthContext';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
@@ -70,7 +70,7 @@ export default Register = ({route}) => {
   }
 
   const properties = React.useMemo(
-    () => Utils.getAppropriateBackgroundColor(tag, true),
+    () => Utils.getUsefulInformationsAboutCurrentBalance(tag, true),
     [tag],
   );
 

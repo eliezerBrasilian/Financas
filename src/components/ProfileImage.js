@@ -11,7 +11,7 @@ export default function ProfileImage({profilePhoto = null, size = 30}) {
       source={
         profilePhoto == null
           ? require('../assets/images/user_profile.png')
-          : {uri: profilePhoto}
+          : profilePhoto
       }
     />
   );

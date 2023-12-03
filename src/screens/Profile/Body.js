@@ -1,11 +1,13 @@
-import {View, TouchableOpacity, Image, Text} from 'react-native';
-import {useState, useEffect} from 'react';
-import {strings} from '../../assets/strings/strings';
-import {launchImageLibrary} from 'react-native-image-picker';
-import {useFirebase} from '../../contexts/AuthContext';
-import {s} from './style';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {useEffect, useState} from 'react';
+
 import Item from './Item';
 import {TextContent} from '../../components/TextContent';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {s} from './style';
+import {strings} from '../../assets/strings/strings';
+import {useFirebase} from '../../contexts/AuthContext';
+
 export default function Body() {
   const {savePhoto, user, isLoadingPhoto, signOut, signed} = useFirebase();
   //const [profilePhoto, setProfilePhoto] = useState(user.profile_photo);
@@ -72,11 +74,11 @@ export default function Body() {
           title="Dados Pessoais"
           goTo={'DadosPessoais'}
         />
-        <Item
+        {/* <Item
           image={require('../../assets/images/lixeira.png')}
           title="Minha Lixeira"
           goTo={'Lixeira'}
-        />
+        /> */}
         <Item
           image={require('../../assets/images/suporte.png')}
           title="Suporte"

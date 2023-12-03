@@ -1,18 +1,20 @@
-import {View, FlatList, TouchableOpacity} from 'react-native';
-import {TextContent} from '../../components/TextContent';
-import ProfileImage from '../../components/ProfileImage';
+import {FlatList, TouchableOpacity, View} from 'react-native';
+
 import firestore from '@react-native-firebase/firestore';
-import {useFirebase} from '../../contexts/AuthContext';
-import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Utils} from '../../utils/Utils';
-export default function HomeCards() {
+import React from 'react';
+import ProfileImage from '../../../components/ProfileImage';
+import {TextContent} from '../../../components/TextContent';
+import {useFirebase} from '../../../contexts/AuthContext';
+import {Utils} from '../../../utils/Utils';
+
+export default function Cards() {
   const {user} = useFirebase();
 
   const [balances, setBalances] = React.useState([
-    {tag: 'Receita', valor: '...', key: '1'},
-    {tag: 'Despesas', valor: '...', key: '2'},
-    {tag: 'Reserva', valor: '...', key: '3'},
+    {tag: 'receita', title: 'Receita', valor: '...', key: '1'},
+    {tag: 'despesa', title: 'Despesas', valor: '...', key: '2'},
+    {tag: 'reserva', title: 'Reserva', valor: '...', key: '3'},
   ]);
   const [totalInBalance, setTotalInBalance] = React.useState(0);
   React.useEffect(() => {
@@ -67,6 +69,7 @@ function Saldo({total}) {
 function Card({data}) {
   const nav = useNavigation();
   const amount = data.valor;
+
   return (
     <TouchableOpacity
       onPress={() => nav.navigate('TypeOfBalanceSelected', {tag: data.tag})}
@@ -88,7 +91,12 @@ function Card({data}) {
           justifyContent: 'space-around',
           columnGap: 15,
         }}>
-        <ProfileImage size={20} />
+        <ProfileImage
+          size={20}
+          profilePhoto={
+            Utils.getUsefulInformationsAboutCurrentBalance(data.tag).icon
+          }
+        />
         <TextContent fontSize={18}>{data?.tag}</TextContent>
       </View>
       <TextContent fontSize={22}>
