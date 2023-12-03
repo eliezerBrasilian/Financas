@@ -1,11 +1,13 @@
-import {View, ActivityIndicator} from 'react-native';
-import {TextContent} from '../TextContent';
+import {View} from 'react-native';
+
 import Modal from 'react-native-modal';
-import Input from '../Input';
 import {colors} from '../../assets/colors/colors';
 import {strings} from '../../assets/strings/strings';
+import {useFile} from '../../contexts/RegisterContext';
 import Button from '../Button';
-import {useFile} from '../../contexts/FileContext';
+import Input from '../Input';
+import {TextContent} from '../TextContent';
+
 export default function ModalEditFile({
   visible,
   toogleModalEditFile,

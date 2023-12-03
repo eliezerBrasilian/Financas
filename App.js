@@ -1,20 +1,19 @@
 import {NavigationContainer} from '@react-navigation/native';
-import Routes from './src/routes/routes';
 import {StatusBar} from 'react-native';
 import {FirebaseProvider} from './src/contexts/AuthContext';
-import {FileProvider} from './src/contexts/FileContext';
 import {FabButtonContextProvider} from './src/contexts/FabButtonContext';
-
+import {RegisterProvider} from './src/contexts/RegisterContext';
+import Routes from './src/routes/routes';
 export default function App() {
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
       <FirebaseProvider>
-        <FileProvider>
+        <RegisterProvider>
           <FabButtonContextProvider>
             <Routes />
           </FabButtonContextProvider>
-        </FileProvider>
+        </RegisterProvider>
       </FirebaseProvider>
     </NavigationContainer>
   );

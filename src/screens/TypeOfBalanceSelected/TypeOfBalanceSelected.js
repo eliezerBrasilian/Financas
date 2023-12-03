@@ -1,12 +1,11 @@
-import Header from '../../components/Header';
-import {Loading} from '../../components/Loading';
-import {MainView} from './widgets/MainView';
-import React from 'react';
-import {Top} from './widgets/Top';
-import {Utils} from '../../utils/Utils';
-import {View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import React from 'react';
+import {View} from 'react-native';
+import Header from '../../components/Header';
 import {useFirebase} from '../../contexts/AuthContext';
+import {Utils} from '../../utils/Utils';
+import {MainView} from './widgets/MainView';
+import {Top} from './widgets/Top';
 
 export default function TypeOfBalanceSelected({route}) {
   const tag = route.params?.tag;
@@ -29,6 +28,7 @@ export default function TypeOfBalanceSelected({route}) {
       .where('createdBy', '==', user.uid)
       .where('monthYear', '==', Utils.getMonthAndYear(date))
       .where('tag', '==', tag.toLocaleLowerCase())
+      .where('deleted', '==', false)
       .orderBy('createdAt', 'desc')
       .get()
       .then(data => {

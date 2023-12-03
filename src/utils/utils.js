@@ -1,10 +1,24 @@
 import {format, fromUnixTime} from 'date-fns';
+import {Alert, ToastAndroid} from 'react-native';
 
-import {ToastAndroid} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
 
 class Utils {
+  static showAlert(title, message, alertButtons) {
+    Alert.alert(
+      title,
+      message,
+      alertButtons,
+      // {
+      //   text: 'Cancel',
+      //   onPress: () => console.log('Cancel Pressed'),
+      //   style: 'cancel',
+      // },
+      // {text: 'OK', onPress: () => console.log('OK Pressed')},
+    );
+  }
+
   static getUsefulInformationsAboutCurrentBalance(tag, strong = false) {
     const tagToLowerCase = tag?.toLowerCase();
     if (tagToLowerCase == 'receita')
