@@ -1,12 +1,11 @@
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {useEffect, useState} from 'react';
 
-import Item from './Item';
-import {TextContent} from '../../components/TextContent';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {s} from './style';
 import {strings} from '../../assets/strings/strings';
+import {TextContent} from '../../components/TextContent';
 import {useFirebase} from '../../contexts/AuthContext';
+import {s} from './style';
+import Item from './widgets/Item';
 
 export default function Body() {
   const {savePhoto, user, isLoadingPhoto, signOut, signed} = useFirebase();

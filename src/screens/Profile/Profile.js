@@ -1,8 +1,9 @@
-import {View, ScrollView} from 'react-native';
-import Header from '../../components/Header';
-import Body from './Body';
 import {useEffect} from 'react';
+import {View} from 'react-native';
 import {useFabButtonContext} from '../../contexts/FabButtonContext';
+import {OverlayView} from './widgets/OverlayView';
+import {Top} from './widgets/Top';
+
 export default function Profile() {
   const {setFabButtonVisible} = useFabButtonContext();
   function handleBlur() {
@@ -17,13 +18,10 @@ export default function Profile() {
     <View
       style={{
         flex: 1,
-        paddingHorizontal: 15,
-        backgroundColor: '#fff',
+        backgroundColor: '#5E239D',
       }}>
-      <ScrollView>
-        <Header title={'Perfil'} />
-        <Body />
-      </ScrollView>
+      <Top />
+      <OverlayView />
     </View>
   );
 }

@@ -1,7 +1,9 @@
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
+
 export default function Header({
   title,
   onClick,
@@ -16,20 +18,12 @@ export default function Header({
   }
   return (
     <View style={s.header}>
-      <TouchableOpacity style={{zIndex: 2}} onPress={executeMethod}>
-        <AntDesign name="left" color={color} size={25} />
+      <TouchableOpacity onPress={executeMethod}>
+        <AntDesign name="arrowleft" color={color} size={25} />
       </TouchableOpacity>
-      <View
-        style={{
-          width: '100%',
-          alignItems: 'center',
-          zIndex: 1,
-          marginLeft: -10,
-        }}>
-        <Text numberOfLines={numberOfLines} style={[s.title, {color: color}]}>
-          {title}
-        </Text>
-      </View>
+      <Text numberOfLines={numberOfLines} style={[s.title, {color: color}]}>
+        {title}
+      </Text>
     </View>
   );
 }
@@ -37,12 +31,11 @@ const s = StyleSheet.create({
   header: {
     flexDirection: 'row',
     marginBottom: 20,
-    justifyContent: 'space-between',
     alignItems: 'center',
+    columnGap: 40,
   },
   title: {
-    fontSize: 22,
-    fontWeight: '700',
-    marginRight: 30,
+    fontSize: 19,
+    fontWeight: '500',
   },
 });
