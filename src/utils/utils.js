@@ -117,6 +117,23 @@ class Utils {
       return (sizeInBytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
     }
   }
+
+  static convertFirebaseDateToMonthYear(firebaseDate) {
+    const dataInMilliseconds =
+      firebaseDate.seconds * 1000 + firebaseDate.nanoseconds / 1e6;
+
+    // Criando um objeto Date com a data em milissegundos
+    const date = new Date(dataInMilliseconds);
+
+    const mes = date.getMonth() + 1;
+    const ano = date.getFullYear();
+
+    // Formatando para "mm/yyyy"
+    const mesAnoFormatado = `${mes.toString().padStart(2, '0')}/${ano}`;
+
+    return mesAnoFormatado;
+  }
+
   static dateFromFirestoreToBrasilianFormat(firestoreDate) {
     const firebaseDate = firestoreDate; // Exemplo de objeto de data do Firebase Firestore
     const dataUnix = firebaseDate.seconds;

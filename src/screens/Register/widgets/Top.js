@@ -54,6 +54,7 @@ export function Top({title, value, setValue}) {
           placeholderTextColor={'#fff'}
           style={{fontSize: 30, fontWeight: 'bold', color: '#fff'}}
           keyboardType="decimal-pad"
+          prefix="R$ "
         />
       </View>
     </View>

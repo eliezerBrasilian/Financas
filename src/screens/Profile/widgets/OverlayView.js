@@ -1,8 +1,10 @@
 import {View} from 'react-native';
+import {useFirebase} from '../../../contexts/AuthContext';
 import {Utils} from '../../../utils/Utils';
 import Item from './Item';
 
 export function OverlayView() {
+  const {signOut} = useFirebase();
   return (
     <View
       style={{
@@ -20,7 +22,7 @@ export function OverlayView() {
       <Item
         image={require('../../../assets/images/logout.png')}
         title={'Encerrar Sessão'}
-        onClick={() => Utils.ShowToast('em breve')}
+        onClick={() => signOut()}
       />
     </View>
   );

@@ -1,26 +1,48 @@
 import {TouchableOpacity, View} from 'react-native';
 
+import {firebase} from '@react-native-firebase/firestore';
+import React from 'react';
 import Header from '../../../components/Header';
 import Icon from '../../../components/Icon';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
 import {useFirebase} from '../../../contexts/AuthContext';
+import {Utils} from '../../../utils/Utils';
 
 export function Top() {
   const {user} = useFirebase();
+  const [activeSince, setActiveSince] = React.useState(null);
+  React.useEffect(() => {
+    const unsubscrbe = loadUserData();
+
+    return () => unsubscrbe;
+  }, []);
+
+  function loadUserData() {
+    firebase
+      .firestore()
+      .collection('users')
+      .where('uid', '==', user.uid)
+      .get()
+      .then(data =>
+        setActiveSince(
+          Utils.convertFirebaseDateToMonthYear(data.docs[0].data().createdAt),
+        ),
+      );
+  }
   return (
     <View style={{marginBottom: 10, padding: 15}}>
       <Header title={'Perfil'} color="#fff" />
       <ViewCenteredInTheMiddle>
         <EditableImageProfile />
         <TextContent fontSize={20} fontWeight="bold" color="#fff">
-          {user.email}
+          {user.name}
         </TextContent>
         <TextContent fontSize={15} color="#fff">
           {user.email}
         </TextContent>
       </ViewCenteredInTheMiddle>
-      <BottomStatus />
+      <BottomStatus activeSince={activeSince} />
     </View>
   );
 }
@@ -67,7 +89,7 @@ const Pencil = () => {
   );
 };
 
-const BottomStatus = () => {
+const BottomStatus = ({activeSince}) => {
   return (
     <View
       style={{
@@ -86,7 +108,7 @@ const BottomStatus = () => {
       <BottomItem
         icon={require('../../../assets/images/calendar.png')}
         title={'Conta ativa desde'}
-        description={'08/2020'}
+        description={activeSince}
       />
     </View>
   );

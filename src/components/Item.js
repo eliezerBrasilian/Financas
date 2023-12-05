@@ -1,14 +1,14 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import ProfileImage from './ProfileImage';
 import React from 'react';
-import {TextContent} from './TextContent';
-import {Utils} from '../utils/Utils';
 import {useFirebase} from '../contexts/AuthContext';
 import {useRegister} from '../contexts/RegisterContext';
+import {Utils} from '../utils/Utils';
+import ProfileImage from './ProfileImage';
+import {TextContent} from './TextContent';
 
 export default function Item({data}) {
-  const {tag, amount, description, key} = data;
+  const {tag, amount, description, key, createdAt} = data;
   const {user} = useFirebase();
   const {deleteRegister} = useRegister();
   const userUid = user.uid;
@@ -56,6 +56,7 @@ export default function Item({data}) {
         description={description}
         tag={tag}
         icon={CurrentBalanceInfo.icon}
+        createdAt={Utils.dateFromFirestoreToBrasilianFormat(createdAt)}
       />
       <TextContent fontWeight="bold">
         {Utils.getBrazilianCurrency(amount)}
@@ -64,11 +65,14 @@ export default function Item({data}) {
   );
 }
 
-function Left({description, icon}) {
+function Left({description, icon, createdAt}) {
   return (
-    <View style={{flexDirection: 'row', columnGap: 15, alignItems: 'center'}}>
-      <ProfileImage size={15} profilePhoto={icon} />
-      <TextContent fontSize={17}>{description}</TextContent>
+    <View>
+      <View style={{flexDirection: 'row', columnGap: 15, alignItems: 'center'}}>
+        <ProfileImage size={15} profilePhoto={icon} />
+        <TextContent fontSize={17}>{description}</TextContent>
+      </View>
+      <TextContent fontSize={11}>{createdAt}</TextContent>
     </View>
   );
 }

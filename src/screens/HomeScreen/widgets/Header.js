@@ -3,8 +3,10 @@ import {TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
+import {useFirebase} from '../../../contexts/AuthContext';
 
 export default function Header() {
+  const {user} = useFirebase();
   return (
     <View
       style={{
@@ -14,7 +16,7 @@ export default function Header() {
         columnGap: 15,
         marginHorizontal: 20,
       }}>
-      <Left />
+      <Left name={user.name} />
       <ProfileImage
         profilePhoto={require('../../../assets/images/crown.png')}
       />
@@ -22,7 +24,7 @@ export default function Header() {
   );
 }
 
-var Left = () => {
+var Left = ({name}) => {
   const nav = useNavigation();
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 15}}>
@@ -30,9 +32,11 @@ var Left = () => {
         <ProfileImage size={30} />
       </TouchableOpacity>
 
-      <TextContent fontWeight="bold" fontSize={24}>
-        Matias
-      </TextContent>
+      <View style={{width: '60%'}}>
+        <TextContent flex={1} fontWeight="bold" fontSize={18} numberOfLines={1}>
+          {name}
+        </TextContent>
+      </View>
     </View>
   );
 };

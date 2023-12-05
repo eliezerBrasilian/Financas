@@ -8,9 +8,12 @@ export function TextContent({
   fontWeight = 'normal',
   textAlign = 'center',
   marginTop = 0,
+  numberOfLines = undefined,
+  flex = undefined,
 }) {
   return (
     <Text
+      numberOfLines={numberOfLines}
       style={{
         fontSize: fontSize,
         color: color,
@@ -18,6 +21,7 @@ export function TextContent({
         marginVertical: marginVertical,
         fontWeight: fontWeight,
         marginTop: marginTop,
+        flex: flex,
       }}>
       {children}
     </Text>

@@ -12,9 +12,9 @@ export default function Cards() {
   const {user} = useFirebase();
 
   const [balances, setBalances] = React.useState([
-    {tag: 'receita', title: 'Receita', valor: '...', key: '1'},
-    {tag: 'despesa', title: 'Despesas', valor: '...', key: '2'},
-    {tag: 'reserva', title: 'Reserva', valor: '...', key: '3'},
+    {tag: 'receita', title: 'Receita', valor: 0, key: '1'},
+    {tag: 'despesa', title: 'Despesas', valor: 0, key: '2'},
+    {tag: 'reserva', title: 'Reserva', valor: 0, key: '3'},
   ]);
   const [totalInBalance, setTotalInBalance] = React.useState(0);
   React.useEffect(() => {

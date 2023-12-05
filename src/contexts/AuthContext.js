@@ -1,8 +1,10 @@
+import React, {createContext, useContext, useEffect, useState} from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {createContext, useContext, useState, useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+
 const FirebaseContext = createContext();
 
 export const useFirebase = () => {
@@ -97,7 +99,6 @@ export const FirebaseProvider = ({children}) => {
     await AsyncStorage.clear()
       .then(() => {
         setUser(null);
-        console.log('saiu');
       })
       .catch(e => {
         console.log(e);
@@ -121,7 +122,7 @@ export const FirebaseProvider = ({children}) => {
     }
   }
 
-  async function login(email, password) {
+  async function login(email, password, name) {
     setLoadingAuth(true);
 
     try {
@@ -130,6 +131,7 @@ export const FirebaseProvider = ({children}) => {
       const userData = {
         uid: response.user.uid,
         email: response.user.email,
+        name: name,
       };
 
       writeUserData(userData);
@@ -152,13 +154,14 @@ export const FirebaseProvider = ({children}) => {
         email,
         password,
       );
-      const isUserCreated = registerOnFirestore(
-        response.user.uid,
-        name,
-        email,
-        phone,
-      );
-      return isUserCreated ? 200 : 500;
+      const userData = {
+        uid: response.user.uid,
+        email: email,
+        phone: phone,
+        name: name,
+      };
+      await saveUserOnFirestore(userData);
+      writeUserData(userData);
     } catch (error) {
       if (error.code == 'auth/invalid-email') return 400;
       else if (error.code == 'auth/weak-password') return 411;
@@ -169,7 +172,8 @@ export const FirebaseProvider = ({children}) => {
     }
   }
 
-  async function registerOnFirestore(uid, name, email, phone) {
+  async function saveUserOnFirestore(userData) {
+    const {uid, email, phone, name} = userData;
     const docRef = firestore().collection('users').doc(uid);
     try {
       docRef.set({
@@ -177,14 +181,26 @@ export const FirebaseProvider = ({children}) => {
         name: name,
         email: email,
         phone: phone,
-        user_id: uid,
+        uid: uid,
         createdAt: firestore.FieldValue.serverTimestamp(),
       });
-      return true;
+      await createCollectionBalancesRelatedToTheUser(uid);
     } catch (error) {
-      console.log('error on creating user - registerOnFirestore: ' + error);
+      console.log('error on creating user - saveUserOnFirestore: ' + error);
       return false;
     }
+  }
+
+  async function createCollectionBalancesRelatedToTheUser(userUid) {
+    await firestore().collection('Balances').doc(userUid).set({
+      createdAt: firestore.FieldValue.serverTimestamp(),
+      createdBy: userUid,
+      expenses: 0,
+      registrations: 0,
+      reservations: 0,
+      revenues: 0,
+      total: 0,
+    });
   }
 
   function writeUserData(data) {

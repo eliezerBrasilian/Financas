@@ -1,22 +1,24 @@
-import {useState} from 'react';
-import {View, ScrollView, Alert} from 'react-native';
+import {Alert, ScrollView, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {strings} from '../../assets/strings/strings';
-import {style} from './style';
-import {TextContent} from '../../components/TextContent';
-import Button from '../../components/Button';
-import Input from '../../components/Input';
+import {useState} from 'react';
 import {Masks} from 'react-native-mask-input';
 import {colors} from '../../assets/colors/colors';
-import {useFirebase} from '../../contexts/AuthContext';
+import {strings} from '../../assets/strings/strings';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
 import InputForPassword from '../../components/InputForPassword';
+import {TextContent} from '../../components/TextContent';
+import {useFirebase} from '../../contexts/AuthContext';
+import {style} from './style';
+
 export default function SignUp() {
   const {signUp, isLoadingAuth} = useFirebase();
   const nav = useNavigation();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('Eliezer Assunção de Paulo');
+  const [phone, setPhone] = useState('32998008182');
+  const [email, setEmail] = useState('eliezerassuncaocustodio@gmail.com');
+  const [password, setPassword] = useState('123456');
 
   function goToLogin() {
     nav.navigate('Login');

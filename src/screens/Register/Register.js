@@ -1,18 +1,18 @@
 import {TextInput, TouchableOpacity, View} from 'react-native';
 
-import Button from '../../components/Button';
-import DatePicker from 'react-native-date-picker';
-import React from 'react';
-import {TextContent} from '../../components/TextContent';
-import {Top} from './widgets/Top';
-import {Utils} from '../../utils/Utils';
 import firestore from '@react-native-firebase/firestore';
+import React from 'react';
+import DatePicker from 'react-native-date-picker';
+import Button from '../../components/Button';
+import {TextContent} from '../../components/TextContent';
 import {useFirebase} from '../../contexts/AuthContext';
+import {Utils} from '../../utils/Utils';
+import {Top} from './widgets/Top';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
   const {user} = useFirebase();
-  const [amount, setAmount] = React.useState(null);
+  const [amount, setAmount] = React.useState(0);
   const [description, setDescription] = React.useState('');
   const [date, setDate] = React.useState(new Date());
   const [dateVisible, setDateVisible] = React.useState(false);
@@ -66,7 +66,11 @@ export default Register = ({route}) => {
     await firestore()
       .collection('Balances')
       .doc(user.uid)
-      .update(fieldsToUpdate);
+      .update(fieldsToUpdate)
+      .then(() => {
+        setAmount(0);
+        setDescription('');
+      });
   }
 
   const properties = React.useMemo(
