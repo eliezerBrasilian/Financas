@@ -1,7 +1,7 @@
+import {Image, View} from 'react-native';
+
 import {firebase} from '@react-native-firebase/firestore';
 import React from 'react';
-import {View} from 'react-native';
-import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
 import {useFirebase} from '../../../contexts/AuthContext';
 import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
@@ -38,11 +38,15 @@ export function TotalBalance() {
   }
   return (
     <View style={{alignItems: 'center', marginTop: 20}}>
-      <ProfileImage
-        size={70}
-        borderRadius={20}
-        profilePhoto={profileImage == null ? null : {uri: profileImage}}
+      <Image
+        style={{height: 70, width: 70, borderRadius: 15}}
+        source={
+          profileImage == null
+            ? require('../../../assets/images/user_profile.png')
+            : {uri: profileImage}
+        }
       />
+
       <View style={{marginTop: 30}} />
       <TextContent fontSize={26} fontWeight="bold">
         Meu saldo

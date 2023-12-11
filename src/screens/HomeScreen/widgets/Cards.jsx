@@ -1,12 +1,12 @@
 import {FlatList, View} from 'react-native';
 
-import ProfileImage from '../../../components/ProfileImage';
-import React from 'react';
-import {TextContent} from '../../../components/TextContent';
-import {Utils} from '../../../utils/Utils';
 import firestore from '@react-native-firebase/firestore';
-import {useFirebase} from '../../../contexts/AuthContext';
 import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import ProfileImage from '../../../components/ProfileImage';
+import {TextContent} from '../../../components/TextContent';
+import {useFirebase} from '../../../contexts/AuthContext';
+import {Utils} from '../../../utils/Utils';
 
 export default function Cards() {
   const {user} = useFirebase();
@@ -24,7 +24,7 @@ export default function Cards() {
   function loadBalance() {
     firestore()
       .collection('Balances')
-      .doc(user.uid)
+      .doc(user?.uid)
       .onSnapshot(snap => {
         var data = snap.data();
         updateBalances(data);

@@ -32,25 +32,6 @@ export default function HomeScreen() {
       </TextContent>
       <Spacer />
       <Cards />
-
-      {/* <Top onClick={toogleCalendar} /> */}
-      {/* <DatePicker
-        modal={true}
-        open={dateVisible}
-        date={date}
-        onCancel={() => setDateVisible(false)}
-        onConfirm={newDate => {
-          setDateVisible(false);
-          setDate(newDate);
-        }}
-        locale="pt"
-        title={'Selecione a data'}
-        cancelText="Cancelar"
-        confirmText="Confirmar"
-        theme="light"
-        androidVariant="iosClone"
-        mode="date"
-      /> */}
       <Spacer />
       <TextContent fontWeight="700" textAlign="left">
         Hoje

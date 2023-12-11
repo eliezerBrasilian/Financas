@@ -19,7 +19,6 @@ export const FirebaseProvider = ({children}) => {
 
   useEffect(() => {
     loadData();
-    //signOut();
   }, []);
 
   async function forgotPassword(email) {
@@ -67,6 +66,8 @@ export const FirebaseProvider = ({children}) => {
       const response = await auth().signInWithEmailAndPassword(email, password);
 
       const userData = await retrieveUserDataFromFirestore(response.user.uid);
+      console.log('------userData-----');
+      console.log(userData);
       writeUserData(userData);
     } catch (error) {
       if (error.code == 'auth/invalid-login') Utils.ShowToast('Email inválido');
@@ -148,7 +149,6 @@ export const FirebaseProvider = ({children}) => {
   function writeUserData(data) {
     console.log(data);
     AsyncStorage.setItem('@userData', JSON.stringify(data));
-    // loadData();
     setUser(data);
   }
   return (

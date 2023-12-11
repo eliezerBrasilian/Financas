@@ -30,8 +30,8 @@ export const ProfilePictureProvider = ({children}) => {
       Utils.ShowToast('Erro ao atualizar foto de perfil');
     } else {
       try {
-        await docRef.set({
-          profilePicture: path,
+        await docRef.update({
+          profilePicture: storagePath,
         });
         console.log('imagem salva no banco de dados');
         await updatePhotoOnAsyncStorage(path);
