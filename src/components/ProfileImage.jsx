@@ -3,14 +3,14 @@ import {Image} from 'react-native';
 export default function ProfileImage({
   profilePhoto = null,
   size = 30,
-  borderRadius = 0,
+  hasBorderRadius = false,
 }) {
   return (
     <Image
       style={{
         height: size,
         width: size,
-        borderRadius: borderRadius == 0 ? size / 2 : borderRadius,
+        borderRadius: hasBorderRadius ? size / 2 : 0,
       }}
       source={
         profilePhoto == null

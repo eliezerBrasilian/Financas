@@ -15,7 +15,7 @@ export default function FabButton({onClick}) {
   const [registers, setRegisters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [registersEmpty, setRegisterEmpty] = React.useState(false);
-  const [buttonColor, setButtonColor] = React.useState('blue');
+  const [buttonColor, setButtonColor] = React.useState('#0A2239');
   React.useEffect(() => {
     const unsubscribe = loadRegisters();
     return () => unsubscribe;

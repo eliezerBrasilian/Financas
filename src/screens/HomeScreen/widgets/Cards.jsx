@@ -1,12 +1,12 @@
 import {FlatList, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
 import ProfileImage from '../../../components/ProfileImage';
+import React from 'react';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
 import {Utils} from '../../../utils/Utils';
+import firestore from '@react-native-firebase/firestore';
+import {useFirebase} from '../../../contexts/AuthContext';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Cards() {
   const {user} = useFirebase();
@@ -85,7 +85,10 @@ const CardView = ({tag, amount}) => {
       />
       <View style={{rowGap: 1}}>
         <TextContent color="#fff">{tag}</TextContent>
-        <TextContent fontSize={24} color="#fff" fontWeight="bold">
+        <TextContent
+          fontSize={amount > 1000 ? 20 : 24}
+          color="#fff"
+          fontWeight="bold">
           {Utils.getBrazilianCurrency(amount)}
         </TextContent>
       </View>

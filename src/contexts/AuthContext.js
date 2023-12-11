@@ -3,7 +3,6 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
 import {Utils} from '../utils/Utils';
 
 const FirebaseContext = createContext();
@@ -17,74 +16,12 @@ export const FirebaseProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [isLoadingApp, setLoadingApp] = useState(true);
   const [isSendingResetLink, setSendingLink] = useState(false);
-  const [isLoadingPhoto, setLoadingPhoto] = useState(false);
 
   useEffect(() => {
     loadData();
     //signOut();
   }, []);
 
-  async function savePhoto(path) {
-    setLoadingPhoto(true);
-    const docRef = firestore().collection('users').doc(user.user_id);
-
-    const storagePath = await getPhotoUrl(path);
-    console.log('STORAGEPATH: ' + storage);
-    if (storagePath == '') {
-      console.log('não foi possivel salvar a foto no storage');
-      return 404;
-    } else {
-      try {
-        await docRef.set({
-          profile_photo: path,
-        });
-        console.log('imagem salva no banco de dados');
-        await updatePhotoOnAsyncStorage(path);
-        return 200;
-      } catch (error) {
-        console.log('erro ao salvar imagem no banco de dados: ' + error);
-        return 401;
-      }
-    }
-  }
-
-  async function getPhotoUrl(file_on_memory) {
-    const miliseconds = String(Date.now());
-
-    try {
-      const storageRef = await storage().ref('users/photos').child(miliseconds);
-      console.log('STORAGEREF: ' + storageRef);
-      await storageRef.putFile(file_on_memory);
-      const caminho = await storageRef.getDownloadURL();
-      console.log(caminho);
-      return caminho;
-    } catch (error) {
-      console.log('erro: ' + error);
-      // Alert.alert('Aconteceu algum erro ao adicionar o game!');
-      return '';
-    }
-  }
-  async function updatePhotoOnAsyncStorage(profilePhoto) {
-    try {
-      const userData = await AsyncStorage.getItem('@userData');
-      if (userData !== null) {
-        const data = JSON.parse(userData);
-        data.profile_photo = profilePhoto;
-
-        //Salvando o objeto atualizado no AsyncStorage
-        await AsyncStorage.setItem('@userData', JSON.stringify(data));
-
-        console.log('Atributo do objeto atualizado com sucesso!');
-        setLoadingPhoto(false);
-      } else {
-        console.log('Chave não encontrada no AsyncStorage.');
-        setLoadingPhoto(false);
-      }
-    } catch (error) {
-      console.error('Erro ao atualizar o atributo do objeto:', error);
-      setLoadingPhoto(false);
-    }
-  }
   async function forgotPassword(email) {
     setSendingLink(true);
     try {
@@ -226,8 +163,6 @@ export const FirebaseProvider = ({children}) => {
         setLoadingAuth,
         forgotPassword,
         isSendingResetLink,
-        savePhoto,
-        isLoadingPhoto,
         signOut,
       }}>
       {children}

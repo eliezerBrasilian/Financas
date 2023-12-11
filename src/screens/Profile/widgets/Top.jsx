@@ -1,40 +1,27 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import {firebase} from '@react-native-firebase/firestore';
 import React from 'react';
 import Header from '../../../components/Header';
 import Icon from '../../../components/Icon';
+import {Loading} from '../../../components/Loading';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
 import {useFirebase} from '../../../contexts/AuthContext';
+import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
+import {Ifinancas} from '../../../utils/Ifinancas.utils';
 import {Utils} from '../../../utils/Utils';
 
 export function Top() {
   const {user} = useFirebase();
-  const [activeSince, setActiveSince] = React.useState(null);
-  React.useEffect(() => {
-    const unsubscrbe = loadUserData();
+  const [activeSince, setActiveSince] = React.useState(
+    Utils.convertFirebaseDateToMonthYear(user?.createdAt),
+  );
 
-    return () => unsubscrbe;
-  }, []);
-
-  function loadUserData() {
-    firebase
-      .firestore()
-      .collection('users')
-      .where('uid', '==', user.uid)
-      .get()
-      .then(data =>
-        setActiveSince(
-          Utils.convertFirebaseDateToMonthYear(data.docs[0].data().createdAt),
-        ),
-      );
-  }
   return (
     <View style={{marginBottom: 10, padding: 15}}>
       <Header title={'Perfil'} color="#fff" />
       <ViewCenteredInTheMiddle>
-        <EditableImageProfile />
+        <EditableImageProfile uid={user.uid} />
         <TextContent fontSize={20} fontWeight="bold" color="#fff">
           {user.name}
         </TextContent>
@@ -61,11 +48,39 @@ const ViewCenteredInTheMiddle = ({children}) => {
   );
 };
 
-const EditableImageProfile = () => {
+const EditableImageProfile = ({uid}) => {
+  const {savePhoto, profilePicture, savingPhoto} = useProfilePicture();
+  const [profileImage, setProfileImage] = React.useState(null);
+
+  React.useEffect(() => {
+    const unsubscribe = loadProfilePictureFromDevice();
+    return () => unsubscribe;
+  }, [profilePicture]);
+
+  async function loadProfilePictureFromDevice() {
+    var profilePictureFromDevice = await Ifinancas.getImageFromDevice();
+    setProfileImage(profilePictureFromDevice);
+  }
+
+  async function updateProfilePicture() {
+    var imagePath =
+      await Ifinancas.LaunchSelectorOfImageAndRetriveImageSelected();
+    await savePhoto(imagePath, uid);
+  }
   return (
-    <TouchableOpacity>
-      <ProfileImage size={70} />
-      <Pencil />
+    <TouchableOpacity onPress={updateProfilePicture}>
+      {savingPhoto ? (
+        <Loading isFlex={false} backgroundColor="transparent" />
+      ) : (
+        <View>
+          <ProfileImage
+            hasBorderRadius={true}
+            size={70}
+            profilePhoto={profileImage == null ? null : {uri: profileImage}}
+          />
+          <Pencil />
+        </View>
+      )}
     </TouchableOpacity>
   );
 };
