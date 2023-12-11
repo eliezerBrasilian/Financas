@@ -129,13 +129,14 @@ export const FirebaseProvider = ({children}) => {
     try {
       const response = await auth().signInWithEmailAndPassword(email, password);
 
-      const userData = retrieveUserDataFromFirestore(response.user.uid);
+      const userData = await retrieveUserDataFromFirestore(response.user.uid);
       writeUserData(userData);
     } catch (error) {
-      //return error.code;
-      if (error.code == 'auth/invalid-login') return 400;
-      else if (error.code == 'auth/user-not-found') return 404;
-      else if (error.code == 'auth/wrong-password') return 406;
+      if (error.code == 'auth/invalid-login') Utils.ShowToast('Email inválido');
+      else if (error.code == 'auth/user-not-found')
+        Utils.ShowToast('Conta não encontrada');
+      else if (error.code == 'auth/wrong-password')
+        Utils.ShowToast('Senha incorreta');
       else if (error.code == 'auth/too-many-requests') return 504;
       console.log(error.code);
     } finally {
