@@ -23,20 +23,20 @@ class Utils {
     const tagToLowerCase = tag?.toLowerCase();
     if (tagToLowerCase == 'receita')
       return {
-        backgroundColor: strong ? 'green' : '#C5E6A6',
+        backgroundColor: strong ? colors.card_green : '#C5E6A6',
         title: 'Receita',
-        icon: require('../assets/images/increase.png'),
+        icon: require('../assets/images/receita.png'),
       };
     else if (tagToLowerCase === 'reserva')
       return {
-        backgroundColor: strong ? 'blue' : colors.main_gray,
+        backgroundColor: strong ? colors.card_purple : colors.main_gray,
         title: 'Reserva',
-        icon: require('../assets/images/growth.png'),
+        icon: require('../assets/images/despesa.png'),
       };
     return {
-      backgroundColor: strong ? 'red' : colors.main_pink,
+      backgroundColor: strong ? colors.card_orange : colors.main_pink,
       title: 'Despesa',
-      icon: require('../assets/images/decrease.png'),
+      icon: require('../assets/images/reserva.png'),
     };
   }
 
@@ -136,13 +136,16 @@ class Utils {
 
   static dateFromFirestoreToBrasilianFormat(firestoreDate) {
     const firebaseDate = firestoreDate; // Exemplo de objeto de data do Firebase Firestore
-    const dataUnix = firebaseDate.seconds;
-    const dataBrasileira = format(
-      fromUnixTime(dataUnix),
-      'dd/MM/yyyy HH:mm:ss',
-    );
-    // console.log(dataBrasileira); // Saída: '12/10/2023 18:49:45'
-    return dataBrasileira;
+    const dataUnix = firebaseDate?.seconds;
+
+    if (firebaseDate !== null) {
+      const dataBrasileira = format(
+        fromUnixTime(dataUnix),
+        'dd/MM/yyyy HH:mm:ss',
+      );
+      // console.log(dataBrasileira); // Saída: '12/10/2023 18:49:45'
+      return dataBrasileira;
+    } else return '';
   }
 
   static formatarCPF(cpf) {

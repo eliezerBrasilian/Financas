@@ -1,4 +1,4 @@
-import {FlatList, TouchableOpacity, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
@@ -42,7 +42,6 @@ export default function Cards() {
   }
   return (
     <View style={{rowGap: 15}}>
-      <Saldo total={totalInBalance} />
       <FlatList
         data={balances}
         renderItem={({item}) => <Card data={item} />}
@@ -55,53 +54,61 @@ export default function Cards() {
   );
 }
 
-function Saldo({total}) {
-  return (
-    <View>
-      <TextContent fontSize={26}>Saldo</TextContent>
-      <TextContent fontSize={28}>
-        {Utils.getBrazilianCurrency(total)}
-      </TextContent>
-    </View>
-  );
-}
-
 function Card({data}) {
-  const nav = useNavigation();
   const amount = data.valor;
 
+  return <CardView tag={data.tag} amount={amount} />;
+}
+
+const CardView = ({tag, amount}) => {
+  const nav = useNavigation();
   return (
-    <TouchableOpacity
-      onPress={() => nav.navigate('TypeOfBalanceSelected', {tag: data.tag})}
-      activeOpacity={0.6}
+    <View
       style={{
-        alignItems: 'center',
         justifyContent: 'space-around',
-        backgroundColor: '#fff',
-        width: 160,
-        height: 100,
+        backgroundColor: Utils.getUsefulInformationsAboutCurrentBalance(
+          tag,
+          true,
+        ).backgroundColor,
+        width: 150,
+        height: 165,
         padding: 15,
         borderRadius: 10,
-        borderWidth: 0.5,
-        borderColor: '#000',
+        //borderWidth: 0.5,
+        //borderColor: '#000',
       }}>
+      <ProfileImage
+        size={20}
+        profilePhoto={
+          Utils.getUsefulInformationsAboutCurrentBalance(tag, true).icon
+        }
+      />
+      <View style={{rowGap: 1}}>
+        <TextContent color="#fff">{tag}</TextContent>
+        <TextContent fontSize={24} color="#fff" fontWeight="bold">
+          {Utils.getBrazilianCurrency(amount)}
+        </TextContent>
+      </View>
+
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-around',
-          columnGap: 15,
+          alignItems: 'center',
+          columnGap: 5,
         }}>
         <ProfileImage
           size={20}
-          profilePhoto={
-            Utils.getUsefulInformationsAboutCurrentBalance(data.tag).icon
-          }
+          profilePhoto={require('../../../assets/images/ver_relatorio_preto.png')}
         />
-        <TextContent fontSize={18}>{data?.tag}</TextContent>
+        <TextContent
+          color="#fff"
+          fontSize={15}
+          borderBottomWidth={1}
+          clickable={true}
+          onClick={() => nav.navigate('TypeOfBalanceSelected', {tag: tag})}>
+          Ver relatório
+        </TextContent>
       </View>
-      <TextContent fontSize={22}>
-        {Utils.getBrazilianCurrency(amount)}
-      </TextContent>
-    </TouchableOpacity>
+    </View>
   );
-}
+};

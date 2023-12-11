@@ -1,12 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
-import DatePicker from 'react-native-date-picker';
 import FabButton from '../../components/FabButton';
 import Registers from '../../components/Registers';
+import {Spacer} from '../../components/Spacer';
+import {TextContent} from '../../components/TextContent';
 import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
 import Cards from './widgets/Cards';
 import Header from './widgets/Header';
-import {Top} from './widgets/Top';
+import {TotalBalance} from './widgets/TotalBalance';
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -22,12 +23,18 @@ export default function HomeScreen() {
         flex: 1,
         backgroundColor: '#fff',
         padding: 10,
-        rowGap: 40,
       }}>
       <Header />
+      <TotalBalance />
+
+      <TextContent fontWeight="700" textAlign="left">
+        Meu Balanço
+      </TextContent>
+      <Spacer />
       <Cards />
-      <Top onClick={toogleCalendar} />
-      <DatePicker
+
+      {/* <Top onClick={toogleCalendar} /> */}
+      {/* <DatePicker
         modal={true}
         open={dateVisible}
         date={date}
@@ -43,7 +50,12 @@ export default function HomeScreen() {
         theme="light"
         androidVariant="iosClone"
         mode="date"
-      />
+      /> */}
+      <Spacer />
+      <TextContent fontWeight="700" textAlign="left">
+        Hoje
+      </TextContent>
+      <Spacer />
       <Registers date={date} />
       <FabButton onClick={() => setModalVisible(true)} />
       <ModalSelectFinanceOption

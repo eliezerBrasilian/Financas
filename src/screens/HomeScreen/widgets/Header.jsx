@@ -8,18 +8,20 @@ import {useFirebase} from '../../../contexts/AuthContext';
 export default function Header() {
   const {user} = useFirebase();
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        columnGap: 15,
-        marginHorizontal: 20,
-      }}>
-      <Left name={user.name} />
-      <ProfileImage
-        profilePhoto={require('../../../assets/images/crown.png')}
-      />
+    <View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          columnGap: 15,
+          marginHorizontal: 20,
+        }}>
+        <Left name={'I finanças'} />
+        <ProfileImage
+          profilePhoto={require('../../../assets/images/crown.png')}
+        />
+      </View>
     </View>
   );
 }
@@ -32,11 +34,9 @@ var Left = ({name}) => {
         <ProfileImage size={30} />
       </TouchableOpacity>
 
-      <View style={{width: '60%'}}>
-        <TextContent flex={1} fontWeight="bold" fontSize={18} numberOfLines={1}>
-          {name}
-        </TextContent>
-      </View>
+      <TextContent fontWeight="bold" fontSize={18} numberOfLines={1}>
+        {name}
+      </TextContent>
     </View>
   );
 };

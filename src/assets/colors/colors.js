@@ -16,6 +16,9 @@ const colors = {
   main_green: '#C6F9A9',
   main_pink: '#FFE3E0',
   main_gray: '#DEE5E5',
+  card_green: '#04E762',
+  card_orange: '#FF686B',
+  card_purple: '#6D23B6',
 };
 
 export {colors};

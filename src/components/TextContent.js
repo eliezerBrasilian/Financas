@@ -1,4 +1,4 @@
-import {Text} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 
 export function TextContent({
   fontSize = 16,
@@ -10,8 +10,30 @@ export function TextContent({
   marginTop = 0,
   numberOfLines = undefined,
   flex = undefined,
+  borderBottomWidth = 0,
+  borderBottomColor = '#fff',
+  clickable = false,
+  onClick = () => {},
 }) {
-  return (
+  return clickable ? (
+    <TouchableOpacity onPress={onClick}>
+      <Text
+        numberOfLines={numberOfLines}
+        style={{
+          fontSize: fontSize,
+          color: color,
+          textAlign: textAlign,
+          marginVertical: marginVertical,
+          fontWeight: fontWeight,
+          marginTop: marginTop,
+          flex: flex,
+          borderBottomWidth: borderBottomWidth,
+          borderBottomColor: borderBottomColor,
+        }}>
+        {children}
+      </Text>
+    </TouchableOpacity>
+  ) : (
     <Text
       numberOfLines={numberOfLines}
       style={{
@@ -22,8 +44,14 @@ export function TextContent({
         fontWeight: fontWeight,
         marginTop: marginTop,
         flex: flex,
+        borderBottomWidth: borderBottomWidth,
+        borderBottomColor: borderBottomColor,
       }}>
       {children}
     </Text>
   );
+}
+
+{
+  /* <Text style={{borderB}}></Text>; */
 }
