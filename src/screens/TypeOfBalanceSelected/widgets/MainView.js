@@ -1,10 +1,10 @@
 import {FlatList, View} from 'react-native';
 
 import React from 'react';
-import Item from '../../../components/Item';
 import {Loading} from '../../../components/Loading';
 import {TextContent} from '../../../components/TextContent';
 import {HeaderOfMainView} from './HeaderOfMainView';
+import Register from './Register';
 
 export const MainView = ({
   registers,
@@ -36,7 +36,7 @@ export const MainView = ({
         ) : (
           <FlatList
             data={registers}
-            renderItem={({item}) => <Item data={item} />}
+            renderItem={({item}) => <Register data={item} />}
             contentContainerStyle={{rowGap: 10}}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={

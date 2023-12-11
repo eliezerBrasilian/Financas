@@ -70,7 +70,7 @@ const CardView = ({tag, amount}) => {
           tag,
           true,
         ).backgroundColor,
-        width: 150,
+        width: 155,
         height: 165,
         padding: 15,
         borderRadius: 10,

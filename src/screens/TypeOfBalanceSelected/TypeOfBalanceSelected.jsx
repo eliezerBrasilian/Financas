@@ -3,11 +3,13 @@ import React from 'react';
 import {View} from 'react-native';
 import Header from '../../components/Header';
 import {useFirebase} from '../../contexts/AuthContext';
+import {useRegister} from '../../contexts/RegisterContext';
 import {Utils} from '../../utils/Utils';
 import {MainView} from './widgets/MainView';
 import {Top} from './widgets/Top';
 
 export default function TypeOfBalanceSelected({route}) {
+  const {updated} = useRegister();
   const tag = route.params?.tag;
   const [date, setDate] = React.useState(new Date());
   const [month, setMonth] = React.useState(Utils.getMonth(new Date()));
@@ -19,7 +21,7 @@ export default function TypeOfBalanceSelected({route}) {
   React.useEffect(() => {
     const unsubscribe = loadRegisters();
     return () => unsubscribe;
-  }, [date]);
+  }, [date, updated]);
 
   function loadRegisters() {
     setLoading(true);

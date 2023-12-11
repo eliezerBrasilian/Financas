@@ -31,12 +31,12 @@ class Utils {
       return {
         backgroundColor: strong ? colors.card_purple : colors.main_gray,
         title: 'Reserva',
-        icon: require('../assets/images/despesa.png'),
+        icon: require('../assets/images/reserva.png'),
       };
     return {
       backgroundColor: strong ? colors.card_orange : colors.main_pink,
       title: 'Despesa',
-      icon: require('../assets/images/reserva.png'),
+      icon: require('../assets/images/despesa.png'),
     };
   }
 

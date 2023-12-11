@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {Utils} from '../utils/Utils';
 
 const FirebaseContext = createContext();
 
@@ -128,12 +129,7 @@ export const FirebaseProvider = ({children}) => {
     try {
       const response = await auth().signInWithEmailAndPassword(email, password);
 
-      const userData = {
-        uid: response.user.uid,
-        email: response.user.email,
-        name: name,
-      };
-
+      const userData = retrieveUserDataFromFirestore(response.user.uid);
       writeUserData(userData);
     } catch (error) {
       //return error.code;
@@ -147,6 +143,14 @@ export const FirebaseProvider = ({children}) => {
     }
   }
 
+  async function retrieveUserDataFromFirestore(userUid) {
+    try {
+      const response = await firestore().collection('users').doc(userUid).get();
+      return response.data();
+    } catch (error) {
+      throw new Error('error on retrieving user data from firestore: ' + error);
+    }
+  }
   async function signUp(name, email, phone, password) {
     setLoadingAuth(true);
     try {
@@ -159,13 +163,19 @@ export const FirebaseProvider = ({children}) => {
         email: email,
         phone: phone,
         name: name,
+        profilePicture: null,
+        isPremium: false,
+        isAdmin: false,
+        createdAt: firestore.FieldValue.serverTimestamp(),
       };
       await saveUserOnFirestore(userData);
       writeUserData(userData);
     } catch (error) {
-      if (error.code == 'auth/invalid-email') return 400;
-      else if (error.code == 'auth/weak-password') return 411;
-      else if (error.code === 'auth/email-already-in-use') return 406;
+      if (error.code == 'auth/invalid-email') Utils.ShowToast('Email inválido');
+      else if (error.code == 'auth/weak-password')
+        Utils.ShowToast('Senha muito curta');
+      else if (error.code === 'auth/email-already-in-use')
+        Utils.ShowToast('Email já está em uso');
       else console.log(error.code);
     } finally {
       setLoadingAuth(false);
@@ -173,17 +183,11 @@ export const FirebaseProvider = ({children}) => {
   }
 
   async function saveUserOnFirestore(userData) {
-    const {uid, email, phone, name} = userData;
+    const {uid} = userData;
     const docRef = firestore().collection('users').doc(uid);
     try {
-      docRef.set({
-        isAdmin: false,
-        name: name,
-        email: email,
-        phone: phone,
-        uid: uid,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-      });
+      docRef.set(userData);
+      Utils.showAlert('User created on firestore');
       await createCollectionBalancesRelatedToTheUser(uid);
     } catch (error) {
       console.log('error on creating user - saveUserOnFirestore: ' + error);

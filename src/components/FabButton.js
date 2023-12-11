@@ -1,10 +1,53 @@
-import {TouchableOpacity} from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import {colors} from '../assets/colors/colors';
-import {useFabButtonContext} from '../contexts/FabButtonContext';
 import * as Animatable from 'react-native-animatable';
-import {View} from 'react-native';
+
+import {TouchableOpacity, View} from 'react-native';
+
+import firestore from '@react-native-firebase/firestore';
+import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useFirebase} from '../contexts/AuthContext';
+import {useRegister} from '../contexts/RegisterContext';
+import {Utils} from '../utils/Utils';
+
 export default function FabButton({onClick}) {
+  const {user} = useFirebase();
+  const {updated} = useRegister();
+  const [registers, setRegisters] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [registersEmpty, setRegisterEmpty] = React.useState(false);
+  const [buttonColor, setButtonColor] = React.useState('blue');
+  React.useEffect(() => {
+    const unsubscribe = loadRegisters();
+    return () => unsubscribe;
+  }, [updated]);
+
+  function loadRegisters() {
+    firestore()
+      .collection('Registers')
+      .where('createdBy', '==', user.uid)
+      .where('dayMonthYear', '==', Utils.getDateFormated(new Date()))
+      .where('deleted', '==', false)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(data => {
+        let listOfRegisters = [];
+        setRegisters([]);
+
+        data.docs.forEach(i => {
+          let data = i.data();
+          listOfRegisters.push({
+            key: i.id,
+            ...data,
+          });
+        });
+        if (data.empty) {
+          console.log('sim');
+          setButtonColor('#0A2239');
+        } else {
+          setRegisterEmpty(false);
+          setButtonColor('#80FFEC');
+        }
+      });
+  }
   return (
     <View
       style={{
@@ -22,7 +65,7 @@ export default function FabButton({onClick}) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <AntDesign name="pluscircle" color={colors.main_blue} size={60} />
+          <AntDesign name="pluscircle" color={buttonColor} size={60} />
         </TouchableOpacity>
       </Animatable.View>
     </View>

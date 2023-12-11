@@ -43,7 +43,10 @@ export default Register = ({route}) => {
       .then(() => Utils.ShowToast(`${tag} registrada`));
   }
   async function updateBalance() {
-    if (amount === null || amount === 0 || description == '') return;
+    if (amount === null || amount === 0 || description == '') {
+      Utils.ShowToast('Preencha todos os campos');
+      return;
+    }
 
     let fieldsToUpdate;
     if (tag == 'receita') {
@@ -83,10 +86,7 @@ export default Register = ({route}) => {
       <Top title={tag} value={amount} setValue={setAmount} />
       <View
         style={{overflow: 'hidden', marginTop: 20, marginLeft: 20, rowGap: 15}}>
-        <TextContent fontSize={19} fontWeight="bold">
-          Escolher a data
-        </TextContent>
-        <TouchableOpacity
+        <View
           onPress={() => setDateVisible(true)}
           style={{
             flexDirection: 'row',
@@ -95,10 +95,29 @@ export default Register = ({route}) => {
             overflow: 'hidden',
           }}>
           <Utils.calendarIcon />
-          <TextContent fontSize={18} fontWeight="500">
-            {Utils.getDateFormated(date)}
-          </TextContent>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#53A2BE',
+              paddingVertical: 5,
+              paddingHorizontal: 15,
+              borderRadius: 17,
+            }}>
+            <TextContent color="#fff" fontSize={15} fontWeight="500">
+              Hoje
+            </TextContent>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#132E32',
+              paddingVertical: 5,
+              paddingHorizontal: 15,
+              borderRadius: 17,
+            }}>
+            <TextContent color="#fff" fontSize={15} fontWeight="500">
+              Outro dia...
+            </TextContent>
+          </TouchableOpacity>
+        </View>
         <TextInput
           placeholder={'Descrição da ' + tag + '...'}
           placeholderTextColor={'#000'}

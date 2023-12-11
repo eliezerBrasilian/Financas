@@ -7,6 +7,7 @@ import {useFirebase} from '../../../contexts/AuthContext';
 
 export default function Header() {
   const {user} = useFirebase();
+  const nav = useNavigation();
   return (
     <View>
       <View
@@ -18,21 +19,24 @@ export default function Header() {
           marginHorizontal: 20,
         }}>
         <Left name={'I finanças'} />
-        <ProfileImage
-          profilePhoto={require('../../../assets/images/crown.png')}
-        />
+        <TouchableOpacity onPress={() => nav.navigate('Profile')}>
+          <ProfileImage
+            size={25}
+            profilePhoto={require('../../../assets/images/menu.png')}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
 }
 
 var Left = ({name}) => {
-  const nav = useNavigation();
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 15}}>
-      <TouchableOpacity onPress={() => nav.navigate('Profile')}>
-        <ProfileImage size={30} />
-      </TouchableOpacity>
+      <ProfileImage
+        size={30}
+        profilePhoto={require('../../../assets/images/logo_ifinancas.png')}
+      />
 
       <TextContent fontWeight="bold" fontSize={18} numberOfLines={1}>
         {name}
