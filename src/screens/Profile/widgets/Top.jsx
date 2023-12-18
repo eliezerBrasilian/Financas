@@ -13,8 +13,8 @@ import {Utils} from '../../../utils/Utils';
 
 export function Top() {
   const {user} = useFirebase();
-  const [activeSince, setActiveSince] = React.useState(
-    Utils.convertFirebaseDateToMonthYear(user?.createdAt),
+  const [activeSince] = React.useState(
+    Utils.convertMilisecondsToMonthAndYear(user?.createdAt),
   );
 
   return (

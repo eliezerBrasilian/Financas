@@ -5,6 +5,15 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
 
 class Utils {
+  static convertMilisecondsToMonthAndYear(milliseconds) {
+    var date = new Date(milliseconds);
+    var options = {year: 'numeric', month: '2-digit'};
+    var formattedDate = date
+      .toLocaleDateString('pt-BR', options)
+      .replace(/(\d{2})\/(\d{4})/, '$1/$2');
+    return formattedDate;
+  }
+
   static showAlert(title, message, alertButtons) {
     Alert.alert(
       title,
@@ -120,7 +129,7 @@ class Utils {
 
   static convertFirebaseDateToMonthYear(firebaseDate) {
     const dataInMilliseconds =
-      firebaseDate.seconds * 1000 + firebaseDate.nanoseconds / 1e6;
+      firebaseDate?.seconds * 1000 + firebaseDate?.nanoseconds / 1e6;
 
     // Criando um objeto Date com a data em milissegundos
     const date = new Date(dataInMilliseconds);

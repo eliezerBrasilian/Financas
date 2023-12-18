@@ -4,8 +4,11 @@ import {Line} from '../../../components/Line';
 import ProfileImage from '../../../components/ProfileImage';
 import {Spacer} from '../../../components/Spacer';
 import {TextContent} from '../../../components/TextContent';
+import {useFirebase} from '../../../contexts/AuthContext';
+import {Utils} from '../../../utils/Utils';
 
 export function OverlayView() {
+  const {signOut} = useFirebase();
   return (
     <View
       style={{
@@ -18,13 +21,15 @@ export function OverlayView() {
       <Item
         title={'i Finanças Premium'}
         icon={require('../../../assets/images/crown_list.png')}
+        onClick={() => Utils.ShowToast('Em breve')}
       />
       <Spacer />
       <Line />
       <Spacer />
       <Item
-        title={'i Finanças Premium'}
+        title={'Encerrar Sessão'}
         icon={require('../../../assets/images/logout.png')}
+        onClick={() => signOut()}
       />
       <Spacer />
       <Line />
@@ -32,9 +37,10 @@ export function OverlayView() {
   );
 }
 
-const Item = ({title, icon}) => {
+const Item = ({title, icon, onClick = () => {}}) => {
   return (
     <TouchableOpacity
+      onPress={onClick}
       style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
       <Icon icon={icon} />
       <TextContent>{title}</TextContent>

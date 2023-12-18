@@ -19,6 +19,7 @@ export const FirebaseProvider = ({children}) => {
 
   useEffect(() => {
     loadData();
+    // signOut();
   }, []);
 
   async function forgotPassword(email) {
@@ -53,7 +54,7 @@ export const FirebaseProvider = ({children}) => {
         setUser(userData);
       }
     } catch (error) {
-      console.log(`error - AuthContext - loadData(): ${error}`);
+      throw new Error(`error - AuthContext - loadData(): ${error}`);
     } finally {
       setLoadingApp(false);
     }
@@ -105,10 +106,10 @@ export const FirebaseProvider = ({children}) => {
         profilePicture: null,
         isPremium: false,
         isAdmin: false,
-        createdAt: firestore.FieldValue.serverTimestamp(),
+        createdAt: Date.now(),
       };
       await saveUserOnFirestore(userData);
-      writeUserData(userData);
+      await writeUserData(userData);
     } catch (error) {
       if (error.code == 'auth/invalid-email') Utils.ShowToast('Email inválido');
       else if (error.code == 'auth/weak-password')
@@ -126,7 +127,7 @@ export const FirebaseProvider = ({children}) => {
     const docRef = firestore().collection('users').doc(uid);
     try {
       docRef.set(userData);
-      Utils.showAlert('User created on firestore');
+
       await createCollectionBalancesRelatedToTheUser(uid);
     } catch (error) {
       console.log('error on creating user - saveUserOnFirestore: ' + error);
@@ -146,7 +147,8 @@ export const FirebaseProvider = ({children}) => {
     });
   }
 
-  function writeUserData(data) {
+  async function writeUserData(data) {
+    console.log('-------data-------');
     console.log(data);
     AsyncStorage.setItem('@userData', JSON.stringify(data));
     setUser(data);
