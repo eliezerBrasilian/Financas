@@ -69,7 +69,7 @@ export const FirebaseProvider = ({children}) => {
       const userData = await retrieveUserDataFromFirestore(response.user.uid);
       console.log('------userData-----');
       console.log(userData);
-      writeUserData(userData);
+      writeUserDataOnDevice(userData);
     } catch (error) {
       if (error.code == 'auth/invalid-login') Utils.ShowToast('Email inválido');
       else if (error.code == 'auth/user-not-found')
@@ -109,7 +109,7 @@ export const FirebaseProvider = ({children}) => {
         createdAt: Date.now(),
       };
       await saveUserOnFirestore(userData);
-      await writeUserData(userData);
+      await writeUserDataOnDevice(userData);
     } catch (error) {
       if (error.code == 'auth/invalid-email') Utils.ShowToast('Email inválido');
       else if (error.code == 'auth/weak-password')
@@ -147,7 +147,7 @@ export const FirebaseProvider = ({children}) => {
     });
   }
 
-  async function writeUserData(data) {
+  async function writeUserDataOnDevice(data) {
     console.log('-------data-------');
     console.log(data);
     AsyncStorage.setItem('@userData', JSON.stringify(data));
@@ -162,6 +162,7 @@ export const FirebaseProvider = ({children}) => {
         isLoadingApp,
         signed: !!user,
         user,
+        setUser,
         setLoadingAuth,
         forgotPassword,
         isSendingResetLink,

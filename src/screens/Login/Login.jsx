@@ -1,14 +1,16 @@
-import {useState} from 'react';
-import {View, ScrollView, Alert} from 'react-native';
+import {Alert, ScrollView, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {strings} from '../../assets/strings/strings';
-import {style} from '../SignUp/style';
-import {TextContent} from '../../components/TextContent';
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import InputForPassword from '../../components/InputForPassword';
+import {useState} from 'react';
 import {colors} from '../../assets/colors/colors';
+import {strings} from '../../assets/strings/strings';
+import {TextContent} from '../../components/TextContent';
+import Button from '../../components/buttons/Button';
+import Input from '../../components/inputs/Input';
+import InputForPassword from '../../components/inputs/InputForPassword';
 import {useFirebase} from '../../contexts/AuthContext';
+import {style} from '../SignUp/style';
+
 export default function Login() {
   const {login, isLoadingAuth} = useFirebase();
   const nav = useNavigation();
@@ -34,7 +36,7 @@ export default function Login() {
       <View style={style.main_view}>
         <TextContent
           textAlign="left"
-          fontSize={32}
+          fontSize={28}
           color={'#000'}
           fontWeight={'bold'}>
           {strings.do_your_login}
@@ -43,7 +45,7 @@ export default function Login() {
         <View style={{width: '60%', marginBottom: 30}}>
           <TextContent
             textAlign="left"
-            fontSize={22}
+            fontSize={21}
             color={'#000'}
             fontWeight={'700'}>
             {strings.welcome_again}
@@ -74,10 +76,11 @@ export default function Login() {
           title={strings.login_in}
           fontWeight={'bold'}
           onClick={handleLogin}
-          backgroundColor={colors.main_blue}
+          backgroundColor="#2A3D45"
           color="#fff"
           marginTop={30}
           isLoading={isLoadingAuth}
+          fontSize={16}
         />
         <Button
           title={strings.forgot_password}
@@ -85,6 +88,7 @@ export default function Login() {
           onClick={() => nav.navigate('ForgotPassword')}
           color={colors.forgot_password}
           marginTop={10}
+          fontSize={16}
         />
       </View>
     </ScrollView>

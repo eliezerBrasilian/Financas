@@ -1,6 +1,7 @@
 import {Image} from 'react-native';
+
 export default function DriveIcon({
-  path = require('../assets/images/dollar.png'),
+  path = require('../assets/images/logo_ifinancas.png'),
   size = 200,
   width = 200,
   resizeMode = 'cover',

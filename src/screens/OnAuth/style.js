@@ -4,7 +4,7 @@ export const style = StyleSheet.create({
   main_view: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 10,
+    padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
     rowGap: 20,
