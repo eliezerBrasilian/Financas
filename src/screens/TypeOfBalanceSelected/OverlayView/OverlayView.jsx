@@ -3,10 +3,10 @@ import {FlatList, View} from 'react-native';
 import React from 'react';
 import {Loading} from '../../../components/Loading';
 import {TextContent} from '../../../components/TextContent';
-import {HeaderOfMainView} from './HeaderOfMainView';
-import Register from './Register';
+import Register from '../widgets/Register';
+import {HeaderOfOverlayView} from './HeaderOfOverlayView';
 
-export const MainView = ({
+export const OverlayView = ({
   registers,
   date,
   incrementMonth,
@@ -21,7 +21,7 @@ export const MainView = ({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
       }}>
-      <HeaderOfMainView
+      <HeaderOfOverlayView
         date={date}
         incrementMonth={incrementMonth}
         decrementMonth={decrementMonth}

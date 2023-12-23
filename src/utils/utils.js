@@ -1,10 +1,12 @@
-import {format, fromUnixTime} from 'date-fns';
 import {Alert, ToastAndroid} from 'react-native';
+import {format, fromUnixTime} from 'date-fns';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
 
 class Utils {
+  static getPastFiveMonths() {}
+
   static convertMilisecondsToMonthAndYear(milliseconds) {
     var date = new Date(milliseconds);
     var options = {year: 'numeric', month: '2-digit'};

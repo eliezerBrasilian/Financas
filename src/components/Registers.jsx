@@ -51,7 +51,7 @@ export default function Registers({date}) {
       style={{
         flex: 1,
         backgroundColor: colors.purple_background,
-        padding: 5,
+        padding: 10,
         borderRadius: 15,
       }}>
       <FlatList

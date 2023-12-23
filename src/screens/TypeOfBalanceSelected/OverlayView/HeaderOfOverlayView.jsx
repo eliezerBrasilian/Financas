@@ -5,7 +5,7 @@ import Icon from '../../../components/Icon';
 import {TextContent} from '../../../components/TextContent';
 import {Utils} from '../../../utils/Utils';
 
-export const HeaderOfMainView = ({date, incrementMonth, decrementMonth}) => {
+export const HeaderOfOverlayView = ({date, incrementMonth, decrementMonth}) => {
   return (
     <View style={{alignItems: 'center', padding: 20}}>
       <View

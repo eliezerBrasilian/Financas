@@ -2,6 +2,8 @@ import {Image, View} from 'react-native';
 
 import {firebase} from '@react-native-firebase/firestore';
 import React from 'react';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import {Icon} from '../../../classes/Icon';
 import {TextContent} from '../../../components/TextContent';
 import {useFirebase} from '../../../contexts/AuthContext';
 import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
@@ -13,6 +15,8 @@ export function TotalBalance() {
   const [totalBalance, setTotalBalance] = React.useState(0);
   const {profilePicture} = useProfilePicture();
   const [profileImage, setProfileImage] = React.useState(null);
+  const myIcon = new Icon();
+
   React.useEffect(() => {
     const unsubscribe = loadTotalBalance();
     return () => unsubscribe;
@@ -51,9 +55,16 @@ export function TotalBalance() {
       <TextContent fontSize={26} fontWeight="bold">
         Meu saldo
       </TextContent>
-      <TextContent fontSize={38} fontWeight="bold">
-        {Utils.getBrazilianCurrency(totalBalance)}
-      </TextContent>
+      <View style={{flexDirection: 'row', columnGap: 5, alignItems: 'center'}}>
+        <TextContent fontSize={38} fontWeight="bold">
+          {Utils.getBrazilianCurrency(totalBalance)}
+        </TextContent>
+        <AntDesignIcon
+          name={myIcon.antdesignIcons.EDIT}
+          size={20}
+          color={'#000'}
+        />
+      </View>
     </View>
   );
 }

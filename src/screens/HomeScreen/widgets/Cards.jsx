@@ -1,12 +1,12 @@
 import {FlatList, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
-import {useNavigation} from '@react-navigation/native';
-import React from 'react';
 import ProfileImage from '../../../components/ProfileImage';
+import React from 'react';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
 import {Utils} from '../../../utils/Utils';
+import firestore from '@react-native-firebase/firestore';
+import {useFirebase} from '../../../contexts/AuthContext';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Cards() {
   const {user} = useFirebase();
@@ -47,7 +47,7 @@ export default function Cards() {
         renderItem={({item}) => <Card data={item} />}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{columnGap: 20}}
+        //contentContainerStyle={{columnGap: 20}}
         //keyExtractor={item => item.title}
       />
     </View>
@@ -74,6 +74,8 @@ const CardView = ({tag, amount}) => {
         height: 165,
         padding: 15,
         borderRadius: 10,
+        marginLeft: 5,
+        marginRight: 5,
         //borderWidth: 0.5,
         //borderColor: '#000',
       }}>

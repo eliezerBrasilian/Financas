@@ -22,22 +22,30 @@ export default function HomeScreen() {
       style={{
         flex: 1,
         backgroundColor: '#fff',
-        padding: 10,
+        paddingVertical: 10,
       }}>
       <Header />
       <TotalBalance />
+      <View style={{marginLeft: 10}}>
+        <TextContent fontWeight="700" textAlign="left">
+          Meu Balanço
+        </TextContent>
+      </View>
 
-      <TextContent fontWeight="700" textAlign="left">
-        Meu Balanço
-      </TextContent>
       <Spacer />
       <Cards />
       <Spacer />
-      <TextContent fontWeight="700" textAlign="left">
-        Hoje
-      </TextContent>
+      <View style={{marginLeft: 10}}>
+        <TextContent fontWeight="700" textAlign="left">
+          Hoje
+        </TextContent>
+      </View>
+
       <Spacer />
-      <Registers date={date} />
+      <View style={{marginHorizontal: 10, flex: 1}}>
+        <Registers date={date} />
+      </View>
+
       <FabButton onClick={() => setModalVisible(true)} />
       <ModalSelectFinanceOption
         visible={modalVisible}
