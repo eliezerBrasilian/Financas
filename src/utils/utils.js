@@ -1,5 +1,5 @@
-import {Alert, ToastAndroid} from 'react-native';
 import {format, fromUnixTime} from 'date-fns';
+import {Alert, ToastAndroid} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
@@ -34,13 +34,13 @@ class Utils {
     const tagToLowerCase = tag?.toLowerCase();
     if (tagToLowerCase == 'receita')
       return {
-        backgroundColor: strong ? colors.card_green : '#C5E6A6',
+        backgroundColor: strong ? colors.card_green : '#27fb6b',
         title: 'Receita',
         icon: require('../assets/images/receita.png'),
       };
     else if (tagToLowerCase === 'reserva')
       return {
-        backgroundColor: strong ? colors.card_purple : colors.main_gray,
+        backgroundColor: strong ? colors.card_purple : '#ab51e3',
         title: 'Reserva',
         icon: require('../assets/images/reserva.png'),
       };

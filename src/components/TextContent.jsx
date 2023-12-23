@@ -13,6 +13,7 @@ export function TextContent({
   borderBottomWidth = 0,
   borderBottomColor = '#fff',
   clickable = false,
+  editable = false,
   onClick = () => {},
 }) {
   return clickable ? (

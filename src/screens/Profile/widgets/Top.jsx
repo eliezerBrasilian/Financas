@@ -1,6 +1,7 @@
 import {TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
+import {DateTime} from '../../../classes/DateTime';
 import Header from '../../../components/Header';
 import Icon from '../../../components/Icon';
 import {Loading} from '../../../components/Loading';
@@ -9,13 +10,9 @@ import {TextContent} from '../../../components/TextContent';
 import {useFirebase} from '../../../contexts/AuthContext';
 import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
 import {Ifinancas} from '../../../utils/Ifinancas.utils';
-import {Utils} from '../../../utils/Utils';
 
 export function Top() {
   const {user} = useFirebase();
-  const [activeSince] = React.useState(
-    Utils.convertMilisecondsToMonthAndYear(user?.createdAt),
-  );
 
   return (
     <View style={{marginBottom: 10, padding: 15}}>
@@ -29,7 +26,9 @@ export function Top() {
           {user.email}
         </TextContent>
       </ViewCenteredInTheMiddle>
-      <BottomStatus activeSince={activeSince} />
+      <BottomStatus
+        activeSince={DateTime.convertMilisecondsToMonthAndYear(user?.createdAt)}
+      />
     </View>
   );
 }

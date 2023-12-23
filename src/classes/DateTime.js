@@ -92,6 +92,14 @@ class DateTime {
 
     return `${mes}/${ano}`;
   }
+  static convertMilisecondsToMonthAndYear(milliseconds) {
+    var date = new Date(milliseconds);
+    var options = {year: 'numeric', month: '2-digit'};
+    var formattedDate = date
+      .toLocaleDateString('pt-BR', options)
+      .replace(/(\d{2})\/(\d{4})/, '$1/$2');
+    return formattedDate;
+  }
 }
 
 export {DateTime};

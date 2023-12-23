@@ -46,6 +46,13 @@ export default function OnAuth() {
         onClick={goToSignUp}
       /> */}
       <SigninWithGoogle />
+      <TextContent
+        fontWeight="bold"
+        onClick={goToSignUp}
+        clickable={true}
+        color="#2A3D45">
+        Fazer cadastro com email
+      </TextContent>
     </View>
   );
 }
