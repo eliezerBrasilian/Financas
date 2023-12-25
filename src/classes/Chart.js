@@ -11,8 +11,6 @@ class Chart {
       RED: colors.card_orange,
       GREEN: colors.card_green,
       PURPLE: colors.card_purple,
-      // GREEN: '#169873',
-      // PURPLE: '#fff',
     };
   }
 

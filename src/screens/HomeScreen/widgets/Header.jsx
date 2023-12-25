@@ -3,10 +3,8 @@ import {TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
 
 export default function Header() {
-  const {user} = useFirebase();
   const nav = useNavigation();
   return (
     <View>

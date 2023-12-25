@@ -1,12 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
 import FabButton from '../../components/FabButton';
-import Registers from '../../components/Registers';
 import {Spacer} from '../../components/Spacer';
 import {TextContent} from '../../components/TextContent';
 import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
 import Cards from './widgets/Cards';
 import Header from './widgets/Header';
+import Registers from './widgets/Registers';
 import {TotalBalance} from './widgets/TotalBalance';
 
 export default function HomeScreen() {

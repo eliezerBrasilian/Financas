@@ -2,19 +2,20 @@ import {FlatList, View} from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
-import {colors} from '../assets/colors/colors';
-import {useFirebase} from '../contexts/AuthContext';
-import {useRegister} from '../contexts/RegisterContext';
-import {Utils} from '../utils/Utils';
-import Item from './Item';
-import {TextContent} from './TextContent';
+import {colors} from '../../../assets/colors/colors';
+import Item from '../../../components/Item';
+import {Loading} from '../../../components/Loading';
+import {TextContent} from '../../../components/TextContent';
+import {useFirebase} from '../../../contexts/AuthContext';
+import {useRegister} from '../../../contexts/RegisterContext';
+import {Utils} from '../../../utils/Utils';
 
 export default function Registers({date}) {
   const {user} = useFirebase();
   const {updated} = useRegister();
   const [registers, setRegisters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  const [registersEmpty, setRegisterEmpty] = React.useState(false);
+
   React.useEffect(() => {
     const unsubscribe = loadRegisters();
     return () => unsubscribe;
@@ -38,28 +39,32 @@ export default function Registers({date}) {
             ...data,
           });
         });
-        if (data.empty) {
-          setRegisterEmpty(true);
-        } else setRegisterEmpty(false);
         setRegisters(listOfRegisters);
+        setLoading(false);
       });
   }
-  return registersEmpty ? (
-    <TextContent>Você ainda não fez nenhum registro</TextContent>
-  ) : (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: colors.purple_background,
-        padding: 10,
-        borderRadius: 15,
-      }}>
-      <FlatList
-        data={registers}
-        renderItem={({item}) => <Item data={item} />}
-        contentContainerStyle={{rowGap: 10}}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
-  );
+
+  return loading ? <Loading /> : <RegisterView registers={registers} />;
+}
+
+function RegisterView({registers}) {
+  if (registers.length == 0)
+    return <TextContent>Você ainda não fez nenhum registro</TextContent>;
+  else
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colors.purple_background,
+          padding: 10,
+          borderRadius: 15,
+        }}>
+        <FlatList
+          data={registers}
+          renderItem={({item}) => <Item data={item} />}
+          contentContainerStyle={{rowGap: 10}}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+    );
 }

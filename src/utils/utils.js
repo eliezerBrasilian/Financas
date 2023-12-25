@@ -5,8 +5,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
 
 class Utils {
-  static getPastFiveMonths() {}
-
   static convertMilisecondsToMonthAndYear(milliseconds) {
     var date = new Date(milliseconds);
     var options = {year: 'numeric', month: '2-digit'};
@@ -34,13 +32,13 @@ class Utils {
     const tagToLowerCase = tag?.toLowerCase();
     if (tagToLowerCase == 'receita')
       return {
-        backgroundColor: strong ? colors.card_green : '#27fb6b',
+        backgroundColor: strong ? colors.card_green : '#c2f8cb',
         title: 'Receita',
         icon: require('../assets/images/receita.png'),
       };
     else if (tagToLowerCase === 'reserva')
       return {
-        backgroundColor: strong ? colors.card_purple : '#ab51e3',
+        backgroundColor: strong ? colors.card_purple : '#c8b6ff',
         title: 'Reserva',
         icon: require('../assets/images/reserva.png'),
       };

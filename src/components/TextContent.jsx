@@ -6,7 +6,7 @@ export function TextContent({
   children,
   marginVertical = 0,
   fontWeight = 'normal',
-  textAlign = 'center',
+  textAlign = 'left',
   marginTop = 0,
   numberOfLines = undefined,
   flex = undefined,

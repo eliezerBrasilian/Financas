@@ -67,10 +67,12 @@ export default function Item({data}) {
 
 function Left({description, icon, createdAt}) {
   return (
-    <View>
+    <View style={{width: '60%'}}>
       <View style={{flexDirection: 'row', columnGap: 15, alignItems: 'center'}}>
         <ProfileImage size={15} profilePhoto={icon} />
-        <TextContent fontSize={17}>{description}</TextContent>
+        <TextContent fontSize={17} numberOfLines={1}>
+          {description}
+        </TextContent>
       </View>
       <TextContent fontSize={11}>{createdAt}</TextContent>
     </View>
