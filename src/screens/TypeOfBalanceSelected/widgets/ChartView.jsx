@@ -12,7 +12,6 @@ function ChartView({tag}) {
     totalOfAmountPastMonth,
     totalOfAmountThreeMonthsAgo,
     totalOfAmountFourMonthsAgo,
-    totalOfAmountFiveMonthsAgo,
   } = useChartView(tag);
 
   const screenWidth = Dimensions.get('window').width;

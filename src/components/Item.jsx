@@ -69,7 +69,7 @@ function Left({description, icon, createdAt}) {
   return (
     <View style={{flexDirection: 'row', columnGap: 10, alignItems: 'center'}}>
       <ProfileImage size={25} profilePhoto={icon} />
-      <View style={{width: '70%'}}>
+      <View style={{width: '50%'}}>
         <TextContent color="#fff" fontSize={17} numberOfLines={1}>
           {description}
         </TextContent>

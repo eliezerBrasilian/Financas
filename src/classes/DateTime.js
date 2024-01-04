@@ -25,6 +25,13 @@ class DateTime {
 
   static getMonth(monthInNumber) {
     switch (monthInNumber) {
+      case -2:
+        return 'Outubro';
+      case -1:
+        return 'Novembro';
+      case 0:
+        return 'Dezembro';
+
       case 1:
         return 'Janeiro';
       case 2:
@@ -72,21 +79,40 @@ class DateTime {
   getMonthAndYear(monthSelected = this.monthsThatCanBeSelected.CURRENT) {
     var month;
     var date = new Date();
+    var ano = date.getFullYear();
+    console.log(ano);
+    //resolvendo bug de estar em janeiro = 1
+    //ao buscar o mes anterior dezembro = 0
 
     if (monthSelected == this.monthsThatCanBeSelected.CURRENT) {
       month = date.getMonth() + 1;
     } else if (monthSelected == this.monthsThatCanBeSelected.PAST_MONTH) {
-      month = date.getMonth() + 0;
+      //checa se o mes anterior é dezembro
+      if (date.getMonth() + 0 == 0) {
+        month = 12;
+        ano = 2023;
+      } else {
+        month = date.getMonth() + 0;
+      }
     } else if (monthSelected == this.monthsThatCanBeSelected.THREE_MONTHS_AGO) {
-      month = date.getMonth() - 1;
-    } else if (monthSelected == this.monthsThatCanBeSelected.FOUR_MONTHS_AGO) {
-      month = date.getMonth() - 2;
-    } else if (monthSelected == this.monthsThatCanBeSelected.FIVE_MONTHS_AGO) {
-      month = date.getMonth() - 3;
+      //checa se o mes anterior é dezembro
+      if (date.getMonth() + 0 == 0) {
+        month = 11;
+        ano = 2023;
+      } else {
+        month = date.getMonth() - 1;
+      }
+    } else {
+      //checa se o mes anterior é dezembro
+      if (date.getMonth() + 0 == 0) {
+        month = 10;
+        ano = 2023;
+      } else {
+        month = date.getMonth() - 2;
+      }
     }
 
     const mes = String(month).padStart(2, '0');
-    const ano = date.getFullYear();
 
     return `${mes}/${ano}`;
   }

@@ -12,11 +12,9 @@ function useChartView(tag) {
     React.useState(0);
   const [totalOfAmountFourMonthsAgo, setTotalOfAmountFourMonthsAgo] =
     React.useState(0);
-  const [totalOfAmountFiveMonthsAgo, setTotalOfAmountFiveMonthsAgo] =
-    React.useState(0);
 
-  const myDate = new DateTime();
-  const months = myDate.monthsThatCanBeSelected;
+  const datetime = new DateTime();
+  const months = datetime.monthsThatCanBeSelected;
   React.useEffect(() => {
     loadRegisterForTheFivePastMonths();
   }, []);
@@ -27,11 +25,12 @@ function useChartView(tag) {
       loadTotalOfAmountPastMonth(),
       loadTotalOfAmountThreeMonthsAgo(),
       loadTotalOfAmountFourMonthsAgo(),
-      loadTotalOfAmountFiveMonthsAgo(),
     );
   }
 
   async function loadTotalOfAmountCurrentMonth() {
+    var myDate = new DateTime();
+    console.log('current: ' + myDate.getMonthAndYear(months.CURRENT));
     await firestore()
       .collection('Registers')
       .where('createdBy', '==', user?.uid)
@@ -52,6 +51,7 @@ function useChartView(tag) {
       });
   }
   async function loadTotalOfAmountPastMonth() {
+    var myDate = new DateTime();
     await firestore()
       .collection('Registers')
       .where('createdBy', '==', user?.uid)
@@ -72,6 +72,7 @@ function useChartView(tag) {
       });
   }
   async function loadTotalOfAmountThreeMonthsAgo() {
+    var myDate = new DateTime();
     await firestore()
       .collection('Registers')
       .where('createdBy', '==', user?.uid)
@@ -92,6 +93,7 @@ function useChartView(tag) {
       });
   }
   async function loadTotalOfAmountFourMonthsAgo() {
+    var myDate = new DateTime();
     await firestore()
       .collection('Registers')
       .where('createdBy', '==', user?.uid)
@@ -111,33 +113,12 @@ function useChartView(tag) {
         setTotalOfAmountFourMonthsAgo(amount);
       });
   }
-  async function loadTotalOfAmountFiveMonthsAgo() {
-    await firestore()
-      .collection('Registers')
-      .where('createdBy', '==', user?.uid)
-      .where('monthYear', '==', myDate.getMonthAndYear(months.FIVE_MONTHS_AGO))
-      .where('tag', '==', tag)
-      .where('deleted', '==', false)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(data => {
-        let amount = 0;
-
-        data.docs.forEach(i => {
-          let data = i.data();
-          amount += data.amount;
-        });
-        console.log('amount: ' + amount);
-        setTotalOfAmountFiveMonthsAgo(amount);
-      });
-  }
 
   return {
     totalOfAmountCurrentMonth,
     totalOfAmountPastMonth,
     totalOfAmountThreeMonthsAgo,
     totalOfAmountFourMonthsAgo,
-    totalOfAmountFiveMonthsAgo,
   };
 }
 
