@@ -1,20 +1,21 @@
-import {useNavigation} from '@react-navigation/native';
 import {View} from 'react-native';
 import {strings} from '../../assets/strings/strings';
+import {Navigation} from '../../classes/Navigation';
+import Button from '../../components/Button';
 import DriveIcon from '../../components/DriveIcon';
 import {TextContent} from '../../components/TextContent';
-import Button from '../../components/buttons/Button';
 import {style} from './style';
+import {SeparationItem} from './widgets/SeparationItem';
 import {SigninWithGoogle} from './widgets/SigninWithGoogle';
 
 export default function OnAuth() {
-  const nav = useNavigation();
+  const nav = new Navigation();
 
   function goToSignUp() {
-    nav.navigate('SignUp');
+    nav.navigateTo('SignUp');
   }
   function goToLogin() {
-    nav.navigate('Login');
+    nav.navigateTo('Login');
   }
 
   return (
@@ -56,30 +57,3 @@ export default function OnAuth() {
     </View>
   );
 }
-
-const SeparationItem = () => {
-  return (
-    <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 3}}>
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: '#BCAC9B',
-          borderStyle: 'solid',
-          flex: 1,
-          marginTop: 3,
-        }}
-      />
-      <TextContent>ou</TextContent>
-
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: '#BCAC9B',
-          borderStyle: 'solid',
-          flex: 1,
-          marginTop: 3,
-        }}
-      />
-    </View>
-  );
-};

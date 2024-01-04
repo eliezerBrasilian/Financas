@@ -6,13 +6,13 @@ import CurrencyInput from 'react-native-currency-input';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {Icon} from '../../../classes/Icon';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
 import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
+import {useUserContext} from '../../../contexts/UserContext';
 import {Ifinancas} from '../../../utils/Ifinancas.utils';
 import {Utils} from '../../../utils/Utils';
 
 export function TotalBalance() {
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const myIcon = new Icon();
   const [totalBalance, setTotalBalance] = React.useState(0);
   const {profilePicture} = useProfilePicture();

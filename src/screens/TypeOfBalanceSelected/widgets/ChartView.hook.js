@@ -1,10 +1,10 @@
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import {DateTime} from '../../../classes/DateTime';
-import {useFirebase} from '../../../contexts/AuthContext';
+import {useUserContext} from '../../../contexts/UserContext';
 
 function useChartView(tag) {
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const [totalOfAmountCurrentMonth, setTotalOfAmountCurrentMonth] =
     React.useState(0);
   const [totalOfAmountPastMonth, setTotalOfAmountPastMonth] = React.useState(0);

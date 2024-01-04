@@ -1,8 +1,8 @@
-import firestore from '@react-native-firebase/firestore';
 import React from 'react';
-import {useFirebase} from '../../contexts/AuthContext';
-import {useRegister} from '../../contexts/RegisterContext';
 import {Utils} from '../../utils/Utils';
+import firestore from '@react-native-firebase/firestore';
+import {useRegister} from '../../contexts/RegisterContext';
+import {useUserContext} from '../../contexts/UserContext';
 
 function useTypeOfBalanceSelectedHook(route) {
   const {updated} = useRegister();
@@ -11,7 +11,7 @@ function useTypeOfBalanceSelectedHook(route) {
   const [month, setMonth] = React.useState(Utils.getMonth(new Date()));
   const [registers, setRegisters] = React.useState([]);
   const [totalOfAmount, setTotalOfAmount] = React.useState(0);
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -57,6 +57,7 @@ function useTypeOfBalanceSelectedHook(route) {
     const newDate = Utils.decreaseMonth(thisDate);
     setDate(newDate);
   };
+
   var incrementMonth = () => {
     const thisDate = date;
     const newDate = Utils.increaseMonth(thisDate);

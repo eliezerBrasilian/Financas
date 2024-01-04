@@ -7,12 +7,12 @@ import Icon from '../../../components/Icon';
 import {Loading} from '../../../components/Loading';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
 import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
+import {useUserContext} from '../../../contexts/UserContext';
 import {Ifinancas} from '../../../utils/Ifinancas.utils';
 
 export function Top() {
-  const {user} = useFirebase();
+  const {user} = useUserContext();
 
   return (
     <View style={{marginBottom: 10, padding: 15}}>

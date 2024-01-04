@@ -41,7 +41,7 @@ export const OverlayView = ({
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
               <View>
-                <TextContent>Nenhum registro</TextContent>
+                <TextContent textAlign="center">Nenhum registro</TextContent>
               </View>
             }
           />

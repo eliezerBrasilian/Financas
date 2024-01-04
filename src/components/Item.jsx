@@ -1,15 +1,15 @@
 import {TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
-import {useFirebase} from '../contexts/AuthContext';
 import {useRegister} from '../contexts/RegisterContext';
+import {useUserContext} from '../contexts/UserContext';
 import {Utils} from '../utils/Utils';
 import ProfileImage from './ProfileImage';
 import {TextContent} from './TextContent';
 
 export default function Item({data}) {
   const {tag, amount, description, key, createdAt} = data;
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const {deleteRegister} = useRegister();
   const userUid = user.uid;
 

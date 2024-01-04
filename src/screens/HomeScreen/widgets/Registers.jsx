@@ -6,12 +6,12 @@ import {colors} from '../../../assets/colors/colors';
 import Item from '../../../components/Item';
 import {Loading} from '../../../components/Loading';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
 import {useRegister} from '../../../contexts/RegisterContext';
+import {useUserContext} from '../../../contexts/UserContext';
 import {Utils} from '../../../utils/Utils';
 
 export default function Registers({date}) {
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const {updated} = useRegister();
   const [registers, setRegisters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -49,7 +49,11 @@ export default function Registers({date}) {
 
 function RegisterView({registers}) {
   if (registers.length == 0)
-    return <TextContent>Você ainda não fez nenhum registro</TextContent>;
+    return (
+      <TextContent textAlign="center">
+        Você ainda não fez nenhum registro
+      </TextContent>
+    );
   else
     return (
       <View

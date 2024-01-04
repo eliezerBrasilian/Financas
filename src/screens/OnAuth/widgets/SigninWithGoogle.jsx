@@ -1,28 +1,29 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
+import {InternalStorage} from '../../../classes/InternalStorage';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
+import {useUserContext} from '../../../contexts/UserContext';
 
 export function SigninWithGoogle() {
-  const [isLoadingAuth, setLoadingAuth] = React.useState(false);
-  const {setUser} = useFirebase();
+  const {setUser} = useUserContext();
+  const internalStorage = new InternalStorage();
+
   React.useEffect(() => {
     GoogleSignin.configure({
       webClientId:
         '80275054021-ds2pdpkki041lum3c6l1mrc3htpcv8sp.apps.googleusercontent.com',
     });
   }, []);
+
   async function onGoogleButtonPress() {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     const {idToken, user} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    console.log(user);
     const userData = {
       uid: user.id,
       email: user.email,
@@ -34,18 +35,17 @@ export function SigninWithGoogle() {
       createdAt: Date.now(),
     };
     await saveUserOnFirestore(userData);
-    await writeUserDataOnDevice(userData);
-
+    await createCollectionBalancesRelatedToTheUser(uid);
+    await internalStorage.writeDataOnDevice(userData);
+    setUser(userData);
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   }
 
   async function saveUserOnFirestore(userData) {
-    const {uid} = userData;
     const docRef = firestore().collection('users').doc(userData.uid);
     try {
       await docRef.set(userData);
-      await createCollectionBalancesRelatedToTheUser(uid);
     } catch (error) {
       throw new Error('error on creating user - saveUserOnFirestore: ' + error);
     }
@@ -63,12 +63,6 @@ export function SigninWithGoogle() {
     });
   }
 
-  async function writeUserDataOnDevice(data) {
-    console.log(data);
-    AsyncStorage.setItem('@userData', JSON.stringify(data));
-
-    setUser(data);
-  }
   return (
     <TouchableOpacity
       onPress={onGoogleButtonPress}

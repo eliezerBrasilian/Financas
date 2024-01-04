@@ -5,13 +5,13 @@ import React from 'react';
 import DatePicker from 'react-native-date-picker';
 import Button from '../../components/Button';
 import {TextContent} from '../../components/TextContent';
-import {useFirebase} from '../../contexts/AuthContext';
+import {useUserContext} from '../../contexts/UserContext';
 import {Utils} from '../../utils/Utils';
 import {Top} from './widgets/Top';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const [amount, setAmount] = React.useState(0);
   const [description, setDescription] = React.useState('');
   const [date, setDate] = React.useState(new Date());

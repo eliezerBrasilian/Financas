@@ -52,23 +52,21 @@ class DateTime {
     }
   }
 
-  static getPastFiveMonths() {
+  static getPastFourMonths() {
     const currentDate = new Date();
     var currentMonth = currentDate.getMonth() + 1;
     var lastMonth = currentDate.getMonth() + 0;
     var threeMonthsAgo = currentDate.getMonth() - 1;
     var fourMonthsAgo = currentDate.getMonth() - 2;
-    var fiveMonthsAgo = currentDate.getMonth() - 3;
 
-    var pastFiveMonths = [
-      this.getMonth(fiveMonthsAgo),
+    var pastFourMonths = [
       this.getMonth(fourMonthsAgo),
       this.getMonth(threeMonthsAgo),
       this.getMonth(lastMonth),
       this.getMonth(currentMonth),
     ];
 
-    return pastFiveMonths;
+    return pastFourMonths;
   }
 
   getMonthAndYear(monthSelected = this.monthsThatCanBeSelected.CURRENT) {

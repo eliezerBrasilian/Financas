@@ -1,14 +1,16 @@
 import {TouchableOpacity, View} from 'react-native';
 
+import {Navigation} from '../../../classes/Navigation';
 import {Line} from '../../../components/Line';
 import ProfileImage from '../../../components/ProfileImage';
 import {Spacer} from '../../../components/Spacer';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
-import {Utils} from '../../../utils/Utils';
+import {useOverlay} from './OverlayView.hook';
 
 export function OverlayView() {
-  const {signOut} = useFirebase();
+  const {signOut} = useOverlay();
+  const nav = new Navigation();
+
   return (
     <View
       style={{
@@ -21,7 +23,7 @@ export function OverlayView() {
       <Item
         title={'i Finanças Premium'}
         icon={require('../../../assets/images/crown_list.png')}
-        onClick={() => Utils.ShowToast('Em breve')}
+        onClick={() => nav.navigateTo(nav.screens.PREMIUM)}
       />
       <Spacer />
       <Line />

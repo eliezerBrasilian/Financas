@@ -1,52 +1,28 @@
-import {Alert, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
 import {Masks} from 'react-native-mask-input';
 import {strings} from '../../assets/strings/strings';
-import Input from '../../components/Input';
-import InputForPassword from '../../components/InputForPassword';
 import {TextContent} from '../../components/TextContent';
-import Button from '../../components/buttons/Button';
-import {useFirebase} from '../../contexts/AuthContext';
+import {Button} from '../../components/buttons/Button';
+import Input from '../../components/inputs/Input';
+import InputForPassword from '../../components/inputs/InputForPassword';
+import {useSignUp} from './SignUp.hook';
 import {style} from './style';
 
 export default function SignUp() {
-  const {signUp, isLoadingAuth} = useFirebase();
-  const nav = useNavigation();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {
+    handleSignUp,
+    isLoading,
+    email,
+    setEmail,
+    name,
+    setName,
+    password,
+    setPassword,
+    phone,
+    setPhone,
+  } = useSignUp();
 
-  function goToLogin() {
-    nav.navigate('Login');
-  }
-  async function handleSignUp() {
-    if (
-      name.trim() !== '' &&
-      email.trim() !== '' &&
-      phone.trim() !== '' &&
-      password.trim() !== ''
-    ) {
-      const response = await signUp(name, email, phone, password);
-      if (response == 400) {
-        Alert.alert(strings.err_invalid_email);
-      } else if (response == 406) {
-        Alert.alert(strings.email_already_in_use);
-      } else if (response == 411) {
-        Alert.alert(strings.weak_password);
-      } else if (response == 500) {
-        Alert.alert(strings.intern_error);
-      } else if (response == 200) {
-        Alert.alert(strings.game_state_title, strings.account_created, [
-          {text: strings.thats_it, onPress: () => goToLogin()},
-        ]);
-      }
-    } else {
-      Alert.alert(strings.fill_all);
-    }
-  }
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
       <View style={style.main_view}>
@@ -87,6 +63,7 @@ export default function SignUp() {
           mask={Masks.BRL_PHONE}
           keyboardType="numeric"
         />
+
         <Input
           label={strings.email_label}
           placeholderColor="#A0A0A0"
@@ -106,15 +83,16 @@ export default function SignUp() {
           isPassword={true}
           placeholderColor="#A0A0A0"
         />
+
         <Button
           title={strings.create_account}
           color="#fff"
           backgroundColor={'#2A3D45'}
           fontSize={16}
           width={'100%'}
-          onClick={handleSignUp}
+          onClick={() => handleSignUp(name, email, phone, password)}
           hasIconLeft={true}
-          isLoading={isLoadingAuth}
+          isLoading={isLoading}
         />
       </View>
     </ScrollView>

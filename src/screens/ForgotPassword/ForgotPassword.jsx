@@ -1,20 +1,14 @@
-import {
-  View,
-  StyleSheet,
-  ToastAndroid,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
-import {useState, useMemo} from 'react';
-import {TextContent} from '../../components/TextContent';
+import {useMemo, useState} from 'react';
+import {Alert, StyleSheet, ToastAndroid, View} from 'react-native';
+
+import {colors} from '../../assets/colors/colors';
+import {strings} from '../../assets/strings/strings';
 import Button from '../../components/Button';
-import {useFirebase} from '../../contexts/AuthContext';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
-import {strings} from '../../assets/strings/strings';
-import {colors} from '../../assets/colors/colors';
+import {TextContent} from '../../components/TextContent';
+
 export default function ForgotPassword() {
-  const {forgotPassword, isSendingResetLink} = useFirebase();
   const [emailInput, setEmaiInput] = useState('');
   const [bottomWidthColor, setBottomWidthColor] = useState(
     colors.placeholder_input,
@@ -26,9 +20,9 @@ export default function ForgotPassword() {
       return;
     }
     let error_message = '';
-    const response = await forgotPassword(emailInput);
-    console.log(response);
-    1;
+    //  const response = await forgotPassword(emailInput);
+    //console.log(response);
+
     if (response == 'auth/invalid-email')
       error_message = 'Digite um email válido';
     else if (response == 'success')
@@ -36,11 +30,13 @@ export default function ForgotPassword() {
 
     Alert.alert('Erro :(', error_message);
   }
+
   useMemo(() => {
     if (emailInput.trim().length > 0) {
       setBottomWidthColor('blue');
     } else setBottomWidthColor(colors.placeholder_input);
   }, [emailInput]);
+
   return (
     <View style={style.main_view}>
       <Header title={'Redefenir senha'} />
@@ -66,7 +62,7 @@ export default function ForgotPassword() {
             backgroundColor={colors.main_blue}
             width={'80%'}
             fontSize={19}
-            isLoading={isSendingResetLink}
+            // isLoading={isSendingResetLink}
           />
         </View>
       </View>

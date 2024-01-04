@@ -1,36 +1,21 @@
-import {Alert, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
 import {colors} from '../../assets/colors/colors';
 import {strings} from '../../assets/strings/strings';
+import {Navigation} from '../../classes/Navigation';
 import {TextContent} from '../../components/TextContent';
-import Button from '../../components/buttons/Button';
+import {Button} from '../../components/buttons/Button';
 import Input from '../../components/inputs/Input';
 import InputForPassword from '../../components/inputs/InputForPassword';
-import {useFirebase} from '../../contexts/AuthContext';
 import {style} from '../SignUp/style';
+import {useLogin} from './Login.hook';
 
 export default function Login() {
-  const {login, isLoadingAuth} = useFirebase();
-  const nav = useNavigation();
+  const {isLoading, handleLogin, email, password, setEmail, setPassword} =
+    useLogin();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const nav = new Navigation();
 
-  async function handleLogin() {
-    if (email.trim() !== '' && password.trim() !== '') {
-      const response = await login(email, password);
-      console.log('RESPONSE: ' + response);
-      let erro = 'Erro';
-      if (response === 400) Alert.alert(erro, strings.err_invalid_email);
-      else if (response == 404) Alert.alert(erro, strings.user_not_found);
-      else if (response == 406) Alert.alert(erro, strings.err_invalid_password);
-      else if (response == 504) Alert.alert(erro, strings.too_many_requests);
-    } else {
-      Alert.alert(strings.fill_all);
-    }
-  }
   return (
     <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
       <View style={style.main_view}>
@@ -75,20 +60,21 @@ export default function Login() {
         <Button
           title={strings.login_in}
           fontWeight={'bold'}
-          onClick={handleLogin}
+          onClick={() => handleLogin(email, password)}
           backgroundColor="#2A3D45"
           color="#fff"
           marginTop={30}
-          isLoading={isLoadingAuth}
+          isLoading={isLoading}
           fontSize={16}
         />
         <Button
           title={strings.forgot_password}
           fontWeight={'bold'}
-          onClick={() => nav.navigate('ForgotPassword')}
+          onClick={() => nav.navigateTo(nav.screens.FORGOT_PASSWORD)}
           color={colors.forgot_password}
           marginTop={10}
           fontSize={16}
+          isLoading={isLoading}
         />
       </View>
     </ScrollView>

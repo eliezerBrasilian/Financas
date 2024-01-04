@@ -1,12 +1,14 @@
-import AuthRoutes from './auth.routes';
-import AppRoutes from './app.routes';
-import {useFirebase} from '../contexts/AuthContext';
-import {View, Text} from 'react-native';
-import {colors} from '../assets/colors/colors';
-export default function Routes() {
-  const {signed, isLoadingApp} = useFirebase();
+import {Text, View} from 'react-native';
 
-  if (isLoadingApp) {
+import {colors} from '../assets/colors/colors';
+import {useUserContext} from '../contexts/UserContext';
+import {AppRoutes} from './app.routes';
+import {AuthRoutes} from './auth.routes';
+
+export default function Routes() {
+  const {signed, isLoadingUser} = useUserContext();
+
+  if (isLoadingUser) {
     return (
       <View
         style={{

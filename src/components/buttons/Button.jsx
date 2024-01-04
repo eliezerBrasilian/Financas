@@ -2,7 +2,7 @@ import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export default function Button({
+function Button({
   title,
   fontSize = 19,
   marginTop = 0,
@@ -15,6 +15,7 @@ export default function Button({
   iconName,
   iconColor = '#fff',
   iconSize = 25,
+  paddingVertical = 13,
 }) {
   function Content() {
     return (
@@ -38,7 +39,7 @@ export default function Button({
       style={{
         backgroundColor: backgroundColor,
         paddingHorizontal: 15,
-        paddingVertical: 13,
+        paddingVertical: paddingVertical,
         width: width,
         borderRadius: 10,
         justifyContent: 'center',
@@ -49,3 +50,5 @@ export default function Button({
     </TouchableOpacity>
   );
 }
+
+export {Button};

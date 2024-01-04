@@ -3,13 +3,13 @@ import React from 'react';
 import {View} from 'react-native';
 import {Spacer} from '../../../components/Spacer';
 import {TextContent} from '../../../components/TextContent';
-import {useFirebase} from '../../../contexts/AuthContext';
+import {useUserContext} from '../../../contexts/UserContext';
 import {Utils} from '../../../utils/Utils';
 import {ChartView} from './ChartView';
 
 export const Top = ({tag, amount, title}) => {
   const [isPremium, setPremium] = React.useState(false);
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   React.useEffect(() => {
     firestore()
       .collection('users')

@@ -5,12 +5,12 @@ import {TouchableOpacity, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useFirebase} from '../contexts/AuthContext';
 import {useRegister} from '../contexts/RegisterContext';
+import {useUserContext} from '../contexts/UserContext';
 import {Utils} from '../utils/Utils';
 
 export default function FabButton({onClick}) {
-  const {user} = useFirebase();
+  const {user} = useUserContext();
   const {updated} = useRegister();
   const [registers, setRegisters] = React.useState([]);
   const [loading, setLoading] = React.useState(true);

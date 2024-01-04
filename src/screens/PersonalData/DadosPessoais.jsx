@@ -1,16 +1,18 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useContext, useEffect, useState} from 'react';
-import {TextContent} from '../../components/TextContent';
-import {firebase} from '@react-native-firebase/firestore';
+import {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {
-  formatarCelular,
   dateFromFirestoreToBrasilianFormat,
+  formatarCelular,
 } from '../../utils/Utils';
+
+import {firebase} from '@react-native-firebase/firestore';
 import Header from '../../components/Header';
-import {useFirebase} from '../../contexts/AuthContext';
 import {Loading} from '../../components/Loading';
+import {TextContent} from '../../components/TextContent';
+import {useUserContext} from '../../contexts/UserContext';
+
 function DadosPessoais() {
-  const {SignOut, user} = useFirebase();
+  const {user} = useUserContext();
   const uid = user?.uid;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');

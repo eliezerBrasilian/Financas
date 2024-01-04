@@ -1,21 +1,27 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import SignUp from '../screens/SignUp/SignUp';
-import Login from '../screens/Login/Login';
-import OnAuth from '../screens/OnAuth/OnAuth';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
+import Login from '../screens/Login/Login';
+import {Navigation} from '../classes/Navigation';
+import OnAuth from '../screens/OnAuth/OnAuth';
+import SignUp from '../screens/SignUp/SignUp';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 const Stack = createNativeStackNavigator();
 
-export default function AuthRoutes() {
+function AuthRoutes() {
+  const nav = new Navigation();
+
   return (
     <Stack.Navigator
-      initialRouteName="OnAuth"
+      //  initialRouteName={nav.screens.ON_AUTH}
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="OnAuth" component={OnAuth} />
-      <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name={nav.screens.ON_AUTH} component={OnAuth} />
+      <Stack.Screen name={nav.screens.SIGN_UP} component={SignUp} />
+      <Stack.Screen name={nav.screens.LOGIN} component={Login} />
+      <Stack.Screen name={'ForgotPass'} component={ForgotPassword} />
     </Stack.Navigator>
   );
 }
+
+export {AuthRoutes};
