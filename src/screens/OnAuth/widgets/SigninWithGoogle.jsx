@@ -1,11 +1,12 @@
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import React from 'react';
-import {TouchableOpacity} from 'react-native';
 import {InternalStorage} from '../../../classes/InternalStorage';
 import ProfileImage from '../../../components/ProfileImage';
+import React from 'react';
 import {TextContent} from '../../../components/TextContent';
+import {TouchableOpacity} from 'react-native';
+import {User} from '../../../classes/User';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import {useUserContext} from '../../../contexts/UserContext';
 
 export function SigninWithGoogle() {
@@ -24,20 +25,25 @@ export function SigninWithGoogle() {
     const {idToken, user} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    const userData = {
-      uid: user.id,
-      email: user.email,
-      phone: null,
-      name: user.name,
-      profilePicture: user.photo,
-      isPremium: false,
-      isAdmin: false,
-      createdAt: Date.now(),
-    };
-    await saveUserOnFirestore(userData);
-    await createCollectionBalancesRelatedToTheUser(uid);
-    await internalStorage.writeDataOnDevice(userData);
-    setUser(userData);
+    var userUid = user.id;
+    var myUser = new User(userUid, user.email, null, user.name, user.photo);
+
+    var userExists = await myUser.userExistsInFirestoreDatabase(userUid);
+
+    if (!userExists) {
+      const userData = myUser.userData;
+
+      await saveUserOnFirestore(userData);
+      await createCollectionBalancesRelatedToTheUser(userUid);
+      await internalStorage.writeDataOnDevice(userData);
+      setUser(userData);
+    } else {
+      const userData = await myUser.getUserFirestoreData(userUid);
+
+      await internalStorage.writeDataOnDevice(userData);
+      setUser(userData);
+    }
+
     // Sign-in the user with the credential
     return auth().signInWithCredential(googleCredential);
   }
