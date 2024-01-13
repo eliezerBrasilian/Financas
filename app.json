@@ -1,4 +1,8 @@
 {
   "name": "ifinancas",
-  "displayName": "ifinancas"
+  "displayName": "ifinancas",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-4318787550457876~2983349427",
+    "ios_app_id": "ca-app-pub-xxxxxxxx~xxxxxxxx"
+  }
 }

@@ -5,6 +5,7 @@ import React from 'react';
 import CurrencyInput from 'react-native-currency-input';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import {Icon} from '../../../classes/Icon';
+import {Navigation} from '../../../classes/Navigation';
 import {TextContent} from '../../../components/TextContent';
 import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
 import {useUserContext} from '../../../contexts/UserContext';
@@ -14,6 +15,8 @@ import {Utils} from '../../../utils/Utils';
 export function TotalBalance() {
   const {user} = useUserContext();
   const myIcon = new Icon();
+  var nav = new Navigation();
+
   const [totalBalance, setTotalBalance] = React.useState(0);
   const {profilePicture} = useProfilePicture();
   const [profileImage, setProfileImage] = React.useState(null);
@@ -90,15 +93,18 @@ export function TotalBalance() {
 
   return (
     <View style={{alignItems: 'center', marginTop: 20}}>
-      <Image
-        style={{height: 70, width: 70, borderRadius: 15}}
-        source={
-          profileImage == null
-            ? require('../../../assets/images/user_profile.png')
-            : {uri: profileImage}
-        }
-      />
-
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={() => nav.navigateTo(nav.screens.PROFILE)}>
+        <Image
+          style={{height: 70, width: 70, borderRadius: 15}}
+          source={
+            profileImage == null
+              ? require('../../../assets/images/user_profile.png')
+              : {uri: profileImage}
+          }
+        />
+      </TouchableOpacity>
       <View style={{marginTop: 30}} />
       <TextContent fontSize={26} fontWeight="bold" editable={true}>
         Meu saldo

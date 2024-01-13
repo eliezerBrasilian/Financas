@@ -1,6 +1,7 @@
 import {FlatList, View} from 'react-native';
 
 import React from 'react';
+import {BannerAds} from '../../../components/BannerAds';
 import {Loading} from '../../../components/Loading';
 import {TextContent} from '../../../components/TextContent';
 import Register from '../widgets/Register';
@@ -44,6 +45,7 @@ export const OverlayView = ({
                 <TextContent textAlign="center">Nenhum registro</TextContent>
               </View>
             }
+            ListFooterComponent={<BannerAds />}
           />
         )}
       </View>

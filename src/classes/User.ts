@@ -55,6 +55,15 @@ class User extends Firestore {
     stateUserModifier(null);
     await this.internalStorage.clearDataFromDevice();
   }
+
+  async saveUserOnFirestore(userData:any) {
+    const docRef = firestore().collection('users').doc(userData.uid);
+    try {
+      await docRef.set(userData);
+    } catch (error) {
+      throw new Error('error on creating user - saveUserOnFirestore: ' + error);
+    }
+  }
 }
 
 export {User};

@@ -1,12 +1,13 @@
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {InternalStorage} from '../../../classes/InternalStorage';
-import ProfileImage from '../../../components/ProfileImage';
-import React from 'react';
-import {TextContent} from '../../../components/TextContent';
-import {TouchableOpacity} from 'react-native';
-import {User} from '../../../classes/User';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import React from 'react';
+import {TouchableOpacity} from 'react-native';
+import {Firestore} from '../../../classes/Firestore';
+import {InternalStorage} from '../../../classes/InternalStorage';
+import {User} from '../../../classes/User';
+import ProfileImage from '../../../components/ProfileImage';
+import {TextContent} from '../../../components/TextContent';
 import {useUserContext} from '../../../contexts/UserContext';
 
 export function SigninWithGoogle() {
@@ -21,31 +22,37 @@ export function SigninWithGoogle() {
   }, []);
 
   async function onGoogleButtonPress() {
-    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    const {idToken, user} = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    try {
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+      const {idToken, user} = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    var userUid = user.id;
-    var myUser = new User(userUid, user.email, null, user.name, user.photo);
+      var userUid = user.id;
+      var myUser = new User(userUid, user.email, null, user.name, user.photo);
 
-    var userExists = await myUser.userExistsInFirestoreDatabase(userUid);
+      var userExists = await myUser.userExistsInFirestoreDatabase(userUid);
 
-    if (!userExists) {
-      const userData = myUser.userData;
+      if (!userExists) {
+        const userData = myUser.userData;
 
-      await saveUserOnFirestore(userData);
-      await createCollectionBalancesRelatedToTheUser(userUid);
-      await internalStorage.writeDataOnDevice(userData);
-      setUser(userData);
-    } else {
-      const userData = await myUser.getUserFirestoreData(userUid);
+        await saveUserOnFirestore(userData);
+        await createCollectionBalancesRelatedToTheUser(userUid);
+        await internalStorage.writeDataOnDevice(userData);
+        setUser(userData);
+      } else {
+        const userData = await myUser.getUserFirestoreData(userUid);
 
-      await internalStorage.writeDataOnDevice(userData);
-      setUser(userData);
+        await internalStorage.writeDataOnDevice(userData);
+        setUser(userData);
+      }
+
+      // Sign-in the user with the credential
+      return auth().signInWithCredential(googleCredential);
+    } catch (error) {
+      var myFirestore = new Firestore();
+      await myFirestore.sendErrorOnTryngLoginIn(error);
+      throw new Error('error on signin: ' + error);
     }
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
   }
 
   async function saveUserOnFirestore(userData) {

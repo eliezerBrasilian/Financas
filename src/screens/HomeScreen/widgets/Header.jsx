@@ -1,6 +1,7 @@
 import {TouchableOpacity, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
+import Menu from 'react-native-vector-icons/Ionicons';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
 
@@ -17,11 +18,10 @@ export default function Header() {
           marginHorizontal: 20,
         }}>
         <Left name={'I finanças'} />
-        <TouchableOpacity onPress={() => nav.navigate('Profile')}>
-          <ProfileImage
-            size={25}
-            profilePhoto={require('../../../assets/images/menu.png')}
-          />
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => nav.navigate('Profile')}>
+          <Menu name="menu" color={'black'} size={30} />
         </TouchableOpacity>
       </View>
     </View>

@@ -26,6 +26,7 @@
     "react-native-currency-input": "^1.1.1",
     "react-native-date-picker": "^4.3.3",
     "react-native-gesture-handler": "^2.13.1",
+    "react-native-google-mobile-ads": "^12.10.0",
     "react-native-image-picker": "^7.0.2",
     "react-native-mask-input": "^1.2.3",
     "react-native-modal": "^13.0.1",

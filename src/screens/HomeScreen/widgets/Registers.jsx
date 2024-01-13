@@ -3,6 +3,7 @@ import {FlatList, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import {colors} from '../../../assets/colors/colors';
+import {BannerAds} from '../../../components/BannerAds';
 import Item from '../../../components/Item';
 import {Loading} from '../../../components/Loading';
 import {TextContent} from '../../../components/TextContent';
@@ -50,9 +51,12 @@ export default function Registers({date}) {
 function RegisterView({registers}) {
   if (registers.length == 0)
     return (
-      <TextContent textAlign="center">
-        Você ainda não fez nenhum registro
-      </TextContent>
+      <View>
+        <TextContent textAlign="center">
+          Você ainda não fez nenhum registro
+        </TextContent>
+        <BannerAds />
+      </View>
     );
   else
     return (
@@ -68,6 +72,7 @@ function RegisterView({registers}) {
           renderItem={({item}) => <Item data={item} />}
           contentContainerStyle={{rowGap: 10}}
           showsVerticalScrollIndicator={false}
+          ListFooterComponent={<BannerAds />}
         />
       </View>
     );

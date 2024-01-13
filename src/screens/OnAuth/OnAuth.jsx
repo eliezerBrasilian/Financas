@@ -1,12 +1,12 @@
-import {View} from 'react-native';
-import {strings} from '../../assets/strings/strings';
-import {Navigation} from '../../classes/Navigation';
 import Button from '../../components/Button';
 import DriveIcon from '../../components/DriveIcon';
-import {TextContent} from '../../components/TextContent';
-import {style} from './style';
+import {Navigation} from '../../classes/Navigation';
 import {SeparationItem} from './widgets/SeparationItem';
 import {SigninWithGoogle} from './widgets/SigninWithGoogle';
+import {TextContent} from '../../components/TextContent';
+import {View} from 'react-native';
+import {strings} from '../../assets/strings/strings';
+import {style} from './style';
 
 export default function OnAuth() {
   const nav = new Navigation();
@@ -46,7 +46,7 @@ export default function OnAuth() {
         width={'100%'}
         onClick={goToSignUp}
       /> */}
-      <SigninWithGoogle />
+      {/* <SigninWithGoogle /> */}
       <TextContent
         fontWeight="bold"
         onClick={goToSignUp}

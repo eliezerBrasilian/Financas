@@ -1,6 +1,7 @@
 import {TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
+import {GoogleAds} from '../classes/GoogleAds';
 import {useRegister} from '../contexts/RegisterContext';
 import {useUserContext} from '../contexts/UserContext';
 import {Utils} from '../utils/Utils';
@@ -12,6 +13,7 @@ export default function Item({data}) {
   const {user} = useUserContext();
   const {deleteRegister} = useRegister();
   const userUid = user.uid;
+  var googleAds = new GoogleAds();
 
   const CurrentBalanceInfo = React.useMemo(
     () => Utils.getUsefulInformationsAboutCurrentBalance(tag),
@@ -30,7 +32,9 @@ export default function Item({data}) {
       const alertButtons = [
         {
           text: 'Cancelar',
-          onPress: () => {},
+          onPress: () => {
+            googleAds.showAds();
+          },
           style: 'cancel',
         },
         {text: 'SIM', onPress: () => deleteRegister(registerItem)},

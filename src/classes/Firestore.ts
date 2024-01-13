@@ -37,6 +37,19 @@ class Firestore {
   public getDocumentReference(): FirebaseFirestoreTypes.DocumentReference<FirebaseFirestoreTypes.DocumentData> {
     return this.documentReference;
   }
+
+  public async sendErrorOnTryngLoginIn(errorMessage: any) {
+    var errorsRef = firestore().collection('Errors');
+    try {
+      const response = await errorsRef.add({
+        message: errorMessage,
+        createdAt: firestore.FieldValue.serverTimestamp(),
+      });
+      await errorsRef.doc(response.id).update({uid: response.id});
+    } catch (error) {
+      throw new Error('Error on sending error to firebase');
+    }
+  }
 }
 
 export {Firestore};

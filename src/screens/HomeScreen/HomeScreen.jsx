@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import {GoogleAds} from '../../classes/GoogleAds';
 import FabButton from '../../components/FabButton';
 import {Spacer} from '../../components/Spacer';
 import {TextContent} from '../../components/TextContent';
@@ -13,7 +14,7 @@ export default function HomeScreen() {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
   const [dateVisible, setDateVisible] = React.useState(false);
-
+  var googleAds = new GoogleAds();
   var toogleCalendar = () => {
     setDateVisible(!dateVisible);
   };
@@ -45,6 +46,8 @@ export default function HomeScreen() {
       <View style={{marginHorizontal: 10, flex: 1}}>
         <Registers date={date} />
       </View>
+
+      <Spacer />
 
       <FabButton onClick={() => setModalVisible(true)} />
       <ModalSelectFinanceOption

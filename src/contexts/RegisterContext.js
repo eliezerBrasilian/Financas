@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useState} from 'react';
 
 import firestore from '@react-native-firebase/firestore';
+import {GoogleAds} from '../classes/GoogleAds';
 import {Utils} from '../utils/Utils';
 
 const RegisterContext = createContext();
@@ -11,6 +12,7 @@ export const useRegister = () => {
 
 export const RegisterProvider = ({children}) => {
   const [updated, setUpdated] = useState(false);
+  var googleAds = new GoogleAds();
 
   var deleteRegister = registerItem => {
     const {amount, key, tag, createdBy} = registerItem;
@@ -60,6 +62,7 @@ export const RegisterProvider = ({children}) => {
   function deletedSuccessufully() {
     Utils.ShowToast('Registro excluido');
     setUpdated(!updated);
+    googleAds.showAds();
   }
   return (
     <RegisterContext.Provider
