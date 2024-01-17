@@ -52,7 +52,7 @@ export default function OnAuth() {
         onClick={goToSignUp}
         clickable={true}
         color="#2A3D45">
-        Fazer cadastro com email
+        Criar minha conta
       </TextContent>
     </View>
   );
