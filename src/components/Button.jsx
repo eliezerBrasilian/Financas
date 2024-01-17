@@ -1,5 +1,7 @@
-import {Text, TouchableOpacity, ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
 export default function Button({
   title,
   fontSize = 18,
@@ -9,9 +11,6 @@ export default function Button({
   onClick,
   width = undefined,
   isLoading = false,
-  iconName,
-  iconColor = '#fff',
-  iconSize = 25,
   borderRadius = 10,
   padding = 10,
 }) {

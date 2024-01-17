@@ -1,12 +1,11 @@
-import Button from '../../components/Button';
-import DriveIcon from '../../components/DriveIcon';
-import {Navigation} from '../../classes/Navigation';
-import {SeparationItem} from './widgets/SeparationItem';
-import {SigninWithGoogle} from './widgets/SigninWithGoogle';
-import {TextContent} from '../../components/TextContent';
 import {View} from 'react-native';
 import {strings} from '../../assets/strings/strings';
+import {Navigation} from '../../classes/Navigation';
+import Button from '../../components/Button';
+import DriveIcon from '../../components/DriveIcon';
+import {TextContent} from '../../components/TextContent';
 import {style} from './style';
+import {SeparationItem} from './widgets/SeparationItem';
 
 export default function OnAuth() {
   const nav = new Navigation();
@@ -15,7 +14,7 @@ export default function OnAuth() {
     nav.navigateTo('SignUp');
   }
   function goToLogin() {
-    nav.navigateTo('Login');
+    nav.navigateTo(nav.screens.LOGIN);
   }
 
   return (
@@ -27,6 +26,7 @@ export default function OnAuth() {
       </TextContent>
 
       <Button
+        padding={5}
         title={'Continuar'}
         color="#fff"
         backgroundColor={'#2A3D45'}

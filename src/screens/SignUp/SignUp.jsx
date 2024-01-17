@@ -1,13 +1,13 @@
 import {ScrollView, View} from 'react-native';
 
-import {Masks} from 'react-native-mask-input';
-import {strings} from '../../assets/strings/strings';
-import {TextContent} from '../../components/TextContent';
 import {Button} from '../../components/buttons/Button';
 import Input from '../../components/inputs/Input';
 import InputForPassword from '../../components/inputs/InputForPassword';
-import {useSignUp} from './SignUp.hook';
+import {Masks} from 'react-native-mask-input';
+import {TextContent} from '../../components/TextContent';
+import {strings} from '../../assets/strings/strings';
 import {style} from './style';
+import {useSignUp} from './SignUp.hook';
 
 export default function SignUp() {
   const {
@@ -75,7 +75,7 @@ export default function SignUp() {
           allCaps="none"
         />
         <InputForPassword
-          label={strings.digite_sua_senha}
+          label={'Crie uma senha'}
           placeholderText={strings.senha_placeholder}
           backgroundColor="#F6F6F6"
           value={password}

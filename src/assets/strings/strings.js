@@ -4,7 +4,7 @@ export const strings = {
   fazer_cadastro: 'Criar minha conta',
   create_account: 'Criar Conta',
   best_driver_app_description:
-    'Utilize já, o melhor gerenciador financeeiro online.',
+    'Utilize já, o melhor gerenciador financeiro online.',
   app_title: 'i Finanças',
   welcome_again: 'Bem vindo de volta ao I Finanças',
   create_account_description: 'Crie já sua conta',

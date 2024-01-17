@@ -3,6 +3,7 @@ import {Image, ScrollView, View} from 'react-native';
 import {Spacer} from '../../components/Spacer';
 import {TextContent} from '../../components/TextContent';
 import {Button} from '../../components/buttons/Button';
+import {Utils} from '../../utils/Utils';
 import {ListItem} from './widgets/ListItem';
 
 export default function PremiumScreen() {
@@ -81,6 +82,7 @@ export default function PremiumScreen() {
       </ScrollView>
       <Spacer />
       <Button
+        onClick={Utils.ShowToast('Em breve...')}
         title={'Comprar acesso Premium'}
         fontSize={17}
         backgroundColor="#4453DF"

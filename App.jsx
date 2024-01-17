@@ -1,4 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
+import React from 'react';
 import {StatusBar} from 'react-native';
 import {FabButtonContextProvider} from './src/contexts/FabButtonContext';
 import {ProfilePictureProvider} from './src/contexts/ProfilePictureContext';

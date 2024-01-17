@@ -1,14 +1,16 @@
 import {
+  StyleSheet,
   Text,
   TextInput,
-  View,
-  StyleSheet,
   TouchableOpacity,
+  View,
 } from 'react-native';
-import {colors} from '../../assets/colors/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import {useState} from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {colors} from '../../assets/colors/colors';
 import {style} from './Input';
+
 export default function InputForPassword({
   label,
   backgroundColor,
@@ -39,7 +41,11 @@ export default function InputForPassword({
         ]}>
         <TextInput
           selectionColor={colors.main_blue}
-          style={[style.textInput, style.label, {fontWeight: fontWeight}]}
+          style={[
+            style.textInput,
+            style.label,
+            {fontWeight: fontWeight, flex: 1},
+          ]}
           placeholder={placeholderText}
           placeholderTextColor={placeholderColor}
           value={value}
@@ -71,11 +77,17 @@ const s = StyleSheet.create({
     color: '#000',
   },
   inputView: {
-    paddingHorizontal: 20,
+    paddingLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    height: 50,
   },
 
-  icon: {},
+  icon: {
+    height: '100%',
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

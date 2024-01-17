@@ -1,13 +1,13 @@
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import DatePicker from 'react-native-date-picker';
 import Button from '../../components/Button';
-import {TextContent} from '../../components/TextContent';
-import {useUserContext} from '../../contexts/UserContext';
-import {Utils} from '../../utils/Utils';
-import {Top} from './widgets/Top';
+import { TextContent } from '../../components/TextContent';
+import { useUserContext } from '../../contexts/UserContext';
+import { Utils } from '../../utils/Utils';
+import { Top } from './widgets/Top';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
@@ -106,7 +106,7 @@ export default Register = ({route}) => {
               Hoje
             </TextContent>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{
               backgroundColor: '#132E32',
               paddingVertical: 5,
@@ -116,7 +116,7 @@ export default Register = ({route}) => {
             <TextContent color="#fff" fontSize={15} fontWeight="500">
               Outro dia...
             </TextContent>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TextInput
           placeholder={'Descrição da ' + tag + '...'}
