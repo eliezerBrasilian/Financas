@@ -6,6 +6,9 @@ import {ProfilePictureProvider} from './src/contexts/ProfilePictureContext';
 import {RegisterProvider} from './src/contexts/RegisterContext';
 import {UserProvider} from './src/contexts/UserContext';
 import Routes from './src/routes/routes';
+import {adapty} from 'react-native-adapty';
+
+adapty.activate('public_live_KRzwYyE3.omuqIP4LwyWCwYecrXA3');
 
 export default function App() {
   return (
