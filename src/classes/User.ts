@@ -2,12 +2,17 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 
+import {Exception} from '../Exceptions/Exception';
+import {Collections} from '../enums/Collections';
+import {UserProperties} from '../enums/UserProperties';
 import {Firestore} from './Firestore';
 import {InternalStorage} from './InternalStorage';
 
 class User extends Firestore {
   private userData;
   private internalStorage = new InternalStorage();
+  private userRef = firestore().collection(Collections.USERS);
+
   constructor(
     uid: string = '',
     email: string = '',
@@ -36,10 +41,7 @@ class User extends Firestore {
   public async userExistsInFirestoreDatabase(
     userUid: string,
   ): Promise<boolean> {
-    const response = await firestore()
-      .collection(this.getCollections().USERS)
-      .doc(userUid)
-      .get();
+    const response = await this.userRef.doc(userUid).get();
     console.log(response.exists);
     return response.exists;
   }
@@ -47,7 +49,7 @@ class User extends Firestore {
   public async getUserFirestoreData(
     userUid: string,
   ): Promise<FirebaseFirestoreTypes.DocumentData | undefined> {
-    var userData = await firestore().collection('users').doc(userUid).get();
+    var userData = await this.userRef.doc(userUid).get();
     return userData.data();
   }
 
@@ -56,12 +58,34 @@ class User extends Firestore {
     await this.internalStorage.clearDataFromDevice();
   }
 
-  async saveUserOnFirestore(userData:any) {
-    const docRef = firestore().collection('users').doc(userData.uid);
+  async saveUserOnFirestore(userData: any) {
     try {
-      await docRef.set(userData);
+      await this.userRef.doc(userData.uid).set(userData);
     } catch (error) {
       throw new Error('error on creating user - saveUserOnFirestore: ' + error);
+    }
+  }
+
+  public async getStoredUserUid() {
+    var internalStorage = new InternalStorage();
+    try {
+      var storedData = await internalStorage.getLoadedData();
+      return storedData.uid;
+    } catch (error) {
+      new Exception('get user uid', error);
+    }
+  }
+
+  public async becomePremium() {
+    try {
+      var userUid = await this.getStoredUserUid();
+      await this.userRef.doc(userUid).update({isPremium: true});
+      await this.internalStorage.updateDataOnDevice(
+        UserProperties.IS_PREMIUM,
+        true,
+      );
+    } catch (error) {
+      new Exception('unlock premium access', error);
     }
   }
 }

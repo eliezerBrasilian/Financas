@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Exception} from '../Exceptions/Exception';
 import {keys} from '../enums/InternalStorageEnums';
+import {UserProperties} from '../enums/UserProperties';
 
 class InternalStorage {
   public async getLoadedData() {
@@ -18,10 +20,26 @@ class InternalStorage {
   public async writeDataOnDevice(data: any) {
     try {
       await AsyncStorage.setItem(keys.USER_KEY, JSON.stringify(data));
+      console.log('written on device...');
     } catch (error) {
       throw new Error(
         `error - class InternalStorage - writeDataOnDevice(): ${error}`,
       );
+    }
+  }
+
+  public async updateDataOnDevice(
+    propertyToUpdate: UserProperties,
+    value: any,
+  ) {
+    try {
+      var newData = await this.getLoadedData();
+      if (propertyToUpdate == 'isPremium') {
+        newData.isPremium = value;
+      }
+      this.writeDataOnDevice(newData);
+    } catch (error) {
+      new Exception('update data on device', error);
     }
   }
 

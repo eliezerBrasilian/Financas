@@ -1,6 +1,5 @@
-import {Text, View} from 'react-native';
+import {Image, View} from 'react-native';
 
-import {colors} from '../assets/colors/colors';
 import {useUserContext} from '../contexts/UserContext';
 import {AppRoutes} from './app.routes';
 import {AuthRoutes} from './auth.routes';
@@ -17,7 +16,7 @@ export default function Routes() {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{color: colors.main_blue}}>Carregando...</Text>
+        <Image source={require('../assets/images/Splashscreen_1.png')} />
       </View>
     );
   } else return signed ? <AppRoutes /> : <AuthRoutes />;

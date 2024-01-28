@@ -1,6 +1,6 @@
 import {Image} from 'react-native';
 
-export default function DriveIcon({
+export default function BigIcon({
   path = require('../assets/images/logo_ifinancas.png'),
   size = 200,
   width = 200,

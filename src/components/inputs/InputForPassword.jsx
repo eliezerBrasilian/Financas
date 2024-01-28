@@ -1,15 +1,13 @@
 import {
+  Image,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 
 import {useState} from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {colors} from '../../assets/colors/colors';
-import {style} from './Input';
 
 export default function InputForPassword({
   label,
@@ -27,46 +25,45 @@ export default function InputForPassword({
   const [showPassword, setShowPassword] = useState(true);
 
   return (
-    <View style={style.container}>
-      <Text style={s.label}>{label}</Text>
-      <View
-        style={[
-          s.inputView,
-          {
-            backgroundColor: backgroundColor,
-            borderRadius: borderRadius,
-            borderColor: borderColor,
-            borderWidth: borderWidth,
-          },
-        ]}>
-        <TextInput
-          selectionColor={colors.main_blue}
-          style={[
-            style.textInput,
-            style.label,
-            {fontWeight: fontWeight, flex: 1},
-          ]}
-          placeholder={placeholderText}
-          placeholderTextColor={placeholderColor}
-          value={value}
-          onChangeText={t => setValue(t)}
-          secureTextEntry={showPassword}
-        />
-        {value != '' && (
-          <TouchableOpacity
-            onPress={function () {
-              setShowPassword(!showPassword);
-              isPassword = false;
-            }}
-            style={s.icon}>
-            <Ionicons
+    <View style={s.inputView}>
+      <TextInput
+        selectionColor={colors.main_blue}
+        style={{
+          fontWeight: fontWeight,
+          fontSize: 14,
+          fontWeight: 'normal',
+          color: colors.input_text_color,
+          flex: 1,
+        }}
+        placeholder={placeholderText}
+        placeholderTextColor={colors.input_text_color}
+        value={value}
+        onChangeText={t => setValue(t)}
+        secureTextEntry={showPassword}
+      />
+      {value != '' && (
+        <TouchableOpacity
+          onPress={function () {
+            setShowPassword(!showPassword);
+            isPassword = false;
+          }}
+          style={s.icon}>
+          <Image
+            style={{height: 20, width: 20}}
+            resizeMode="contain"
+            source={
+              showPassword
+                ? require('../../assets/images/olho.png')
+                : require('../../assets//images/olho_fechado_roxo.png')
+            }
+          />
+          {/* <Ionicons
               name={showPassword ? 'eye' : 'eye-off'}
               size={20}
               color="#000"
-            />
-          </TouchableOpacity>
-        )}
-      </View>
+            /> */}
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -77,16 +74,21 @@ const s = StyleSheet.create({
     color: '#000',
   },
   inputView: {
-    paddingLeft: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
-    height: 50,
+    paddingLeft: 10,
+    justifyContent: 'space-evenly',
+    width: '100%',
+    height: 60,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.main_purple,
   },
 
   icon: {
     height: '100%',
-    width: 100,
+    width: 70,
     justifyContent: 'center',
     alignItems: 'center',
   },

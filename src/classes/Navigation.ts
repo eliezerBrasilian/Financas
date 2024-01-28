@@ -14,10 +14,14 @@ class Navigation {
     SIGN_UP: 'SignUp',
     FORGOT_PASSWORD: 'ForgotPassword',
     LOGIN: 'Login',
+    INICIATE_SESSION: 'IniciateSession',
   };
 
   public navigateTo(destination: never): void {
     this.nav.navigate(destination);
+  }
+  public goBack() {
+    this.nav.goBack();
   }
 }
 

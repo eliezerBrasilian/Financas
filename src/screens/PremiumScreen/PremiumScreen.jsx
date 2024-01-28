@@ -1,12 +1,18 @@
 import {Image, ScrollView, View} from 'react-native';
 
+import {Payment} from '../../classes/Payment';
 import {Spacer} from '../../components/Spacer';
 import {TextContent} from '../../components/TextContent';
 import {Button} from '../../components/buttons/Button';
-import {Utils} from '../../utils/Utils';
 import {ListItem} from './widgets/ListItem';
 
 export default function PremiumScreen() {
+  var payment = new Payment();
+
+  async function makePayment() {
+    await payment.makePurchase();
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff', padding: 15}}>
       <ScrollView>
@@ -82,7 +88,7 @@ export default function PremiumScreen() {
       </ScrollView>
       <Spacer />
       <Button
-        onClick={Utils.ShowToast('Em breve...')}
+        onClick={makePayment}
         title={'Comprar acesso Premium'}
         fontSize={17}
         backgroundColor="#4453DF"
