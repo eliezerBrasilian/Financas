@@ -20,6 +20,12 @@ class Navigation {
   public navigateTo(destination: never): void {
     this.nav.navigate(destination);
   }
+  public navigateToDestinationScreenUsingParams(
+    destination: never,
+    data: any,
+  ): void {
+    this.nav.navigate(destination, data);
+  }
   public goBack() {
     this.nav.goBack();
   }

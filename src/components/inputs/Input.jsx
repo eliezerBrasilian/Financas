@@ -4,7 +4,6 @@ import MaskInput from 'react-native-mask-input';
 import {colors} from '../../assets/colors/colors';
 
 export default function Input({
-  backgroundColor,
   placeholderText,
   fontWeight = '700',
   placeholderColor,
@@ -15,19 +14,21 @@ export default function Input({
   isPassword = false,
   isMaskInput = false,
   mask,
-  borderRadius = 8,
-  borderWidth = 1,
-  borderColor = colors.placeholder_input,
-  borderBottomWidth = undefined,
 }) {
   return (
     <View style={style.inputView}>
       {isMaskInput ? (
         <MaskInput
           value={value}
-          style={[style.textInput, style.label]}
+          style={{
+            fontWeight: fontWeight,
+            width: '100%',
+            fontSize: 14,
+            fontWeight: 'normal',
+            color: colors.input_text_color,
+          }}
           placeholder={placeholderText}
-          placeholderTextColor={placeholderColor}
+          placeholderTextColor={colors.input_text_color}
           keyboardType={keyboardType}
           onChangeText={(masked, unmasked) => {
             setValue(unmasked); // you can use the unmasked value as well

@@ -54,12 +54,22 @@ export default function OnAuth() {
         hasIconLeft={true}
         icon={'sss'}
         fontWeight="400"
-        onClick={() => nav.navigateTo(nav.screens.SIGN_UP)}
+        onClick={() =>
+          nav.navigateToDestinationScreenUsingParams(
+            nav.screens.INICIATE_SESSION,
+            {cameFromSignUpClickEvent: true},
+          )
+        }
       />
       <Spacer />
 
       <TouchableOpacity
-        onPress={() => nav.navigateTo(nav.screens.INICIATE_SESSION)}
+        onPress={() =>
+          nav.navigateToDestinationScreenUsingParams(
+            nav.screens.INICIATE_SESSION,
+            {cameFromSignUpClickEvent: false},
+          )
+        }
         style={{
           borderColor: colors.main_purple,
           borderRadius: 10,

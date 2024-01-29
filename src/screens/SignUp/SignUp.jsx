@@ -1,12 +1,15 @@
-import {ScrollView, View} from 'react-native';
+import {Image, ScrollView, View} from 'react-native';
 
+import React from 'react';
+import {Masks} from 'react-native-mask-input';
+import {colors} from '../../assets/colors/colors';
+import {LeftTopIcon} from '../../components/LeftTopIcon';
+import {PageCount} from '../../components/PageCount';
+import {Spacer} from '../../components/Spacer';
+import {TextContent} from '../../components/TextContent';
 import {Button} from '../../components/buttons/Button';
 import Input from '../../components/inputs/Input';
 import InputForPassword from '../../components/inputs/InputForPassword';
-import {Masks} from 'react-native-mask-input';
-import {TextContent} from '../../components/TextContent';
-import {strings} from '../../assets/strings/strings';
-import {style} from './style';
 import {useSignUp} from './SignUp.hook';
 
 export default function SignUp() {
@@ -23,74 +26,107 @@ export default function SignUp() {
     setPhone,
   } = useSignUp();
 
-  return (
-    <ScrollView style={{flex: 1, backgroundColor: '#fff'}}>
-      <View style={style.main_view}>
-        <TextContent
-          textAlign="left"
-          fontSize={32}
-          color={'#000'}
-          fontWeight={'bold'}>
-          {strings.create_account_description}
-        </TextContent>
+  const [countPage, setCountPage] = React.useState(1);
 
-        <View style={{width: '60%', marginBottom: 30}}>
+  function incrementPageCounter() {
+    setCountPage(it => {
+      return it + 1;
+    });
+  }
+
+  return (
+    <ScrollView style={{flex: 1, backgroundColor: colors.background}}>
+      <View
+        style={{
+          flex: 1,
+          paddingVertical: 20,
+          paddingHorizontal: 34,
+        }}>
+        <LeftTopIcon />
+        <View style={{alignSelf: 'flex-end'}}>
+          <PageCount currentPage={countPage} />
+        </View>
+        <View style={{alignItems: 'center', marginTop: 20, rowGap: 20}}>
+          <Image
+            source={require('../../assets/images/mao_iniciar.png')}
+            style={{height: 50, width: 50}}
+            resizeMode="contain"
+          />
           <TextContent
             textAlign="left"
-            fontSize={22}
+            fontSize={20}
             color={'#000'}
-            fontWeight={'700'}>
-            {strings.hi_user}
+            fontWeight={'500'}>
+            Bem-vindo, vamos começar!
+          </TextContent>
+
+          {countPage == 1 && (
+            <View style={{width: '100%', rowGap: 20}}>
+              <Input
+                placeholderText={'NOME COMPLETO'}
+                value={name}
+                setValue={setName}
+              />
+
+              <Input
+                placeholderText={'EMAIL'}
+                value={email}
+                setValue={setEmail}
+                keyboardType="email-address"
+                allCaps="none"
+              />
+            </View>
+          )}
+          {countPage == 2 && (
+            <View style={{width: '100%', rowGap: 20}}>
+              <Input
+                placeholderText={'NÚMERO DE CELULAR'}
+                value={phone}
+                setValue={setPhone}
+                isMaskInput={true}
+                mask={Masks.BRL_PHONE}
+                keyboardType="numeric"
+              />
+
+              <InputForPassword
+                placeholderText={'CRIE UMA SENHA'}
+                backgroundColor="#F6F6F6"
+                value={password}
+                setValue={setPassword}
+                isPassword={true}
+                placeholderColor="#A0A0A0"
+              />
+            </View>
+          )}
+        </View>
+        <Spacer marginTop={100} />
+        <View style={{alignItems: 'center'}}>
+          <TextContent fontSize={14}>
+            Ao continuar você declara estar ciente da
+          </TextContent>
+          <TextContent>
+            nossa{' '}
+            <TextContent fontSize={14} color={colors.main_purple}>
+              Política de Privacidade
+            </TextContent>
           </TextContent>
         </View>
 
-        <Input
-          label={strings.nome_completo_label}
-          placeholderColor="#A0A0A0"
-          placeholderText={strings.nome_completo_placeholder}
-          backgroundColor="#F6F6F6"
-          value={name}
-          setValue={setName}
-        />
-        <Input
-          label={strings.celular_label}
-          placeholderColor="#A0A0A0"
-          placeholderText={strings.celular_placeholder}
-          backgroundColor="#F6F6F6"
-          value={phone}
-          setValue={setPhone}
-          isMaskInput={true}
-          mask={Masks.BRL_PHONE}
-          keyboardType="numeric"
-        />
-
-        <Input
-          label={strings.email_label}
-          placeholderColor="#A0A0A0"
-          placeholderText={strings.email_placeholder}
-          backgroundColor="#F6F6F6"
-          value={email}
-          setValue={setEmail}
-          keyboardType="email-address"
-          allCaps="none"
-        />
-        <InputForPassword
-          label={'Crie uma senha'}
-          placeholderText={strings.senha_placeholder}
-          backgroundColor="#F6F6F6"
-          value={password}
-          setValue={setPassword}
-          isPassword={true}
-          placeholderColor="#A0A0A0"
-        />
-
+        <Spacer marginTop={80} />
         <Button
-          title={strings.create_account}
+          title={'CONTINUAR'}
+          fontWeight="normal"
           color="#fff"
-          backgroundColor={'#2A3D45'}
+          backgroundColor={colors.main_purple}
           fontSize={16}
           width={'100%'}
-          onClick={() => handleSignUp(name, email, phone, password)}
+          onClick={() => {
+            if (countPage == 2) {
+              handleSignUp(name, email, phone, password);
+            } else {
+              incrementPageCounter();
+            }
+          }}
           hasIconLeft={true}
           isLoading={isLoading}
         />
