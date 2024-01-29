@@ -1,4 +1,4 @@
-import {Image, ScrollView, View} from 'react-native';
+import {Image, ScrollView, StatusBar, View} from 'react-native';
 
 import {colors} from '../../assets/colors/colors';
 import {strings} from '../../assets/strings/strings';
@@ -9,12 +9,11 @@ import {TextContent} from '../../components/TextContent';
 import {Button} from '../../components/buttons/Button';
 import Input from '../../components/inputs/Input';
 import InputForPassword from '../../components/inputs/InputForPassword';
-
-//import {useLogin} from './Login.hook';
+import {useLogin} from './Login.hook';
 
 export default function Login() {
-  // const {isLoading, handleLogin, email, password, setEmail, setPassword} =
-  //   useLogin();
+  const {isLoading, handleLogin, email, password, setEmail, setPassword} =
+    useLogin();
 
   const nav = new Navigation();
 
@@ -27,6 +26,7 @@ export default function Login() {
           alignItems: 'center',
           paddingHorizontal: 34,
         }}>
+        <StatusBar backgroundColor={colors.background} />
         <View style={{alignSelf: 'flex-start'}}>
           <LeftTopIcon />
         </View>
@@ -48,39 +48,40 @@ export default function Login() {
           placeholderColor="#A0A0A0"
           placeholderText={'EMAIL'}
           backgroundColor="#F6F6F6"
-          // value={email}
-          // setValue={setEmail}
+          value={email}
+          setValue={setEmail}
           keyboardType="email-address"
           allCaps="none"
         />
+        <Spacer marginTop={23} />
         <InputForPassword
           label={strings.digite_sua_senha}
           placeholderText={'SENHA'}
           backgroundColor="#F6F6F6"
-          // value={password}
-          // setValue={setPassword}
+          value={password}
+          setValue={setPassword}
           isPassword={true}
           placeholderColor="#A0A0A0"
         />
 
+        <Spacer marginTop={75} />
         <Button
-          title={strings.login_in}
-          fontWeight={'bold'}
+          title={'ENTRAR'}
+          fontWeight={'normal'}
           onClick={() => handleLogin(email, password)}
-          backgroundColor="#2A3D45"
+          backgroundColor={colors.main_purple}
           color="#fff"
           marginTop={30}
-          // isLoading={isLoading}
+          isLoading={isLoading}
           fontSize={16}
+          width={'100%'}
         />
         <Button
-          title={strings.forgot_password}
-          fontWeight={'bold'}
+          title={'ESQUECEU A SENHA?'}
+          fontWeight={'normal'}
           onClick={() => nav.navigateTo(nav.screens.FORGOT_PASSWORD)}
           color={colors.forgot_password}
-          marginTop={10}
-          fontSize={16}
-          // isLoading={isLoading}
+          fontSize={14}
         />
       </View>
     </ScrollView>
