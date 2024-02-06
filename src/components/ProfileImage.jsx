@@ -4,6 +4,7 @@ export default function ProfileImage({
   profilePhoto = null,
   size = 30,
   hasBorderRadius = false,
+  resizeMode = 'cover',
 }) {
   return (
     <Image
@@ -11,6 +12,7 @@ export default function ProfileImage({
         height: size,
         width: size,
         borderRadius: hasBorderRadius ? size / 2 : 0,
+        resizeMode: resizeMode,
       }}
       source={
         profilePhoto == null

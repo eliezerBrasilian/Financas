@@ -52,7 +52,3 @@ export function TextContent({
     </Text>
   );
 }
-
-{
-  /* <Text style={{borderB}}></Text>; */
-}

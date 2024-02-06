@@ -2,6 +2,8 @@ const colors = {
   main_blue: '#355EB4',
   main_purple: '#320995',
   background: '#f7f3ff',
+  background_home: '#f1f1f1',
+  almost_black: '#393939',
   //main_green: '#35C43F',
   gray: '#F1F1F1',
   gray_line: '#F2F2F2',

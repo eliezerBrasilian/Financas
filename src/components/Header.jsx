@@ -1,8 +1,8 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
+import {useNavigation} from '@react-navigation/native';
 
 export default function Header({
   title,
@@ -27,6 +27,7 @@ export default function Header({
     </View>
   );
 }
+
 const s = StyleSheet.create({
   header: {
     flexDirection: 'row',

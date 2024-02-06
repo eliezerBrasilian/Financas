@@ -1,14 +1,19 @@
+import {
+  Image,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
 import React from 'react';
-import {View} from 'react-native';
+import {colors} from '../../assets/colors/colors';
 import {GoogleAds} from '../../classes/GoogleAds';
-import FabButton from '../../components/FabButton';
-import {Spacer} from '../../components/Spacer';
+import ProfileImage from '../../components/ProfileImage';
 import {TextContent} from '../../components/TextContent';
-import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
-import Cards from './widgets/Cards';
 import Header from './widgets/Header';
-import Registers from './widgets/Registers';
-import {TotalBalance} from './widgets/TotalBalance';
+import {HomeOverView} from './widgets/HomeOverView';
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -22,38 +27,140 @@ export default function HomeScreen() {
     <View
       style={{
         flex: 1,
-        backgroundColor: '#fff',
-        paddingVertical: 10,
+        backgroundColor: colors.main_purple,
       }}>
       <Header />
-      <TotalBalance />
-      <View style={{marginLeft: 10}}>
-        <TextContent fontWeight="700" textAlign="left">
-          Meu Balanço
-        </TextContent>
-      </View>
-
-      <Spacer />
-      <Cards />
-      <Spacer />
-      <View style={{marginLeft: 10}}>
-        <TextContent fontWeight="700" textAlign="left">
-          Hoje
-        </TextContent>
-      </View>
-
-      <Spacer />
-      <View style={{marginHorizontal: 10, flex: 1}}>
-        <Registers date={date} />
-      </View>
-
-      <Spacer />
-
-      <FabButton onClick={() => setModalVisible(true)} />
-      <ModalSelectFinanceOption
-        visible={modalVisible}
-        setModalVisible={setModalVisible}
+      <StatusBar
+        backgroundColor={colors.main_purple}
+        barStyle={'light-content'}
       />
+      <View style={{flex: 1, backgroundColor: colors.background_home}}>
+        <HomeOverView />
+
+        <ScrollView style={{marginTop: 189}}>
+          <BannerPremium />
+          <GeneralGraphicText />
+          <Registers />
+        </ScrollView>
+      </View>
+    </View>
+  );
+}
+
+function BannerPremium() {
+  return (
+    <TouchableOpacity activeOpacity={0.7}>
+      <Image
+        source={require('../../assets/images/premium_banner.png')}
+        style={{width: '100%', height: 205}}
+        resizeMode="contain"
+      />
+    </TouchableOpacity>
+  );
+}
+
+function GeneralGraphicText() {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        columnGap: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 23,
+      }}>
+      <ProfileImage
+        size={15}
+        profilePhoto={require('../../assets/images/grafico.png')}
+      />
+      <TextContent color={colors.main_purple} fontSize={18} fontWeight="bold">
+        Gráfico Geral
+      </TextContent>
+    </View>
+  );
+}
+
+function Registers() {
+  // const registers = [
+  //   {
+  //     key: '1',
+  //     imageIcon: require('../../assets/images/grafo_receita.png'),
+  //     title: 'Receita do período',
+  //   },
+  //   {
+  //     key: '2',
+  //     imageIcon: require('../../assets/images/grafo_receita.png'),
+  //     title: 'Receita do período',
+  //   },
+  //   {
+  //     key: '3',
+  //     imageIcon: require('../../assets/images/grafo_receita.png'),
+  //     title: 'Receita do período',
+  //   },
+  // ];
+  // return (
+  //   <FlatList
+  //     data={registers}
+  //     renderItem={({item}) => (
+  //       <Register imageIcon={item.imageIcon} title={item.title} />
+  //     )}
+  //   />
+  // );
+
+  return (
+    <View style={{rowGap: 5}}>
+      <Register
+        imageIcon={require('../../assets/images/grafo_receita.png')}
+        title={'Receita do período'}
+      />
+      <Register
+        imageIcon={require('../../assets/images/grafo_despesa.png')}
+        title={'Despesas'}
+      />
+      <Register
+        imageIcon={require('../../assets/images/grafo_reserva.png')}
+        title={'Reservas'}
+      />
+    </View>
+  );
+}
+
+function Register({imageIcon, title}) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        height: 60,
+      }}>
+      <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
+        <ProfileImage profilePhoto={imageIcon} />
+        <TextContent>{title}</TextContent>
+      </View>
+      <View style={{flex: 1}} />
+
+      <TouchableOpacity>
+        <View
+          style={{
+            height: '100%',
+            width: 120,
+            justifyContent: 'center',
+            alignItems: 'flex-end',
+          }}>
+          <Text
+            style={{
+              fontWeight: 700,
+              borderBottomWidth: 1,
+              borderBottomColor: 'red',
+              color: 'red',
+            }}>
+            detalhes
+          </Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -133,7 +133,7 @@ dependencies {
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle");
 applyNativeModulesAppBuildGradle(project)
 project.ext.vectoricons = [
-    iconFontNames: [ 'AntDesign.ttf','Ionicons.ttf'] // Name of the font files you want to copy
+    iconFontNames: [ 'AntDesign.ttf','Ionicons.ttf', "Feather.ttf"] // Name of the font files you want to copy
 ]
 
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
