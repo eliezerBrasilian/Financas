@@ -1,12 +1,12 @@
 import {FlatList, View} from 'react-native';
 
+import ProfileImage from '../../../components/ProfileImage';
+import React from 'react';
+import {TextContent} from '../../../components/TextContent';
+import {Utils} from '../../../utils/Utils';
 import firestore from '@react-native-firebase/firestore';
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import ProfileImage from '../../../components/ProfileImage';
-import {TextContent} from '../../../components/TextContent';
 import {useUserContext} from '../../../contexts/UserContext';
-import {Utils} from '../../../utils/Utils';
 
 export default function Cards() {
   const {user} = useUserContext();
@@ -30,6 +30,7 @@ export default function Cards() {
         updateBalances(data);
       });
   }
+
   function updateBalances(data) {
     const copyOfBalance = [...balances];
     const updatedBalance = copyOfBalance;

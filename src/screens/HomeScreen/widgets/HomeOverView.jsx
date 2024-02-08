@@ -1,13 +1,18 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import {colors} from '../../../assets/colors/colors';
+import {Collections} from '../../../enums/Collections';
 import ProfileImage from '../../../components/ProfileImage';
+import React from 'react';
 import {TextContent} from '../../../components/TextContent';
+import {Utils} from '../../../utils/Utils';
+import {colors} from '../../../assets/colors/colors';
+import firestore from '@react-native-firebase/firestore';
+import {tags} from '../../../enums/Tag';
 
-function HomeOverView() {
+function HomeOverView({uid}) {
   return (
     <MainContent>
-      <Cards />
+      <Cards uid={uid} />
     </MainContent>
   );
 }
@@ -30,7 +35,42 @@ function MainContent({children}) {
   );
 }
 
-function Cards() {
+function Cards({uid}) {
+  const [totalRevenues, setTotalRevenues] = React.useState(0);
+  const [totalExpenses, setTotalExpenses] = React.useState(0);
+  const [totalReservations, setTotalReservations] = React.useState(0);
+
+  React.useEffect(() => {
+    loadRevenues(tags.REVENUE, setTotalRevenues);
+    loadRevenues(tags.EXPENSE, setTotalExpenses);
+    loadRevenues(tags.RESERVATION, setTotalReservations);
+  }, []);
+
+  function loadRevenues(tag, setter) {
+    firestore()
+      .collection(Collections.REGISTERS)
+      .where('createdBy', '==', uid)
+      .where('monthYear', '==', Utils.getMonthAndYear())
+      .where('tag', '==', tag)
+      .where('deleted', '==', false)
+      .orderBy('createdAt', 'desc')
+      .get()
+      .then(data => {
+        let listOfRegisters = [];
+        let amount = 0;
+        data.docs.forEach(i => {
+          let data = i.data();
+          amount += data.amount;
+          listOfRegisters.push({
+            key: i.id,
+            ...data,
+          });
+        });
+
+        setter(amount);
+      });
+  }
+
   return (
     <View
       style={{
@@ -42,17 +82,17 @@ function Cards() {
       <Card
         iconImage={require('../../../assets/images/receita.png')}
         title={'Receitas'}
-        value={'R$ 0,00'}
+        value={Utils.getBrazilianCurrency(totalRevenues)}
       />
       <Card
         iconImage={require('../../../assets/images/despesa.png')}
         title={'Despesas'}
-        value={'R$ 0,00'}
+        value={Utils.getBrazilianCurrency(totalExpenses)}
       />
       <Card
         iconImage={require('../../../assets/images/reserva.png')}
         title={'Reservas'}
-        value={'R$ 0,00'}
+        value={Utils.getBrazilianCurrency(totalReservations)}
       />
     </View>
   );

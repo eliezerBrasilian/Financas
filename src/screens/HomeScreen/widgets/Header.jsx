@@ -1,18 +1,23 @@
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
+
+import firestore from '@react-native-firebase/firestore';
+import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
+import {Collections} from '../../../enums/Collections';
+import {Utils} from '../../../utils/Utils';
 
-export default function Header() {
+export default function Header({uid, setMenuOpen}) {
   return (
     <View style={{height: 210, paddingTop: 30}}>
-      <Top />
-      <Total />
+      <Top setMenuOpen={setMenuOpen} />
+      <Total uid={uid} />
     </View>
   );
 }
 
-function Top() {
+function Top({setMenuOpen}) {
   return (
     <View
       style={{
@@ -25,12 +30,26 @@ function Top() {
         <ProfileImage size={40} />
       </View>
       <Month />
-      <Right />
+      <Right setMenuOpen={setMenuOpen} />
     </View>
   );
 }
 
-function Total() {
+function Total({uid}) {
+  const [balance, setBalance] = React.useState(0);
+
+  React.useEffect(() => {
+    loadTotalBalance();
+  }, []);
+
+  function loadTotalBalance() {
+    firestore()
+      .collection(Collections.BALANCES)
+      .doc(uid)
+      .onSnapshot(querySnap => {
+        setBalance(querySnap.data().total);
+      });
+  }
   return (
     <View style={{marginLeft: 20, marginTop: 28}}>
       <TextContent color="#fff" fontWeight="400">
@@ -43,7 +62,7 @@ function Total() {
           alignItems: 'center',
         }}>
         <TextContent color="#fff" fontWeight="bold" fontSize={32}>
-          R$ 100,00
+          {Utils.getBrazilianCurrency(balance)}
         </TextContent>
         {/* <ProfileImage
         profilePhoto={require('../../../assets/images/olho.png')}
@@ -75,7 +94,7 @@ function Month() {
   );
 }
 
-function Right() {
+function Right({setMenuOpen}) {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 35}}>
       <ProfileImage
@@ -83,11 +102,13 @@ function Right() {
         profilePhoto={require('../../../assets/images/editar.png')}
       />
 
-      <ProfileImage
-        size={20}
-        profilePhoto={require('../../../assets/images/menu.png')}
-        resizeMode="contain"
-      />
+      <TouchableOpacity onPress={() => setMenuOpen(true)}>
+        <ProfileImage
+          size={20}
+          profilePhoto={require('../../../assets/images/menu.png')}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
     </View>
   );
 }

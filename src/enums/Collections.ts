@@ -3,6 +3,8 @@ enum Collections {
   BACKUPS = 'backups',
   DOCUMENTS = 'documents',
   STORAGE = 'storage',
+  BALANCES = 'Balances',
+  REGISTERS = 'Registers',
 }
 
 export {Collections};

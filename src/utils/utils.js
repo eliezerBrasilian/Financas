@@ -1,5 +1,5 @@
-import {format, fromUnixTime} from 'date-fns';
 import {Alert, ToastAndroid} from 'react-native';
+import {format, fromUnixTime} from 'date-fns';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
@@ -82,7 +82,7 @@ class Utils {
 
     return `${dia}/${mes}/${ano}`;
   }
-  static getMonthAndYear(data) {
+  static getMonthAndYear(data = new Date()) {
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
 

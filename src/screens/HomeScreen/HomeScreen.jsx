@@ -12,30 +12,37 @@ import {colors} from '../../assets/colors/colors';
 import {GoogleAds} from '../../classes/GoogleAds';
 import ProfileImage from '../../components/ProfileImage';
 import {TextContent} from '../../components/TextContent';
+import {useBalanceContext} from '../../contexts/BalanceContext';
+import {useUserContext} from '../../contexts/UserContext';
 import Header from './widgets/Header';
 import {HomeOverView} from './widgets/HomeOverView';
+import {Menu} from './widgets/Menu';
 
 export default function HomeScreen() {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
   const [dateVisible, setDateVisible] = React.useState(false);
+  const {loadTotalBalance} = useBalanceContext();
   var googleAds = new GoogleAds();
-  var toogleCalendar = () => {
-    setDateVisible(!dateVisible);
-  };
+  const {user} = useUserContext();
+  const [menuIsOpen, setMenuOpen] = React.useState(false);
+
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: colors.main_purple,
       }}>
-      <Header />
       <StatusBar
         backgroundColor={colors.main_purple}
         barStyle={'light-content'}
       />
+
+      <Header uid={user?.uid} setMenuOpen={setMenuOpen} />
+      {menuIsOpen && <Menu setMenuOpen={setMenuOpen} />}
+
       <View style={{flex: 1, backgroundColor: colors.background_home}}>
-        <HomeOverView />
+        <HomeOverView uid={user?.uid} />
 
         <ScrollView style={{marginTop: 189}}>
           <BannerPremium />
