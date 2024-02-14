@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   ScrollView,
   StatusBar,
@@ -26,9 +27,22 @@ export default function HomeScreen() {
   var googleAds = new GoogleAds();
   const {user} = useUserContext();
   const [menuIsOpen, setMenuOpen] = React.useState(false);
+  const [monthListVisible, setMonthListVisible] = React.useState(true);
+  const [monthSelected, setMonthSelected] = React.useState('Janeiro');
+
+  function clickedOutside() {
+    setMenuOpen(false);
+    setMonthListVisible(false);
+  }
+
+  function changeMonthSelected(month) {
+    setMonthSelected(month);
+  }
 
   return (
-    <View
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={clickedOutside}
       style={{
         flex: 1,
         backgroundColor: colors.main_purple,
@@ -38,19 +52,29 @@ export default function HomeScreen() {
         barStyle={'light-content'}
       />
 
-      <Header uid={user?.uid} setMenuOpen={setMenuOpen} />
+      <Header
+        uid={user?.uid}
+        setMenuOpen={setMenuOpen}
+        setMonthListVisible={setMonthListVisible}
+      />
       {menuIsOpen && <Menu setMenuOpen={setMenuOpen} />}
+      {monthListVisible && (
+        <MonthList
+          monthSelected={monthSelected}
+          changeMonthSelected={changeMonthSelected}
+        />
+      )}
 
       <View style={{flex: 1, backgroundColor: colors.background_home}}>
         <HomeOverView uid={user?.uid} />
 
-        <ScrollView style={{marginTop: 189}}>
+        <ScrollView style={{zIndex: 2, marginTop: 207}}>
           <BannerPremium />
           <GeneralGraphicText />
           <Registers />
         </ScrollView>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -87,6 +111,83 @@ function GeneralGraphicText() {
   );
 }
 
+function MonthList({monthSelected, changeMonthSelected}) {
+  const months = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro',
+  ];
+  return (
+    <View
+      style={{
+        backgroundColor: '#fff',
+        position: 'absolute',
+        top: 100,
+        left: 20,
+        right: 20,
+        zIndex: 2,
+        borderRadius: 15,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        elevation: 15, // Para dispositivos Android
+      }}>
+      <FlatList
+        data={months}
+        renderItem={({item}) => (
+          <MonthItem
+            month={item}
+            monthSelected={monthSelected}
+            changeMonthSelected={changeMonthSelected}
+          />
+        )}
+        contentContainerStyle={{paddingVertical: 10}}
+      />
+    </View>
+  );
+}
+
+function MonthItem({month, monthSelected, changeMonthSelected}) {
+  return (
+    <TouchableOpacity onPress={() => changeMonthSelected(month)}>
+      <View
+        style={{
+          borderBottomWidth: month !== 'Dezembro' ? 1 : undefined,
+          borderBottomColor: month !== 'Dezembro' ? '#e1cfcf' : undefined,
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 40,
+        }}>
+        {monthSelected == month ? (
+          <View
+            style={{
+              borderRadius: 19,
+              backgroundColor: '#c6bbbb',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingHorizontal: 25,
+              paddingVertical: 2,
+            }}>
+            <TextContent color={colors.main_purple}>{month}</TextContent>
+          </View>
+        ) : (
+          <TextContent>{month}</TextContent>
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+}
 function Registers() {
   // const registers = [
   //   {

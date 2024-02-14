@@ -8,16 +8,19 @@ import {TextContent} from '../../../components/TextContent';
 import {Collections} from '../../../enums/Collections';
 import {Utils} from '../../../utils/Utils';
 
-export default function Header({uid, setMenuOpen}) {
+export default function Header({uid, setMenuOpen, setMonthListVisible}) {
   return (
     <View style={{height: 210, paddingTop: 30}}>
-      <Top setMenuOpen={setMenuOpen} />
+      <Top
+        setMenuOpen={setMenuOpen}
+        setMonthListVisible={setMonthListVisible}
+      />
       <Total uid={uid} />
     </View>
   );
 }
 
-function Top({setMenuOpen}) {
+function Top({setMenuOpen, setMonthListVisible}) {
   return (
     <View
       style={{
@@ -29,7 +32,7 @@ function Top({setMenuOpen}) {
       <View style={{height: 45, marginTop: -10}}>
         <ProfileImage size={40} />
       </View>
-      <Month />
+      <Month setMonthListVisible={setMonthListVisible} />
       <Right setMenuOpen={setMenuOpen} />
     </View>
   );
@@ -73,24 +76,26 @@ function Total({uid}) {
   );
 }
 
-function Month() {
+function Month({setMonthListVisible}) {
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        columnGap: 5,
-        marginLeft: 27,
-        marginTop: 25,
-      }}>
-      <TextContent fontWeight="bold" fontSize={22} color="#fff">
-        Janeiro
-      </TextContent>
-      <ProfileImage
-        size={15}
-        profilePhoto={require('../../../assets/images/seta_baixo_branco.png')}
-      />
-    </View>
+    <TouchableOpacity onPress={() => setMonthListVisible(old => !old)}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          columnGap: 5,
+          marginLeft: 27,
+          marginTop: 25,
+        }}>
+        <TextContent fontWeight="bold" fontSize={22} color="#fff">
+          Janeiro
+        </TextContent>
+        <ProfileImage
+          size={15}
+          profilePhoto={require('../../../assets/images/seta_baixo_branco.png')}
+        />
+      </View>
+    </TouchableOpacity>
   );
 }
 

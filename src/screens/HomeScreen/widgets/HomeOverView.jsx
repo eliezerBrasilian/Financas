@@ -1,13 +1,13 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import {Collections} from '../../../enums/Collections';
-import ProfileImage from '../../../components/ProfileImage';
-import React from 'react';
-import {TextContent} from '../../../components/TextContent';
-import {Utils} from '../../../utils/Utils';
-import {colors} from '../../../assets/colors/colors';
 import firestore from '@react-native-firebase/firestore';
+import React from 'react';
+import {colors} from '../../../assets/colors/colors';
+import ProfileImage from '../../../components/ProfileImage';
+import {TextContent} from '../../../components/TextContent';
+import {Collections} from '../../../enums/Collections';
 import {tags} from '../../../enums/Tag';
+import {Utils} from '../../../utils/Utils';
 
 function HomeOverView({uid}) {
   return (
@@ -29,6 +29,7 @@ function MainContent({children}) {
         left: 10,
         right: 10,
         borderRadius: 26,
+        zIndex: 1,
       }}>
       {children}
     </View>
