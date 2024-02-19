@@ -8,19 +8,25 @@ import {TextContent} from '../../../components/TextContent';
 import {Collections} from '../../../enums/Collections';
 import {Utils} from '../../../utils/Utils';
 
-export default function Header({uid, setMenuOpen, setMonthListVisible}) {
+export default function Header({
+  uid,
+  setMenuOpen,
+  setMonthListVisible,
+  monthSelected,
+}) {
   return (
     <View style={{height: 210, paddingTop: 30}}>
       <Top
         setMenuOpen={setMenuOpen}
         setMonthListVisible={setMonthListVisible}
+        monthSelected={monthSelected}
       />
       <Total uid={uid} />
     </View>
   );
 }
 
-function Top({setMenuOpen, setMonthListVisible}) {
+function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
   return (
     <View
       style={{
@@ -32,7 +38,10 @@ function Top({setMenuOpen, setMonthListVisible}) {
       <View style={{height: 45, marginTop: -10}}>
         <ProfileImage size={40} />
       </View>
-      <Month setMonthListVisible={setMonthListVisible} />
+      <Month
+        setMonthListVisible={setMonthListVisible}
+        monthSelected={monthSelected}
+      />
       <Right setMenuOpen={setMenuOpen} />
     </View>
   );
@@ -76,7 +85,7 @@ function Total({uid}) {
   );
 }
 
-function Month({setMonthListVisible}) {
+function Month({setMonthListVisible, monthSelected}) {
   return (
     <TouchableOpacity onPress={() => setMonthListVisible(old => !old)}>
       <View
@@ -88,7 +97,7 @@ function Month({setMonthListVisible}) {
           marginTop: 25,
         }}>
         <TextContent fontWeight="bold" fontSize={22} color="#fff">
-          Janeiro
+          {monthSelected}
         </TextContent>
         <ProfileImage
           size={15}

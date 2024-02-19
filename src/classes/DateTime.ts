@@ -1,4 +1,6 @@
 class DateTime {
+  private months: string[];
+  private monthsThatCanBeSelected;
   constructor() {
     this.months = [
       'Janeiro',
@@ -21,6 +23,10 @@ class DateTime {
       FOUR_MONTHS_AGO: 'fourMonthsAgo',
       FIVE_MONTHS_AGO: 'fiveMonthsAgo',
     };
+  }
+
+  public getMonths(): string[] {
+    return this.months;
   }
 
   static getMonth(monthInNumber) {
