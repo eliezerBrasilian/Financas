@@ -31,7 +31,7 @@ export default function TypeOfBalanceSelected({route}) {
   React.useEffect(() => {
     const unsubscribe = loadRegisters();
     return () => unsubscribe;
-  }, [date]);
+  }, [date, tag]);
 
   function loadRegisters() {
     setLoading(true);
