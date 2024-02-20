@@ -1,10 +1,13 @@
 const colors = {
   main_blue: '#355EB4',
   main_purple: '#320995',
+  main_red: '#e2306c',
+  main_green: '#26e55f',
+  purple_for_selected_screen: '#c5acff',
   background: '#f7f3ff',
   background_home: '#f1f1f1',
   almost_black: '#393939',
-  //main_green: '#35C43F',
+  almost_gray: '#f7f3ff',
   gray: '#F1F1F1',
   gray_line: '#F2F2F2',
   bottom_tab_bg: '#F0F0F0',
@@ -18,13 +21,7 @@ const colors = {
   search_bar_icon: '#1859ff',
   search_bar_input_background: '#ebecf1',
   search_bar_input_placeholder: '#7E8A95',
-  main_green: '#C6F9A9',
-  main_pink: '#FFE3E0',
   main_gray: '#DEE5E5',
-  card_green: '#04E762',
-  card_orange: '#FF686B',
-  card_purple: '#6D23B6',
-  purple_background: '#2C0735',
 };
 
 export {colors};

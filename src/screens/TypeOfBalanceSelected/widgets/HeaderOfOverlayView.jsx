@@ -15,12 +15,26 @@ export const HeaderOfOverlayView = ({date, incrementMonth, decrementMonth}) => {
           alignItems: 'center',
           width: '70%',
         }}>
-        <TouchableOpacity onPress={decrementMonth}>
-          <Icon color="#000" size={20} />
+        <TouchableOpacity
+          style={{
+            height: 35,
+            width: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={decrementMonth}>
+          <Icon color="#000000" size={20} />
         </TouchableOpacity>
 
-        <TextContent fontSize={22}>{Utils.getMonth(date)}</TextContent>
-        <TouchableOpacity onPress={incrementMonth}>
+        <TextContent fontSize={18}>{Utils.getMonth(date)}</TextContent>
+        <TouchableOpacity
+          style={{
+            height: 35,
+            width: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={incrementMonth}>
           <Icon color="#000" name="right" size={20} />
         </TouchableOpacity>
       </View>

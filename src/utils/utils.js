@@ -1,5 +1,5 @@
-import {Alert, ToastAndroid} from 'react-native';
 import {format, fromUnixTime} from 'date-fns';
+import {Alert, ToastAndroid} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
@@ -34,18 +34,15 @@ class Utils {
       return {
         backgroundColor: strong ? colors.card_green : '#c2f8cb',
         title: 'Receita',
-        icon: require('../assets/images/receita.png'),
       };
     else if (tagToLowerCase === 'reserva')
       return {
         backgroundColor: strong ? colors.card_purple : '#c8b6ff',
         title: 'Reserva',
-        icon: require('../assets/images/reserva.png'),
       };
     return {
       backgroundColor: strong ? colors.card_orange : colors.main_pink,
       title: 'Despesa',
-      icon: require('../assets/images/despesa.png'),
     };
   }
 
@@ -88,6 +85,7 @@ class Utils {
 
     return `${mes}/${ano}`;
   }
+
   static getMonth(data) {
     const meses = [
       'Janeiro',
@@ -115,18 +113,6 @@ class Utils {
     return format(data, 'dd/MM/yyyy');
   }
 
-  static formatFileSize(sizeInBytes) {
-    if (sizeInBytes < 1024) {
-      return sizeInBytes + ' bytes';
-    } else if (sizeInBytes < 1024 * 1024) {
-      return (sizeInBytes / 1024).toFixed(2) + ' KB';
-    } else if (sizeInBytes < 1024 * 1024 * 1024) {
-      return (sizeInBytes / (1024 * 1024)).toFixed(2) + ' MB';
-    } else {
-      return (sizeInBytes / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
-    }
-  }
-
   static convertFirebaseDateToMonthYear(firebaseDate) {
     const dataInMilliseconds =
       firebaseDate?.seconds * 1000 + firebaseDate?.nanoseconds / 1e6;
@@ -148,10 +134,7 @@ class Utils {
     const dataUnix = firebaseDate?.seconds;
 
     if (firebaseDate !== null) {
-      const dataBrasileira = format(
-        fromUnixTime(dataUnix),
-        'dd/MM/yyyy HH:mm:ss',
-      );
+      const dataBrasileira = format(fromUnixTime(dataUnix), 'dd/MM/yyyy');
       // console.log(dataBrasileira); // Saída: '12/10/2023 18:49:45'
       return dataBrasileira;
     } else return '';

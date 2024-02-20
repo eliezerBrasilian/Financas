@@ -1,4 +1,5 @@
-import firestore from '@react-native-firebase/firestore';
+//import firestore from '@react-native-firebase/firestore';
+
 import React from 'react';
 import {View} from 'react-native';
 import {Spacer} from '../../../components/Spacer';
@@ -10,22 +11,23 @@ import {ChartView} from './ChartView';
 export const Top = ({tag, amount, title}) => {
   const [isPremium, setPremium] = React.useState(false);
   const {user} = useUserContext();
-  React.useEffect(() => {
-    firestore()
-      .collection('users')
-      .doc(user?.uid)
-      .get()
-      .then(u => {
-        setPremium(u.data().isPremium);
-      });
-  }, []);
+
+  // React.useEffect(() => {
+  //   firestore()
+  //     .collection('users')
+  //     .doc(user?.uid)
+  //     .get()
+  //     .then(u => {
+  //       setPremium(u.data().isPremium);
+  //     });
+  // }, []);
   return (
     <View style={{alignItems: 'center', marginBottom: 20}}>
       {isPremium && <ChartView tag={tag} />}
 
       <Spacer />
       <TextContent fontSize={19} color="#fff">
-        Total de {title}s
+        Total de {title}
       </TextContent>
       <TextContent fontSize={25} color="#fff" fontWeight="bold">
         {Utils.getBrazilianCurrency(amount)}

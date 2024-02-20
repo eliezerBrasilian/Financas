@@ -3,6 +3,7 @@ import {TouchableOpacity, View} from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import {colors} from '../../../assets/colors/colors';
+import {Navigation} from '../../../classes/Navigation';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
 import {Collections} from '../../../enums/Collections';
@@ -84,24 +85,34 @@ function Cards({uid}) {
         iconImage={require('../../../assets/images/receita.png')}
         title={'Receitas'}
         value={Utils.getBrazilianCurrency(totalRevenues)}
+        destinationScreen={tags.REVENUE}
       />
       <Card
         iconImage={require('../../../assets/images/despesa.png')}
         title={'Despesas'}
         value={Utils.getBrazilianCurrency(totalExpenses)}
+        destinationScreen={tags.EXPENSE}
       />
       <Card
         iconImage={require('../../../assets/images/reserva.png')}
         title={'Reservas'}
         value={Utils.getBrazilianCurrency(totalReservations)}
+        destinationScreen={tags.RESERVATION}
       />
     </View>
   );
 }
 
-function Card({iconImage, title, value}) {
+function Card({iconImage, title, value, destinationScreen}) {
+  const nav = new Navigation();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        nav.navigateToDestinationScreenUsingParams(
+          nav.screens.TYPE_OF_BALANCE_SELECTED,
+          {tag: String(destinationScreen).toLowerCase()},
+        );
+      }}>
       <View
         style={{
           height: 160,

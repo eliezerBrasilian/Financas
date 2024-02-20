@@ -4,8 +4,8 @@ import React from 'react';
 import {BannerAds} from '../../../components/BannerAds';
 import {Loading} from '../../../components/Loading';
 import {TextContent} from '../../../components/TextContent';
-import Register from '../widgets/Register';
 import {HeaderOfOverlayView} from './HeaderOfOverlayView';
+import Register from './Register';
 
 export const OverlayView = ({
   registers,
@@ -13,6 +13,7 @@ export const OverlayView = ({
   incrementMonth,
   decrementMonth,
   loading,
+  color,
 }) => {
   return (
     <View
@@ -37,7 +38,7 @@ export const OverlayView = ({
         ) : (
           <FlatList
             data={registers}
-            renderItem={({item}) => <Register data={item} />}
+            renderItem={({item}) => <Register data={item} color={color} />}
             contentContainerStyle={{rowGap: 10}}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={
