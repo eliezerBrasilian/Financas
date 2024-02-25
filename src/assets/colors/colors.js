@@ -3,6 +3,7 @@ const colors = {
   main_purple: '#320995',
   main_red: '#e2306c',
   main_green: '#26e55f',
+  title_bottom_tab: '#8d8d8d',
   purple_for_selected_screen: '#c5acff',
   background: '#f7f3ff',
   background_home: '#f1f1f1',
