@@ -1,15 +1,15 @@
 import {TouchableOpacity, View} from 'react-native';
 
 function FloatTabBarButton({children, onPress}) {
+  const size = 70;
   return (
     <TouchableOpacity
       style={{
         top: -25,
         justifyContent: 'center',
         alignItems: 'center',
-        // backgroundColor: 'red',
-        height: 80,
-        width: 80,
+        height: size,
+        width: size,
       }}
       onPress={onPress}>
       <View>{children}</View>

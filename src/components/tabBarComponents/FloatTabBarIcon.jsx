@@ -1,18 +1,24 @@
 import {Image, View} from 'react-native';
 
 function FloatTabBarIcon({image}) {
+  const sizeContainer = 66;
+  const sizeIcon = 55;
+
   return (
     <View
       style={{
-        width: 70,
-        height: 70,
+        width: sizeContainer,
+        height: sizeContainer,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 70 / 2,
+        borderRadius: sizeContainer / 2,
       }}>
       <Image
         source={image}
-        style={{height: 65, width: 65}}
+        style={{
+          height: sizeIcon,
+          width: sizeIcon,
+        }}
         resizeMode="contain"
       />
     </View>

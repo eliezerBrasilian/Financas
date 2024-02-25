@@ -19,7 +19,7 @@ function DefaultTabBarIcon({
       }}>
       <Image
         source={focused ? imageOnFocused : imageOnNotFocused}
-        style={{height: 30, width: 30}}
+        style={{height: 25, width: 25}}
         resizeMode="contain"
       />
       <TextContent
