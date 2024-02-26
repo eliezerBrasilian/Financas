@@ -1,48 +1,68 @@
+import {TouchableOpacity, View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
-import {TouchableOpacity} from 'react-native';
 import Modal from 'react-native-modal';
-import {colors} from '../../assets/colors/colors';
-import Button from '../Button';
+import {Navigation} from '../../classes/Navigation';
+import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
+import {CustomIcon} from '../CustomIcon';
+import {TextContent} from '../TextContent';
 
 export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
   const nav = useNavigation();
-  function navTo(tag) {
-    setModalVisible(false);
-    nav.navigate('Register', {
-      tag: tag,
-    });
+  const navigation = new Navigation();
+  const {handleClosePopUpOfPlusButton} = usePlusButtonContext();
+  function navTo(destinationScreen) {
+    //setModalVisible(false);
+    nav.navigate('Register', {tag: String(destinationScreen).toLowerCase()});
   }
+
   return (
-    <Modal isVisible={visible} onBackButtonPress={() => setModalVisible(false)}>
+    <Modal
+      backdropColor="transparent"
+      isVisible={visible}
+      onBackButtonPress={handleClosePopUpOfPlusButton}>
       <TouchableOpacity
-        onPress={() => setModalVisible(false)}
-        style={{flex: 1, justifyContent: 'center'}}
+        onPress={handleClosePopUpOfPlusButton}
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+        }}
         activeOpacity={1.0}>
         <TouchableOpacity
           activeOpacity={1.0}
           style={{
             backgroundColor: '#fff',
-            borderRadius: 15,
+            borderRadius: 25,
             justifyContent: 'center',
-            padding: 10,
+            padding: 20,
             rowGap: 10,
+            //
+            zIndex: 3,
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            elevation: 15, // Para dispositivos Android
           }}>
-          <Button
-            title={'Registrar Receita'}
-            backgroundColor={colors.main_green}
-            color="#000"
+          <FinanceItem
+            title={'Histórico'}
+            image={require('../../assets/images/historico_menu.png')}
             onClick={() => navTo('receita')}
           />
-          <Button
-            title={'Registrar Gasto'}
-            backgroundColor={colors.main_pink}
-            color="#000"
+          <FinanceItem
+            title={'Registrar Receita'}
+            image={require('../../assets/images/receita_menu.png')}
+            onClick={() => navTo('receita')}
+          />
+          <FinanceItem
+            title={'Registrar Despesa'}
+            image={require('../../assets/images/despesa_menu.png')}
             onClick={() => navTo('despesa')}
           />
-          <Button
-            title={'Registrar Reserva'}
-            backgroundColor={colors.main_gray}
-            color="#000"
+          <FinanceItem
+            title={'Reserva'}
+            image={require('../../assets/images/pig_menu.png')}
             onClick={() => navTo('reserva')}
           />
         </TouchableOpacity>
@@ -50,3 +70,21 @@ export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
     </Modal>
   );
 };
+
+function FinanceItem({title, image, onClick}) {
+  return (
+    <TouchableOpacity onPress={onClick}>
+      <View
+        style={{
+          columnGap: 15,
+          flexDirection: 'row',
+          alignItems: 'center',
+        }}>
+        <CustomIcon path={image} height={43} width={43} />
+        <TextContent fontSize={17} fontWeight="bold">
+          {title}
+        </TextContent>
+      </View>
+    </TouchableOpacity>
+  );
+}

@@ -1,6 +1,13 @@
 import {TouchableOpacity, View} from 'react-native';
 
+import {Navigation} from '../../classes/Navigation';
+import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
+
 function FloatTabBarButton({children, onPress}) {
+  const nav = new Navigation();
+
+  const {handleClickOnPlusButton} = usePlusButtonContext();
+
   const size = 70;
   return (
     <TouchableOpacity
@@ -11,7 +18,7 @@ function FloatTabBarButton({children, onPress}) {
         height: size,
         width: size,
       }}
-      onPress={onPress}>
+      onPress={handleClickOnPlusButton}>
       <View>{children}</View>
     </TouchableOpacity>
   );

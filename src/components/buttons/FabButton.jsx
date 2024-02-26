@@ -1,9 +1,9 @@
 import * as Animatable from 'react-native-animatable';
 
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TouchableOpacity} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../../assets/colors/colors';
-import {useFabButtonContext} from '../../contexts/FabButtonContext';
+import {useFabButtonContext} from '../../contexts/PlusButtonContext';
 
 export default function FabButton({onClick}) {
   const {fabButtonVisible} = useFabButtonContext();

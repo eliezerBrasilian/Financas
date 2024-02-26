@@ -44,7 +44,7 @@ function AppRoutes() {
             <DefaultTabBarIcon
               focused={focused}
               imageOnFocused={require('../assets/images/transacoes_roxo.png')}
-              imageOnNotFocused={require('../assets/images/transacoes_barra.png')}
+              imageOnNotFocused={require('../assets/images/transacoes_cinza.png')}
               colorOnFocused={colors.main_purple}
               colorOnNotFocused={colors.title_bottom_tab}
               title={'Transações'}
@@ -73,8 +73,8 @@ function AppRoutes() {
           tabBarIcon: ({color, focused, size}) => (
             <DefaultTabBarIcon
               focused={focused}
-              imageOnFocused={require('../assets/images/grafo_barra_roxo.png')}
-              imageOnNotFocused={require('../assets/images/grafo_barra.png')}
+              imageOnFocused={require('../assets/images/grafico_roxo.png')}
+              imageOnNotFocused={require('../assets/images/grafico_cinza.png')}
               colorOnFocused={colors.main_purple}
               colorOnNotFocused={colors.title_bottom_tab}
               title={'Principal'}
@@ -90,8 +90,8 @@ function AppRoutes() {
           tabBarIcon: ({color, focused, size}) => (
             <DefaultTabBarIcon
               focused={focused}
-              imageOnFocused={require('../assets/images/premium_barra_roxo.png')}
-              imageOnNotFocused={require('../assets/images/premium_barra.png')}
+              imageOnFocused={require('../assets/images/premium_roxo.png')}
+              imageOnNotFocused={require('../assets/images/premium_cinza.png')}
               colorOnFocused={colors.main_purple}
               colorOnNotFocused={colors.title_bottom_tab}
               title={'Premium'}

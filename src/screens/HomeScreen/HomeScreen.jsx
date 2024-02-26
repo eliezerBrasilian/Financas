@@ -1,10 +1,4 @@
-import {
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ScrollView, StatusBar, TouchableOpacity, View} from 'react-native';
 
 import {BannerPremium} from './widgets/BannerPremium';
 import {GeneralGraphicText} from './widgets/GeneralGraphicText';
@@ -12,13 +6,14 @@ import {GoogleAds} from '../../classes/GoogleAds';
 import Header from './widgets/Header';
 import {HomeOverView} from './widgets/HomeOverView';
 import {Menu} from './widgets/Menu';
+import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
 import {MonthList} from './widgets/MonthList';
-import ProfileImage from '../../components/ProfileImage';
 import React from 'react';
+import {Registers} from './widgets/Registers';
 import {Spacer} from '../../components/Spacer';
-import {TextContent} from '../../components/TextContent';
 import {colors} from '../../assets/colors/colors';
 import {useBalanceContext} from '../../contexts/BalanceContext';
+import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
 import {useUserContext} from '../../contexts/UserContext';
 
 export default function HomeScreen() {
@@ -31,6 +26,7 @@ export default function HomeScreen() {
   const [menuIsOpen, setMenuOpen] = React.useState(false);
   const [monthListVisible, setMonthListVisible] = React.useState(false);
   const [monthSelected, setMonthSelected] = React.useState('Janeiro');
+  const {plusButtonClicked} = usePlusButtonContext();
 
   function clickedOutside() {
     setMenuOpen(false);
@@ -67,6 +63,8 @@ export default function HomeScreen() {
             changeMonthSelected={changeMonthSelected}
           />
         )}
+        {plusButtonClicked && <ModalSelectFinanceOption visible={true} />}
+
         <MainContent>
           <HomeOverView uid={user?.uid} />
           <Spacer marginTop={180} />
@@ -85,65 +83,6 @@ function MainContent({children}) {
   return (
     <View style={{flex: 1, backgroundColor: colors.background_home}}>
       {children}
-    </View>
-  );
-}
-
-function Registers() {
-  return (
-    <View style={{rowGap: 5}}>
-      <Register
-        imageIcon={require('../../assets/images/grafo_receita.png')}
-        title={'Receita do período'}
-      />
-      <Register
-        imageIcon={require('../../assets/images/grafo_despesa.png')}
-        title={'Despesas'}
-      />
-      <Register
-        imageIcon={require('../../assets/images/grafo_reserva.png')}
-        title={'Reservas'}
-      />
-    </View>
-  );
-}
-
-function Register({imageIcon, title}) {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        paddingHorizontal: 15,
-        height: 60,
-      }}>
-      <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
-        <ProfileImage profilePhoto={imageIcon} />
-        <TextContent>{title}</TextContent>
-      </View>
-      <View style={{flex: 1}} />
-
-      <TouchableOpacity>
-        <View
-          style={{
-            height: '100%',
-            width: 120,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-          }}>
-          <Text
-            style={{
-              fontWeight: 700,
-              borderBottomWidth: 1,
-              borderBottomColor: 'red',
-              color: 'red',
-            }}>
-            detalhes
-          </Text>
-        </View>
-      </TouchableOpacity>
     </View>
   );
 }

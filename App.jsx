@@ -1,12 +1,12 @@
-import {BalanceContextProvider} from './src/contexts/BalanceContext';
-import {FabButtonContextProvider} from './src/contexts/FabButtonContext';
 import {NavigationContainer} from '@react-navigation/native';
-import {ProfilePictureProvider} from './src/contexts/ProfilePictureContext';
 import React from 'react';
-import {RegisterProvider} from './src/contexts/RegisterContext';
-import Routes from './src/routes/routes';
 import {StatusBar} from 'react-native';
+import {BalanceContextProvider} from './src/contexts/BalanceContext';
+import {PlusButtonContextProvider} from './src/contexts/PlusButtonContext';
+import {ProfilePictureProvider} from './src/contexts/ProfilePictureContext';
+import {RegisterProvider} from './src/contexts/RegisterContext';
 import {UserProvider} from './src/contexts/UserContext';
+import Routes from './src/routes/routes';
 
 export default function App() {
   return (
@@ -15,11 +15,11 @@ export default function App() {
       <UserProvider>
         <BalanceContextProvider>
           <RegisterProvider>
-            <FabButtonContextProvider>
+            <PlusButtonContextProvider>
               <ProfilePictureProvider>
                 <Routes />
               </ProfilePictureProvider>
-            </FabButtonContextProvider>
+            </PlusButtonContextProvider>
           </RegisterProvider>
         </BalanceContextProvider>
       </UserProvider>
