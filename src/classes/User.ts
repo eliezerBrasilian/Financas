@@ -2,11 +2,11 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 
-import {Exception} from '../Exceptions/Exception';
 import {Collections} from '../enums/Collections';
-import {UserProperties} from '../enums/UserProperties';
+import {Exception} from '../Exceptions/Exception';
 import {Firestore} from './Firestore';
 import {InternalStorage} from './InternalStorage';
+import {UserProperties} from '../enums/UserProperties';
 
 class User extends Firestore {
   private userData;
@@ -42,7 +42,6 @@ class User extends Firestore {
     userUid: string,
   ): Promise<boolean> {
     const response = await this.userRef.doc(userUid).get();
-    console.log(response.exists);
     return response.exists;
   }
 

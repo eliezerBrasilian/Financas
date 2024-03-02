@@ -29,7 +29,7 @@ class DateTime {
     return this.months;
   }
 
-  static getMonth(monthInNumber) {
+  static getMonth(monthInNumber: number) {
     switch (monthInNumber) {
       case -2:
         return 'Outubro';
@@ -86,7 +86,7 @@ class DateTime {
     var month;
     var date = new Date();
     var ano = date.getFullYear();
-    console.log(ano);
+
     //resolvendo bug de estar em janeiro = 1
     //ao buscar o mes anterior dezembro = 0
 
@@ -122,13 +122,62 @@ class DateTime {
 
     return `${mes}/${ano}`;
   }
-  static convertMilisecondsToMonthAndYear(milliseconds) {
+  static convertMilisecondsToMonthAndYear(
+    milliseconds: string | number | Date,
+  ) {
     var date = new Date(milliseconds);
     var options = {year: 'numeric', month: '2-digit'};
     var formattedDate = date
       .toLocaleDateString('pt-BR', options)
       .replace(/(\d{2})\/(\d{4})/, '$1/$2');
     return formattedDate;
+  }
+
+  public static getYesterday() {
+    var today = new Date();
+
+    var yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+    return yesterday;
+  }
+
+  public getMonthAndYearFromGivenMonthWritten(
+    monthName = 'Janeiro',
+    year = new Date().getFullYear(),
+  ) {
+    const monthIndex = this.months.findIndex(
+      name => name.toLowerCase() === monthName.toLowerCase(),
+    );
+
+    if (monthIndex === -1) {
+      throw new Error('Nome do mês inválido.');
+    }
+
+    const mes = String(monthIndex + 1).padStart(2, '0');
+    const ano = year;
+
+    return `${mes}/${ano}`;
+  }
+
+  public getMonthName(date = new Date()) {
+    const numberOfMonth = date.getMonth();
+    return this.months[numberOfMonth];
+  }
+
+  public increaseMonth(date: string | number | Date) {
+    const newDate = new Date(date);
+
+    newDate.setMonth(newDate.getMonth() + 1);
+
+    return newDate;
+  }
+
+  public decreaseMonth(date: string | number | Date) {
+    const newDate = new Date(date);
+
+    newDate.setMonth(newDate.getMonth() - 1);
+
+    return newDate;
   }
 }
 

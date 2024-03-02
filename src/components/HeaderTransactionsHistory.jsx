@@ -1,11 +1,13 @@
 import {Text, TouchableOpacity, View} from 'react-native';
 
-import {CustomIcon} from '../../../components/CustomIcon';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {Navigation} from '../classes/Navigation';
+import {CustomIcon} from './CustomIcon';
 
-function Header({title, onClick, dropdownListOfBalance}) {
+function HeaderTransactionsHistory({title, onClick}) {
   return (
     <Row>
-      <Left title={title} dropdownListOfBalance={dropdownListOfBalance} />
+      <Left title={title} />
       <Right />
     </Row>
   );
@@ -26,10 +28,13 @@ function Row({children}) {
   );
 }
 
-function Left({title, dropdownListOfBalance}) {
+function Left({title}) {
+  const nav = new Navigation();
   return (
-    <TouchableOpacity onPress={dropdownListOfBalance}>
-      <View style={{flexDirection: 'row', columnGap: 5, alignItems: 'center'}}>
+    <TouchableOpacity onPress={() => nav.goBack()}>
+      <View style={{flexDirection: 'row', columnGap: 10, alignItems: 'center'}}>
+        <Icon name="arrowleft" color={'#fff'} size={30} />
+
         <Text
           numberOfLines={1}
           style={{
@@ -39,11 +44,6 @@ function Left({title, dropdownListOfBalance}) {
           }}>
           {title}
         </Text>
-        <View style={{marginTop: 10}}>
-          <CustomIcon
-            path={require('../../../assets/images/seta_baixo_branco.png')}
-          />
-        </View>
       </View>
     </TouchableOpacity>
   );
@@ -52,12 +52,12 @@ function Right() {
   return (
     <View style={{flexDirection: 'row', columnGap: 30}}>
       <TouchableOpacity>
-        <CustomIcon path={require('../../../assets/images/filtro.png')} />
+        <CustomIcon path={require('../assets/images/filtro.png')} />
       </TouchableOpacity>
       <TouchableOpacity>
-        <CustomIcon path={require('../../../assets/images/download.png')} />
+        <CustomIcon path={require('../assets/images/download.png')} />
       </TouchableOpacity>
     </View>
   );
 }
-export {Header};
+export {HeaderTransactionsHistory};

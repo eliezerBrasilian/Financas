@@ -14,7 +14,7 @@ export const PlusButtonContextProvider = ({children}) => {
 
   function handleClickOnPlusButton() {
     setPlusButtonClicked(true);
-    nav.navigateTo('HomeStack');
+    nav.navigateTo(nav.tabs.MAIN_TAB);
   }
 
   function handleClosePopUpOfPlusButton() {

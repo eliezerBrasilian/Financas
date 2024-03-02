@@ -1,171 +1,128 @@
-import {TextInput, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {StatusBar, View} from 'react-native';
 
-import Button from '../../components/Button';
+import {BackgroundColor} from '../../classes/BackgroundColor';
 import {Collections} from '../../enums/Collections';
-import DatePicker from 'react-native-date-picker';
-import React from 'react';
-import {TextContent} from '../../components/TextContent';
+import {DateTime} from '../../classes/DateTime';
+import {Dia} from '../../enums/Dia';
+import {Overview} from './widgets/OverView';
 import {Top} from './widgets/Top';
 import {Utils} from '../../utils/Utils';
 import firestore from '@react-native-firebase/firestore';
+import {useBalanceContext} from '../../contexts/BalanceContext';
 import {useUserContext} from '../../contexts/UserContext';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
   const {user} = useUserContext();
-  const [amount, setAmount] = React.useState(0);
-  const [description, setDescription] = React.useState('');
-  const [date, setDate] = React.useState(new Date());
-  const [dateVisible, setDateVisible] = React.useState(false);
+  const [amount, setAmount] = useState(5);
+  const [description, setDescription] = useState('teste');
+  const [category, setCategory] = useState('');
+  const [daySelected, setDaySelected] = useState(Dia.TODAY);
+  const [localDateTime, setLocalDatetime] = useState(new Date());
+  const [pickerVisible, setPickerVisible] = useState(false);
+
+  const {doReload} = useBalanceContext();
+
+  var bgColor = BackgroundColor.getBackgrouncColor(tag);
 
   async function handleSendOfRegister() {
     await sendRegister();
-    await updateBalance();
   }
 
+  var handleDescriptionChange = text => {
+    setDescription(text);
+  };
+
+  var handleCategoryChange = text => {
+    setCategory(text);
+  };
+
+  var handleSelectDayChange = day => {
+    setDaySelected(day);
+
+    if (day == Dia.TODAY) {
+      setLocalDatetime(new Date());
+    }
+    if (day == Dia.YESTARDAY) {
+      setLocalDatetime(DateTime.getYesterday());
+    }
+  };
+
   async function sendRegister() {
-    if (amount === null || amount === 0 || description == '') return;
+    if (amount === null || amount === 0 || description == '' || category == '')
+      return;
     await firestore()
       .collection(Collections.REGISTERS)
       .add({
         tag: tag,
-        category: null,
+        category: category,
         deleted: false,
         amount: Number(amount),
         description: description.trim(),
         descriptionInLowerCaseForSearching: description
           .trim()
           .toLocaleLowerCase(),
-        monthYear: Utils.getMonthAndYear(date),
-        dayMonthYear: Utils.getDateFormated(date),
+        monthYear: Utils.getMonthAndYear(localDateTime),
+        dayMonthYear: Utils.getDateFormated(localDateTime),
         createdAt: firestore.FieldValue.serverTimestamp(),
         createdBy: user.uid,
       })
-      .then(() => Utils.ShowToast(`${tag} registrada`));
-  }
-  async function updateBalance() {
-    if (amount === null || amount === 0 || description == '') {
-      Utils.ShowToast('Preencha todos os campos');
-      return;
-    }
-
-    let fieldsToUpdate;
-    if (tag == 'receita') {
-      fieldsToUpdate = {
-        revenues: firestore.FieldValue.increment(Number(amount)),
-        total: firestore.FieldValue.increment(Number(amount)),
-      };
-    } else if (tag == 'reserva') {
-      fieldsToUpdate = {
-        reservations: firestore.FieldValue.increment(Number(amount)),
-        total: firestore.FieldValue.increment(-Number(amount)),
-      };
-    } else {
-      fieldsToUpdate = {
-        expenses: firestore.FieldValue.increment(Number(amount)),
-        total: firestore.FieldValue.increment(-Number(amount)),
-      };
-    }
-
-    await firestore()
-      .collection('Balances')
-      .doc(user.uid)
-      .update(fieldsToUpdate)
       .then(() => {
-        setAmount(0);
-        setDescription('');
+        Utils.ShowToast(`${tag} registrada`);
+        doReload();
       });
   }
+  // async function updateBalance() {
+  //   if (amount === null || amount === 0 || description == '') {
+  //     Utils.ShowToast('Preencha todos os campos');
+  //     return;
+  //   }
 
-  const properties = React.useMemo(
-    () => Utils.getUsefulInformationsAboutCurrentBalance(tag, true),
-    [tag],
-  );
+  //   let fieldsToUpdate;
+  //   if (tag == 'receita') {
+  //     fieldsToUpdate = {
+  //       revenues: firestore.FieldValue.increment(Number(amount)),
+  //       total: firestore.FieldValue.increment(Number(amount)),
+  //     };
+  //   } else if (tag == 'reserva') {
+  //     fieldsToUpdate = {
+  //       reservations: firestore.FieldValue.increment(Number(amount)),
+  //       total: firestore.FieldValue.increment(-Number(amount)),
+  //     };
+  //   } else {
+  //     fieldsToUpdate = {
+  //       expenses: firestore.FieldValue.increment(Number(amount)),
+  //       total: firestore.FieldValue.increment(-Number(amount)),
+  //     };
+  //   }
+
+  //   await firestore()
+  //     .collection(Collections.BALANCES)
+  //     .doc(user.uid)
+  //     .update(fieldsToUpdate)
+  //     .then(() => {
+  //       setAmount(0);
+  //       setDescription('');
+  //     });
+  // }
 
   return (
-    <View style={{backgroundColor: '#fff', flex: 1}}>
+    <View style={{backgroundColor: bgColor, flex: 1}}>
+      <StatusBar backgroundColor={bgColor} barStyle={'light-content'} />
       <Top title={tag} value={amount} setValue={setAmount} />
-      <View
-        style={{overflow: 'hidden', marginTop: 20, marginLeft: 20, rowGap: 15}}>
-        <View
-          onPress={() => setDateVisible(true)}
-          style={{
-            flexDirection: 'row',
-            columnGap: 20,
-            alignItems: 'center',
-            overflow: 'hidden',
-          }}>
-          <Utils.calendarIcon />
-          <TouchableOpacity
-            style={{
-              backgroundColor: '#53A2BE',
-              paddingVertical: 5,
-              paddingHorizontal: 15,
-              borderRadius: 17,
-            }}>
-            <TextContent color="#fff" fontSize={15} fontWeight="500">
-              Hoje
-            </TextContent>
-          </TouchableOpacity>
-          {/* <TouchableOpacity
-            style={{
-              backgroundColor: '#132E32',
-              paddingVertical: 5,
-              paddingHorizontal: 15,
-              borderRadius: 17,
-            }}>
-            <TextContent color="#fff" fontSize={15} fontWeight="500">
-              Outro dia...
-            </TextContent>
-          </TouchableOpacity> */}
-        </View>
-        <TextInput
-          placeholder={'Descrição da ' + tag + '...'}
-          placeholderTextColor={'#000'}
-          style={{
-            color: '#000',
-            fontSize: 18,
-            borderBottomWidth: 0.6,
-            borderBottomColor: 'green',
-            borderRadius: 10,
-            marginRight: 20,
-          }}
-          value={description}
-          onChangeText={v => setDescription(v)}
-        />
-      </View>
-      <DatePicker
-        modal={true}
-        open={dateVisible}
-        date={date}
-        onCancel={() => setDateVisible(false)}
-        onConfirm={newDate => {
-          setDateVisible(false);
-          setDate(newDate);
-        }}
-        locale="pt"
-        title={'Selecione a data'}
-        cancelText="Cancelar"
-        confirmText="Confirmar"
-        theme="light"
-        androidVariant="iosClone"
-        mode="date"
+
+      <Overview
+        tag={tag}
+        description={description}
+        handleDescriptionChange={handleDescriptionChange}
+        pickerVisible={pickerVisible}
+        currentDate={localDateTime}
+        daySelected={daySelected}
+        handleSendOfRegister={handleSendOfRegister}
+        handleCategoryChange={handleCategoryChange}
+        handleSelectDayChange={handleSelectDayChange}
       />
-      <View
-        style={{
-          alignItems: 'center',
-          flex: 1,
-          justifyContent: 'flex-end',
-          marginBottom: 70,
-        }}>
-        <Button
-          onClick={handleSendOfRegister}
-          backgroundColor={properties.backgroundColor}
-          title={'Salvar'}
-          borderRadius={20}
-          padding={5}
-        />
-      </View>
     </View>
   );
 };

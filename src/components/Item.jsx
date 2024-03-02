@@ -1,9 +1,9 @@
 import {TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
-import {GoogleAds} from '../classes/GoogleAds';
 import {useRegister} from '../contexts/RegisterContext';
 import {useUserContext} from '../contexts/UserContext';
+import {GoogleAdsService} from '../services/GoogleAdsService';
 import {Utils} from '../utils/Utils';
 import ProfileImage from './ProfileImage';
 import {TextContent} from './TextContent';
@@ -13,7 +13,7 @@ export default function Item({data}) {
   const {user} = useUserContext();
   const {deleteRegister} = useRegister();
   const userUid = user.uid;
-  var googleAds = new GoogleAds();
+  var googleAds = new GoogleAdsService();
 
   const CurrentBalanceInfo = React.useMemo(
     () => Utils.getUsefulInformationsAboutCurrentBalance(tag),

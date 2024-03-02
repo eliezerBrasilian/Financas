@@ -1,12 +1,14 @@
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+
 import {TextContent} from './TextContent';
 import {colors} from '../assets/colors/colors';
 import {useMemo} from 'react';
 import {useNavigation} from '@react-navigation/native';
+
 export default function ListItem({data, spaceUsed, amount, title}) {
   const nav = useNavigation();
   //console.log('spaceUsed: ' + spaceUsed);
-  console.log(amount);
+
   const quantity = useMemo(() => {
     if (amount == 1 && title == 'Imagens') return 'Imagem';
     else if (amount == 1 && title == 'Documentos') return 'Documento';

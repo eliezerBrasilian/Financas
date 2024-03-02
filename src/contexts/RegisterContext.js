@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useState} from 'react';
 
 import firestore from '@react-native-firebase/firestore';
-import {GoogleAds} from '../classes/GoogleAds';
+import {GoogleAdsService} from '../services/GoogleAdsService';
 import {Utils} from '../utils/Utils';
 
 const RegisterContext = createContext();
@@ -12,7 +12,7 @@ export const useRegister = () => {
 
 export const RegisterProvider = ({children}) => {
   const [updated, setUpdated] = useState(false);
-  var googleAds = new GoogleAds();
+  var googleAds = new GoogleAdsService();
 
   var deleteRegister = registerItem => {
     const {amount, key, tag, createdBy} = registerItem;
@@ -28,7 +28,6 @@ export const RegisterProvider = ({children}) => {
   };
 
   function updateBalance(amount, tag, createdBy) {
-    console.log(amount, tag, createdBy);
     const balancesRef = firestore().collection('Balances').doc(createdBy);
     if (tag == 'receita') {
       balancesRef

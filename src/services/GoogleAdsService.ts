@@ -1,7 +1,7 @@
 import {InterstitialAd} from 'react-native-google-mobile-ads';
 import {UnitAds} from '../enums/UnitAds';
 
-class GoogleAds {
+class GoogleAdsService {
   private interstitialAd: InterstitialAd;
 
   constructor() {
@@ -23,4 +23,4 @@ class GoogleAds {
   }
 }
 
-export {GoogleAds};
+export {GoogleAdsService};

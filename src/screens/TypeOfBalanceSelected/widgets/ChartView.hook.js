@@ -1,6 +1,7 @@
-import firestore from '@react-native-firebase/firestore';
-import React from 'react';
+import {Collections} from '../../../enums/Collections';
 import {DateTime} from '../../../classes/DateTime';
+import React from 'react';
+import firestore from '@react-native-firebase/firestore';
 import {useUserContext} from '../../../contexts/UserContext';
 
 function useChartView(tag) {
@@ -30,9 +31,9 @@ function useChartView(tag) {
 
   async function loadTotalOfAmountCurrentMonth() {
     var myDate = new DateTime();
-    console.log('current: ' + myDate.getMonthAndYear(months.CURRENT));
+
     await firestore()
-      .collection('Registers')
+      .collection(Collections.REGISTERS)
       .where('createdBy', '==', user?.uid)
       .where('monthYear', '==', myDate.getMonthAndYear(months.CURRENT))
       .where('tag', '==', tag)
@@ -46,7 +47,7 @@ function useChartView(tag) {
           let data = i.data();
           amount += data.amount;
         });
-        console.log('amount: ' + amount);
+
         setTotalOfAmountCurrentMonth(amount);
       });
   }
@@ -67,7 +68,7 @@ function useChartView(tag) {
           let data = i.data();
           amount += data.amount;
         });
-        console.log('amount: ' + amount);
+
         setTotalOfAmountPastMonth(amount);
       });
   }
@@ -88,7 +89,7 @@ function useChartView(tag) {
           let data = i.data();
           amount += data.amount;
         });
-        console.log('amount: ' + amount);
+
         setTotalOfAmountThreeMonthsAgo(amount);
       });
   }
@@ -109,7 +110,7 @@ function useChartView(tag) {
           let data = i.data();
           amount += data.amount;
         });
-        console.log('amount: ' + amount);
+
         setTotalOfAmountFourMonthsAgo(amount);
       });
   }

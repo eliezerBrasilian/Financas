@@ -1,29 +1,66 @@
 import {Text, TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
-import ProfileImage from '../../../components/ProfileImage';
+import {colors} from '../../../assets/colors/colors';
+import {Navigation} from '../../../classes/Navigation';
+import {CustomIcon} from '../../../components/CustomIcon';
 import {TextContent} from '../../../components/TextContent';
+import {useChartScreenContext} from '../../../contexts/ChartScreenContext';
+import {tags} from '../../../enums/Tag';
+import {GeneralGraphicText} from './GeneralGraphicText';
 
-function Registers() {
+function RegistersOverview() {
   return (
-    <View style={{rowGap: 5}}>
-      <Register
-        imageIcon={require('../../../assets/images/grafo_receita.png')}
-        title={'Receita do período'}
-      />
-      <Register
-        imageIcon={require('../../../assets/images/grafo_despesa.png')}
-        title={'Despesas'}
-      />
-      <Register
-        imageIcon={require('../../../assets/images/grafo_reserva.png')}
-        title={'Reservas'}
-      />
+    <MainContent>
+      <View
+        style={{
+          rowGap: 8,
+          position: 'absolute',
+          width: '100%',
+        }}>
+        <GeneralGraphicText />
+        <Register
+          tag={tags.REVENUE}
+          imageIcon={require('../../../assets/images/grafo_receita.png')}
+          title={'Receita do período'}
+        />
+        <Register
+          tag={tags.EXPENSE}
+          imageIcon={require('../../../assets/images/grafo_despesa.png')}
+          title={'Despesas'}
+        />
+        <Register
+          tag={tags.RESERVATION}
+          imageIcon={require('../../../assets/images/grafo_reserva.png')}
+          title={'Reservas'}
+        />
+      </View>
+    </MainContent>
+  );
+}
+
+function MainContent({children}) {
+  return (
+    <View
+      style={{
+        backgroundColor: colors.background,
+        height: 260,
+        borderRadius: 26,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        marginTop: 15,
+        marginBottom: 10,
+        marginHorizontal: 10,
+      }}>
+      {children}
     </View>
   );
 }
 
-function Register({imageIcon, title}) {
+function Register({imageIcon, title, tag}) {
+  const nav = new Navigation();
+  const {handleSelectChartScreenTag} = useChartScreenContext();
   return (
     <View
       style={{
@@ -33,14 +70,18 @@ function Register({imageIcon, title}) {
         backgroundColor: 'white',
         paddingHorizontal: 15,
         height: 60,
+        borderRadius: 15,
       }}>
       <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 10}}>
-        <ProfileImage profilePhoto={imageIcon} />
+        <CustomIcon path={imageIcon} width={25} height={25} />
         <TextContent>{title}</TextContent>
       </View>
       <View style={{flex: 1}} />
 
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          handleSelectChartScreenTag(tag);
+        }}>
         <View
           style={{
             height: '100%',
@@ -63,7 +104,7 @@ function Register({imageIcon, title}) {
   );
 }
 
-export {Registers};
+export {RegistersOverview};
 
 // import {FlatList, View} from 'react-native';
 

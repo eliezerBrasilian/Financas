@@ -1,41 +1,62 @@
+import React, {useEffect} from 'react';
 import {ScrollView, StatusBar, TouchableOpacity, View} from 'react-native';
 
-import {BannerPremium} from './widgets/BannerPremium';
-import {GeneralGraphicText} from './widgets/GeneralGraphicText';
-import {GoogleAds} from '../../classes/GoogleAds';
-import Header from './widgets/Header';
-import {HomeOverView} from './widgets/HomeOverView';
-import {Menu} from './widgets/Menu';
-import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
-import {MonthList} from './widgets/MonthList';
-import React from 'react';
-import {Registers} from './widgets/Registers';
-import {Spacer} from '../../components/Spacer';
+import {useIsFocused} from '@react-navigation/native';
 import {colors} from '../../assets/colors/colors';
+import {Spacer} from '../../components/Spacer';
+import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
 import {useBalanceContext} from '../../contexts/BalanceContext';
 import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
+import {useTabBarContext} from '../../contexts/TabBarContext';
 import {useUserContext} from '../../contexts/UserContext';
+import {GoogleAdsService} from '../../services/GoogleAdsService';
+import {BannerPremium} from './widgets/BannerPremium';
+import Header from './widgets/Header';
+import {Menu} from './widgets/Menu';
+import {MonthList} from './widgets/MonthList';
+import {RegistersOverview} from './widgets/RegistersOverview';
+import {TopOverView} from './widgets/TopOverView';
 
 export default function HomeScreen() {
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [date, setDate] = React.useState(new Date());
-  const [dateVisible, setDateVisible] = React.useState(false);
-  const {loadTotalBalance} = useBalanceContext();
-  var googleAds = new GoogleAds();
+  var googleAds = new GoogleAdsService();
   const {user} = useUserContext();
   const [menuIsOpen, setMenuOpen] = React.useState(false);
   const [monthListVisible, setMonthListVisible] = React.useState(false);
-  const [monthSelected, setMonthSelected] = React.useState('Janeiro');
   const {plusButtonClicked} = usePlusButtonContext();
+  const {
+    totalRevenues,
+    totalExpenses,
+    totalReservations,
+    balance,
+    doReload,
+    updateMonthYear,
+    givenMonthYear,
+  } = useBalanceContext();
+
+  useEffect(() => {
+    const x = doReload();
+
+    return () => x;
+  }, []);
 
   function clickedOutside() {
     setMenuOpen(false);
     setMonthListVisible(false);
   }
 
-  function changeMonthSelected(month) {
-    setMonthSelected(month);
+  function changeMonthSelected(monthName) {
+    updateMonthYear(monthName);
+    setMonthListVisible(false);
   }
+
+  const {showTabBar} = useTabBarContext();
+  const isFocused = useIsFocused();
+
+  React.useEffect(() => {
+    if (isFocused) {
+      showTabBar();
+    }
+  }, [isFocused]);
 
   return (
     <ScrollView
@@ -54,25 +75,28 @@ export default function HomeScreen() {
           uid={user?.uid}
           setMenuOpen={setMenuOpen}
           setMonthListVisible={setMonthListVisible}
-          monthSelected={monthSelected}
+          monthSelected={givenMonthYear}
+          balance={balance}
         />
         {menuIsOpen && <Menu setMenuOpen={setMenuOpen} />}
         {monthListVisible && (
           <MonthList
-            monthSelected={monthSelected}
+            monthSelected={givenMonthYear}
             changeMonthSelected={changeMonthSelected}
           />
         )}
         {plusButtonClicked && <ModalSelectFinanceOption visible={true} />}
 
         <MainContent>
-          <HomeOverView uid={user?.uid} />
-          <Spacer marginTop={180} />
+          <TopOverView
+            uid={user?.uid}
+            totalRevenues={totalRevenues}
+            totalExpenses={totalExpenses}
+            totalReservations={totalReservations}
+          />
+          <Spacer marginTop={185} />
           <BannerPremium />
-
-          <GeneralGraphicText />
-
-          <Registers />
+          <RegistersOverview />
         </MainContent>
       </TouchableOpacity>
     </ScrollView>

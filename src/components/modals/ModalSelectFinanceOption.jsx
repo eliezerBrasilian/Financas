@@ -13,6 +13,7 @@ export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
   const {handleClosePopUpOfPlusButton} = usePlusButtonContext();
   function navTo(destinationScreen) {
     //setModalVisible(false);
+    handleClosePopUpOfPlusButton();
     nav.navigate('Register', {tag: String(destinationScreen).toLowerCase()});
   }
 

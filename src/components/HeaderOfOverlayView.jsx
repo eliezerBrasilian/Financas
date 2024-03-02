@@ -1,9 +1,9 @@
 import {TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
-import Icon from '../../../components/Icon';
-import {TextContent} from '../../../components/TextContent';
-import {Utils} from '../../../utils/Utils';
+import {Utils} from '../utils/Utils';
+import Icon from './Icon';
+import {TextContent} from './TextContent';
 
 export const HeaderOfOverlayView = ({date, incrementMonth, decrementMonth}) => {
   return (

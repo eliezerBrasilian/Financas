@@ -1,119 +1,119 @@
 import React, {useEffect, useState} from 'react';
-import {StatusBar, View} from 'react-native';
+import {StatusBar, TouchableOpacity, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
 import {BackgroundColor} from '../../classes/BackgroundColor';
+import {HeaderBalanceSelected} from '../../components/HeaderBalanceSelected';
+import {ListViewBalances} from '../../components/ListViewBalances';
+import {Navigation} from '../../classes/Navigation';
+import {OverlayView} from '../../components/OverlayView';
+import {SortBy} from '../../components/SortBy';
 import {Title} from '../../classes/Title';
-import {useUserContext} from '../../contexts/UserContext';
-import {Utils} from '../../utils/Utils';
-import {Header} from './widgets/Header';
-import {ListViewBalances} from './widgets/ListViewBalances';
-import {OverlayView} from './widgets/OverlayView';
-import {Top} from './widgets/Top';
+import {Top} from '../../components/Top';
+import {useBalanceContext} from '../../contexts/BalanceContext';
+import {useIsFocused} from '@react-navigation/native';
+import {useTabBarContext} from '../../contexts/TabBarContext';
 
 export default function TypeOfBalanceSelected({route}) {
-  const [bgColor, setBgColor] = useState('#000');
+  const [bgColor, setBgColor] = useState('#fff');
   const [title, setTitle] = useState('');
-  const [date, setDate] = useState(new Date());
-  const [month, setMonth] = useState(Utils.getMonth(new Date()));
-  const [loading, setLoading] = useState(true);
-  const [registers, setRegisters] = React.useState([]);
-  const [total, setTotal] = React.useState(0);
+
+  const [menuIsOpen, setMenuOpen] = React.useState(false);
   const [listViewBalancesVisible, setListViewBalancesVisible] = useState(false);
-  const {user} = useUserContext();
   const tag = route.params?.tag;
+  const nav = new Navigation();
+
+  const {
+    loadRegistersFromDateDescendly,
+    sortRegistersList,
+    loadingSortList,
+    sortTotal,
+    decrementMonth,
+    incrementMonth,
+    date,
+    resetDate,
+  } = useBalanceContext();
 
   useEffect(() => {
     setBgColor(BackgroundColor.getBackgrouncColor(tag));
     setTitle(Title.getTitle(tag));
   }, [route]);
 
-  React.useEffect(() => {
-    const unsubscribe = loadRegisters();
+  useEffect(() => {
+    const unsubscribe = loadRegistersFromDateDescendly(tag);
     return () => unsubscribe;
   }, [date, tag]);
 
-  function loadRegisters() {
-    setLoading(true);
-    firestore()
-      .collection('Registers')
-      .where('createdBy', '==', user.uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('tag', '==', tag.toLocaleLowerCase())
-      .where('deleted', '==', false)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(data => {
-        let listOfRegisters = [];
-        let amount = 0;
-        setRegisters([]);
-        data.docs.forEach(i => {
-          let data = i.data();
-          amount += data.amount;
-          listOfRegisters.push({
-            key: i.id,
-            ...data,
-          });
-        });
+  const {hideTabBar} = useTabBarContext();
+  const isFocused = useIsFocused();
 
-        setRegisters(listOfRegisters);
-        setTotal(amount);
-        setLoading(false);
-      });
-  }
+  useEffect(() => {
+    if (isFocused) {
+      resetDate();
+      hideTabBar();
+    }
+  }, [isFocused]);
 
   function dropdownListOfBalance() {
     setListViewBalancesVisible(value => !value);
   }
 
-  var decrementMonth = () => {
-    const thisDate = date;
-    const newDate = Utils.decreaseMonth(thisDate);
-    setDate(newDate);
-  };
-
-  var incrementMonth = () => {
-    const thisDate = date;
-    const newDate = Utils.increaseMonth(thisDate);
-    setDate(newDate);
-  };
-
-  var hideListEvent = () => {
+  var handleClickOnListBalances = tag => {
     setListViewBalancesVisible(false);
+    nav.navigateToDestinationScreenUsingParams(
+      nav.screens.TYPE_OF_BALANCE_SELECTED,
+      {
+        tag: tag,
+      },
+    );
   };
+
+  function activateSortMenu() {
+    setMenuOpen(v => !v);
+  }
+
+  function closeAllPopUps() {
+    setMenuOpen(false);
+    setListViewBalancesVisible(false);
+  }
 
   return (
-    <View
+    <TouchableOpacity
       style={{
         backgroundColor: bgColor,
         flex: 1,
-      }}>
+      }}
+      activeOpacity={1.0}
+      onPress={closeAllPopUps}>
       <StatusBar backgroundColor={bgColor} barStyle={'light-content'} />
       <View style={{margin: 10}}>
-        <Header
+        <HeaderBalanceSelected
           title={title}
           color="#fff"
           dropdownListOfBalance={dropdownListOfBalance}
+          activateSortMenu={activateSortMenu}
         />
       </View>
       <Top
         tag={tag}
         //amount={totalOfAmount}
-        amount={total}
-        title={title}
+        amount={sortTotal}
+        title={'Total de ' + title}
       />
 
       <OverlayView
-        registers={registers}
+        registers={sortRegistersList}
         date={date}
         incrementMonth={incrementMonth}
         decrementMonth={decrementMonth}
-        loading={loading}
+        loading={loadingSortList}
         color={bgColor}
+        closeAllPopUps={closeAllPopUps}
       />
       {listViewBalancesVisible && (
-        <ListViewBalances hideListEvent={hideListEvent} />
+        <ListViewBalances onClick={handleClickOnListBalances} />
       )}
-    </View>
+
+      {menuIsOpen && <SortBy setMenuOpen={setMenuOpen} tag={tag} />}
+    </TouchableOpacity>
   );
 }

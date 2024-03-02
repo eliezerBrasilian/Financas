@@ -1,10 +1,10 @@
 const colors = {
   main_blue: '#355EB4',
   main_purple: '#320995',
-  main_red: '#e2306c',
-  main_green: '#26e55f',
+  main_red: '#EC1515',
+  main_green: '#35C761',
   title_bottom_tab: '#8d8d8d',
-  purple_for_selected_screen: '#c5acff',
+  purple_for_selected_screen: '#8B68DF',
   background: '#f7f3ff',
   background_home: '#f1f1f1',
   almost_black: '#393939',

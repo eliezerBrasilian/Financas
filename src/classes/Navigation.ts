@@ -4,6 +4,7 @@ class Navigation {
   private nav = useNavigation();
 
   public screens = {
+    CHART_SCREEN: 'Gráficos',
     PREMIUM: 'PremiumScreen',
     TYPE_OF_BALANCE_SELECTED: 'TypeOfBalanceSelected',
     REGISTER: 'Register',
@@ -17,9 +18,17 @@ class Navigation {
     INICIATE_SESSION: 'IniciateSession',
   };
 
+  public tabs = {
+    MAIN_TAB: 'HomeStack',
+    TRANSACTION: 'Transactions',
+    CHART: 'ChartStack',
+    PREMIUM: 'PremiumStack',
+  };
+
   public navigateTo(destination: never): void {
     this.nav.navigate(destination);
   }
+
   public navigateToDestinationScreenUsingParams(
     destination: never,
     data: any,

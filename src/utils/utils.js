@@ -2,7 +2,6 @@ import {format, fromUnixTime} from 'date-fns';
 import {Alert, ToastAndroid} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {colors} from '../assets/colors/colors';
 
 class Utils {
   static convertMilisecondsToMonthAndYear(milliseconds) {
@@ -28,24 +27,6 @@ class Utils {
     );
   }
 
-  static getUsefulInformationsAboutCurrentBalance(tag, strong = false) {
-    const tagToLowerCase = tag?.toLowerCase();
-    if (tagToLowerCase == 'receita')
-      return {
-        backgroundColor: strong ? colors.card_green : '#c2f8cb',
-        title: 'Receita',
-      };
-    else if (tagToLowerCase === 'reserva')
-      return {
-        backgroundColor: strong ? colors.card_purple : '#c8b6ff',
-        title: 'Reserva',
-      };
-    return {
-      backgroundColor: strong ? colors.card_orange : colors.main_pink,
-      title: 'Despesa',
-    };
-  }
-
   static getBrazilianCurrency(value) {
     const formatedCurrency = new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -56,29 +37,14 @@ class Utils {
     return formatedCurrency;
   }
 
-  static increaseMonth(data) {
-    const newDate = new Date(data);
-
-    // Adiciona 1 ao mês
-    newDate.setMonth(newDate.getMonth() + 1);
-
-    return newDate;
-  }
-  static decreaseMonth(data) {
-    const newDate = new Date(data);
-
-    newDate.setMonth(newDate.getMonth() - 1);
-
-    return newDate;
-  }
-
-  static getDateFormated(data) {
+  static getDateFormated(data = new Date()) {
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
 
     return `${dia}/${mes}/${ano}`;
   }
+
   static getMonthAndYear(data = new Date()) {
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
@@ -166,6 +132,19 @@ class Utils {
   }
   static ShowToast(message) {
     ToastAndroid.show(message, ToastAndroid.SHORT);
+  }
+
+  static arredondaNumero(num) {
+    var number = Number(num);
+
+    // Verifica se o número tem mais de uma casa decimal
+    if (number % 1 !== 0) {
+      // Arredonda para uma casa decimal
+      return parseFloat(number.toFixed(1));
+    } else {
+      // Mantém o número como está
+      return number;
+    }
   }
 }
 

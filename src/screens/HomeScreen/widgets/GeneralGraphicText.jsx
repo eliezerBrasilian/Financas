@@ -12,7 +12,7 @@ function GeneralGraphicText() {
         columnGap: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 10,
+        marginBottom: 10,
       }}>
       <ProfileImage
         size={15}

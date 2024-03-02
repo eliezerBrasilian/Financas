@@ -1,11 +1,10 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import {colors} from '../../../assets/colors/colors';
-import {Navigation} from '../../../classes/Navigation';
-import {TextContent} from '../../../components/TextContent';
-import {tags} from '../../../enums/Tag';
+import {colors} from '../assets/colors/colors';
+import {tags} from '../enums/Tag';
+import {TextContent} from './TextContent';
 
-function ListViewBalances({hideListEvent}) {
+function ListViewBalances({onClick}) {
   return (
     <View
       style={{
@@ -30,37 +29,27 @@ function ListViewBalances({hideListEvent}) {
         color={colors.purple_for_selected_screen}
         title={'Reservas'}
         tag={tags.RESERVATION}
-        hideListEvent={hideListEvent}
+        onClick={onClick}
       />
       <ListItem
         color={colors.main_red}
         title={'Despesas'}
         tag={tags.EXPENSE}
-        hideListEvent={hideListEvent}
+        onClick={onClick}
       />
       <ListItem
         color={colors.main_green}
         title={'Receitas'}
         tag={tags.REVENUE}
-        hideListEvent={hideListEvent}
+        onClick={onClick}
       />
     </View>
   );
 }
 
-function ListItem({color, title, tag, hideListEvent}) {
-  var nav = new Navigation();
+function ListItem({color, title, tag, onClick}) {
   return (
-    <TouchableOpacity
-      onPress={() => {
-        hideListEvent();
-        nav.navigateToDestinationScreenUsingParams(
-          nav.screens.TYPE_OF_BALANCE_SELECTED,
-          {
-            tag: tag,
-          },
-        );
-      }}>
+    <TouchableOpacity onPress={() => onClick(tag)}>
       <View style={{flexDirection: 'row', columnGap: 20}}>
         <Circle color={color} />
         <TextContent>{title}</TextContent>

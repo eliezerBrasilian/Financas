@@ -1,11 +1,10 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
+import {CustomIcon} from '../../../components/CustomIcon';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
-import {Collections} from '../../../enums/Collections';
 import {Utils} from '../../../utils/Utils';
 
 export default function Header({
@@ -13,6 +12,8 @@ export default function Header({
   setMenuOpen,
   setMonthListVisible,
   monthSelected,
+
+  balance,
 }) {
   return (
     <View style={{height: 210, paddingTop: 30}}>
@@ -21,7 +22,7 @@ export default function Header({
         setMonthListVisible={setMonthListVisible}
         monthSelected={monthSelected}
       />
-      <Total uid={uid} />
+      <Total uid={uid} balance={balance} />
     </View>
   );
 }
@@ -47,21 +48,7 @@ function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
   );
 }
 
-function Total({uid}) {
-  const [balance, setBalance] = React.useState(0);
-
-  React.useEffect(() => {
-    loadTotalBalance();
-  }, []);
-
-  function loadTotalBalance() {
-    firestore()
-      .collection(Collections.BALANCES)
-      .doc(uid)
-      .onSnapshot(querySnap => {
-        setBalance(querySnap.data().total);
-      });
-  }
+function Total({balance}) {
   return (
     <View style={{marginLeft: 20, marginTop: 28}}>
       <TextContent color="#fff" fontWeight="400">
@@ -111,9 +98,14 @@ function Month({setMonthListVisible, monthSelected}) {
 function Right({setMenuOpen}) {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 35}}>
-      <ProfileImage
+      {/* <ProfileImage
         size={20}
         profilePhoto={require('../../../assets/images/editar.png')}
+      /> */}
+      <CustomIcon
+        height={25}
+        width={25}
+        path={require('../../../assets/images/pencil_premium.png')}
       />
 
       <TouchableOpacity onPress={() => setMenuOpen(true)}>

@@ -1,11 +1,11 @@
+import React from 'react';
 import {FlatList, View} from 'react-native';
 
-import React from 'react';
-import {BannerAds} from '../../../components/BannerAds';
-import {Loading} from '../../../components/Loading';
-import {TextContent} from '../../../components/TextContent';
+import {BannerAds} from './BannerAds';
 import {HeaderOfOverlayView} from './HeaderOfOverlayView';
+import {Loading} from './Loading';
 import Register from './Register';
+import {TextContent} from './TextContent';
 
 export const OverlayView = ({
   registers,
@@ -14,6 +14,7 @@ export const OverlayView = ({
   decrementMonth,
   loading,
   color,
+  closeAllPopUps,
 }) => {
   return (
     <View
@@ -38,7 +39,13 @@ export const OverlayView = ({
         ) : (
           <FlatList
             data={registers}
-            renderItem={({item}) => <Register data={item} color={color} />}
+            renderItem={({item}) => (
+              <Register
+                data={item}
+                color={color}
+                closeAllPopUps={closeAllPopUps}
+              />
+            )}
             contentContainerStyle={{rowGap: 10}}
             showsVerticalScrollIndicator={false}
             ListEmptyComponent={

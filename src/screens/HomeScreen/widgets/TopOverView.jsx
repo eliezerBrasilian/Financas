@@ -1,19 +1,22 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
-import React from 'react';
-import {colors} from '../../../assets/colors/colors';
 import {Navigation} from '../../../classes/Navigation';
 import ProfileImage from '../../../components/ProfileImage';
+import React from 'react';
 import {TextContent} from '../../../components/TextContent';
-import {Collections} from '../../../enums/Collections';
-import {tags} from '../../../enums/Tag';
 import {Utils} from '../../../utils/Utils';
+import {colors} from '../../../assets/colors/colors';
+import {tags} from '../../../enums/Tag';
 
-function HomeOverView({uid}) {
+function TopOverView({uid, totalRevenues, totalExpenses, totalReservations}) {
   return (
     <MainContent>
-      <Cards uid={uid} />
+      <Cards
+        uid={uid}
+        totalRevenues={totalRevenues}
+        totalExpenses={totalExpenses}
+        totalReservations={totalReservations}
+      />
     </MainContent>
   );
 }
@@ -37,42 +40,7 @@ function MainContent({children}) {
   );
 }
 
-function Cards({uid}) {
-  const [totalRevenues, setTotalRevenues] = React.useState(0);
-  const [totalExpenses, setTotalExpenses] = React.useState(0);
-  const [totalReservations, setTotalReservations] = React.useState(0);
-
-  React.useEffect(() => {
-    loadRevenues(tags.REVENUE, setTotalRevenues);
-    loadRevenues(tags.EXPENSE, setTotalExpenses);
-    loadRevenues(tags.RESERVATION, setTotalReservations);
-  }, []);
-
-  function loadRevenues(tag, setter) {
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear())
-      .where('tag', '==', tag)
-      .where('deleted', '==', false)
-      .orderBy('createdAt', 'desc')
-      .get()
-      .then(data => {
-        let listOfRegisters = [];
-        let amount = 0;
-        data.docs.forEach(i => {
-          let data = i.data();
-          amount += data.amount;
-          listOfRegisters.push({
-            key: i.id,
-            ...data,
-          });
-        });
-
-        setter(amount);
-      });
-  }
-
+function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
   return (
     <View
       style={{
@@ -138,4 +106,4 @@ function Card({iconImage, title, value, destinationScreen}) {
   );
 }
 
-export {HomeOverView};
+export {TopOverView};

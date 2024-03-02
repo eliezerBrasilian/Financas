@@ -14,6 +14,7 @@ export function UserProvider({children}) {
   const storedUser = new InternalStorage();
 
   useEffect(() => {
+    //storedUser.clearDataFromDevice();
     loadData();
   }, []);
 

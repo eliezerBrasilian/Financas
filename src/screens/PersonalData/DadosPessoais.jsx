@@ -1,14 +1,14 @@
-import {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   dateFromFirestoreToBrasilianFormat,
   formatarCelular,
 } from '../../utils/Utils';
+import {useEffect, useState} from 'react';
 
-import {firebase} from '@react-native-firebase/firestore';
 import Header from '../../components/Header';
 import {Loading} from '../../components/Loading';
 import {TextContent} from '../../components/TextContent';
+import {firebase} from '@react-native-firebase/firestore';
 import {useUserContext} from '../../contexts/UserContext';
 
 function DadosPessoais() {
@@ -19,7 +19,6 @@ function DadosPessoais() {
   const [phone, setPhone] = useState('');
   const [createdAt, setCreatedAt] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(user);
 
   useEffect(() => {
     setLoading(true);
@@ -29,7 +28,6 @@ function DadosPessoais() {
       .doc(uid)
       .get()
       .then(snap => {
-        console.log(snap.data());
         const data = snap.data();
         setName(data.name);
         setEmail(data.email);

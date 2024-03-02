@@ -2,11 +2,11 @@
 
 import React from 'react';
 import {View} from 'react-native';
-import {Spacer} from '../../../components/Spacer';
-import {TextContent} from '../../../components/TextContent';
-import {useUserContext} from '../../../contexts/UserContext';
-import {Utils} from '../../../utils/Utils';
-import {ChartView} from './ChartView';
+import {useUserContext} from '../contexts/UserContext';
+import {ChartView} from '../screens/TypeOfBalanceSelected/widgets/ChartView';
+import {Utils} from '../utils/Utils';
+import {Spacer} from './Spacer';
+import {TextContent} from './TextContent';
 
 export const Top = ({tag, amount, title}) => {
   const [isPremium, setPremium] = React.useState(false);
@@ -27,7 +27,7 @@ export const Top = ({tag, amount, title}) => {
 
       <Spacer />
       <TextContent fontSize={19} color="#fff">
-        Total de {title}
+        {title}
       </TextContent>
       <TextContent fontSize={25} color="#fff" fontWeight="bold">
         {Utils.getBrazilianCurrency(amount)}

@@ -1,28 +1,26 @@
 import React, {useMemo} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
-import {colors} from '../../../assets/colors/colors';
-import {CustomIcon} from '../../../components/CustomIcon';
-import {TextContent} from '../../../components/TextContent';
-import {useRegister} from '../../../contexts/RegisterContext';
-import {useUserContext} from '../../../contexts/UserContext';
-import {tags} from '../../../enums/Tag';
-import {Utils} from '../../../utils/Utils';
+import {colors} from '../assets/colors/colors';
+import {useRegister} from '../contexts/RegisterContext';
+import {useUserContext} from '../contexts/UserContext';
+import {tags} from '../enums/Tag';
+import {Utils} from '../utils/Utils';
+import {CustomIcon} from './CustomIcon';
+import {TextContent} from './TextContent';
 
-export default function Item({data, color}) {
-  const {tag, amount, description, key, createdAt} = data;
+export default function Item({data, color, closeAllPopUps}) {
+  const {tag, amount, description, key, createdAt, dayMonthYear} = data;
   const {user} = useUserContext();
   const {deleteRegister} = useRegister();
   const userUid = user.uid;
 
-  console.log(tag);
-
   const icon = useMemo(() => {
     if (tag == tags.REVENUE)
-      return require('../../../assets/images/receita_menu.png');
+      return require('../assets/images/receita_menu.png');
     else if (tag == tags.RESERVATION)
-      return require('../../../assets/images/reserva_menu.png');
-    else return require('../../../assets/images/despesa_menu.png');
+      return require('../assets/images/reserva_menu.png');
+    else return require('../assets/images/despesa_menu.png');
   }, [tag]);
 
   var onLongPress = () => {
@@ -47,7 +45,12 @@ export default function Item({data, color}) {
   };
 
   return (
-    <TouchableOpacity activeOpacity={0.6} onLongPress={onLongPress}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      onPress={() => {
+        closeAllPopUps();
+      }}
+      onLongPress={onLongPress}>
       <View
         style={{
           paddingHorizontal: 15,
@@ -62,7 +65,7 @@ export default function Item({data, color}) {
           description={description}
           tag={tag}
           icon={icon}
-          createdAt={Utils.dateFromFirestoreToBrasilianFormat(createdAt)}
+          createdAt={dayMonthYear}
         />
         <TextContent fontWeight="600" color={color} fontSize={15}>
           {Utils.getBrazilianCurrency(amount)}

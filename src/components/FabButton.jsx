@@ -2,12 +2,12 @@ import * as Animatable from 'react-native-animatable';
 
 import {TouchableOpacity, View} from 'react-native';
 
-import firestore from '@react-native-firebase/firestore';
-import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import React from 'react';
+import {Utils} from '../utils/Utils';
+import firestore from '@react-native-firebase/firestore';
 import {useRegister} from '../contexts/RegisterContext';
 import {useUserContext} from '../contexts/UserContext';
-import {Utils} from '../utils/Utils';
 
 export default function FabButton({onClick}) {
   const {user} = useUserContext();
@@ -40,7 +40,6 @@ export default function FabButton({onClick}) {
           });
         });
         if (data.empty) {
-          console.log('sim');
           setButtonColor('#0A2239');
         } else {
           setRegisterEmpty(false);
