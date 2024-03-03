@@ -9,7 +9,6 @@ import {useBalanceContext} from '../../contexts/BalanceContext';
 import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
 import {useTabBarContext} from '../../contexts/TabBarContext';
 import {useUserContext} from '../../contexts/UserContext';
-import {GoogleAdsService} from '../../services/GoogleAdsService';
 import {BannerPremium} from './widgets/BannerPremium';
 import Header from './widgets/Header';
 import {Menu} from './widgets/Menu';
@@ -18,7 +17,6 @@ import {RegistersOverview} from './widgets/RegistersOverview';
 import {TopOverView} from './widgets/TopOverView';
 
 export default function HomeScreen() {
-  var googleAds = new GoogleAdsService();
   const {user} = useUserContext();
   const [menuIsOpen, setMenuOpen] = React.useState(false);
   const [monthListVisible, setMonthListVisible] = React.useState(false);
@@ -57,6 +55,8 @@ export default function HomeScreen() {
       showTabBar();
     }
   }, [isFocused]);
+
+  function editBalance() {}
 
   return (
     <ScrollView

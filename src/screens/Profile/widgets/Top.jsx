@@ -1,6 +1,6 @@
+import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
-import React from 'react';
 import {DateTime} from '../../../classes/DateTime';
 import Header from '../../../components/Header';
 import Icon from '../../../components/Icon';
@@ -49,23 +49,18 @@ const ViewCenteredInTheMiddle = ({children}) => {
 
 const EditableImageProfile = ({uid}) => {
   const {savePhoto, profilePicture, savingPhoto} = useProfilePicture();
-  const [profileImage, setProfileImage] = React.useState(null);
+  const [profilePicture_, setProfilePicture] = useState(profilePicture);
 
-  React.useEffect(() => {
-    const unsubscribe = loadProfilePictureFromDevice();
-    return () => unsubscribe;
+  useMemo(() => {
+    setProfilePicture(profilePicture);
   }, [profilePicture]);
-
-  async function loadProfilePictureFromDevice() {
-    var profilePictureFromDevice = await Ifinancas.getImageFromDevice();
-    setProfileImage(profilePictureFromDevice);
-  }
 
   async function updateProfilePicture() {
     var imagePath =
       await Ifinancas.LaunchSelectorOfImageAndRetriveImageSelected();
     await savePhoto(imagePath, uid);
   }
+
   return (
     <TouchableOpacity onPress={updateProfilePicture}>
       {savingPhoto ? (
@@ -75,7 +70,8 @@ const EditableImageProfile = ({uid}) => {
           <ProfileImage
             hasBorderRadius={true}
             size={70}
-            profilePhoto={profileImage == null ? null : {uri: profileImage}}
+            profilePhoto={profilePicture_}
+            isAsynchronous={true}
           />
           <Pencil />
         </View>

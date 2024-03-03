@@ -1,9 +1,9 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import {CustomIcon} from '../../../components/CustomIcon';
-import {Dia} from '../../../enums/Dia';
-import {TextContent} from '../../../components/TextContent';
 import {colors} from '../../../assets/colors/colors';
+import {CustomIcon} from '../../../components/CustomIcon';
+import {TextContent} from '../../../components/TextContent';
+import {Dia} from '../../../enums/Dia';
 
 function DateOfTransaction({daySelected, handleSelectDayChange}) {
   return (
@@ -83,11 +83,11 @@ function RoundItemsContainer({daySelected, handleSelectDayChange}) {
         handleSelectDayChange={handleSelectDayChange}
         daySelected={daySelected}
       />
-      <RoundItem
+      {/* <RoundItem
         day={Dia.OTHERS}
         handleSelectDayChange={handleSelectDayChange}
         daySelected={daySelected}
-      />
+      /> */}
     </View>
   );
 }

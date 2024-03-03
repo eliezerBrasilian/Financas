@@ -41,9 +41,9 @@ function Right({activateSortMenu}) {
       <TouchableOpacity onPress={activateSortMenu}>
         <CustomIcon path={require('../assets/images/filtro.png')} />
       </TouchableOpacity>
-      <TouchableOpacity>
+      {/* <TouchableOpacity>
         <CustomIcon path={require('../assets/images/download.png')} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }

@@ -1,12 +1,12 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Navigation} from '../../classes/Navigation';
-import HomeScreen from '../../screens/HomeScreen/HomeScreen';
 import DadosPessoais from '../../screens/PersonalData/DadosPessoais';
+import HomeScreen from '../../screens/HomeScreen/HomeScreen';
+import {Navigation} from '../../classes/Navigation';
 import PremiumScreen from '../../screens/PremiumScreen/PremiumScreen';
 import Profile from '../../screens/Profile/Profile';
 import Register from '../../screens/Register/Register';
-import TypeOfBalanceSelected from '../../screens/TypeOfBalanceSelected/TypeOfBalanceSelected';
+import TypeOfBalanceSelected from '../../screens/TypeOfBalanceSelected/BalanceSelected';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -1,10 +1,11 @@
 import {ScrollView, TextInput, View} from 'react-native';
 
+import {colors} from '../../../assets/colors/colors';
 import {BackgroundColor} from '../../../classes/BackgroundColor';
 import Button from '../../../components/Button';
+import {TextContent} from '../../../components/TextContent';
 import {Category} from './Category';
 import {DateOfTransaction} from './DateOfTransaction';
-import {colors} from '../../../assets/colors/colors';
 
 function Overview({
   tag,
@@ -16,6 +17,8 @@ function Overview({
   handleDescriptionChange,
   handleCategoryChange,
   handleSelectDayChange,
+  categoryWasNotProvided,
+  descriptionWasNotProvided,
 }) {
   return (
     <View
@@ -41,7 +44,10 @@ function Overview({
             handleSelectDayChange={handleSelectDayChange}
             daySelected={daySelected}
           />
-          <Category handleCategoryChange={handleCategoryChange} />
+          <Category
+            handleCategoryChange={handleCategoryChange}
+            categoryWasNotProvided={categoryWasNotProvided}
+          />
           <TextInput
             placeholder={'Descrição da ' + tag + '...'}
             placeholderTextColor={'#000'}
@@ -56,6 +62,12 @@ function Overview({
             value={description}
             onChangeText={handleDescriptionChange}
           />
+
+          {descriptionWasNotProvided && (
+            <TextContent color="red" textAlign="center">
+              Por favor, digite uma descrição*
+            </TextContent>
+          )}
 
           <View style={{width: '100%', alignItems: 'center', marginTop: 60}}>
             <Button

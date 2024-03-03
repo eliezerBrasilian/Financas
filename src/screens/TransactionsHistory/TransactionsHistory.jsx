@@ -54,7 +54,11 @@ function TransactionsHistory({route}) {
         barStyle={'light-content'}
       />
       <View style={{margin: 10}}>
-        <HeaderTransactionsHistory title={'Histórico'} color="#fff" />
+        <HeaderTransactionsHistory
+          title={'Histórico'}
+          color="#fff"
+          activateSortMenu={activateSortMenu}
+        />
       </View>
       <Top
         tag={tag}
@@ -70,6 +74,7 @@ function TransactionsHistory({route}) {
         decrementMonth={decrementMonth}
         loading={loadingSortList}
         color={bgColor}
+        isFromTransactionHistory={true}
       />
       {menuIsOpen && (
         <SortBy setMenuOpen={setMenuOpen} isFromTransactionHistory={true} />

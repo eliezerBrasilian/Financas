@@ -240,7 +240,7 @@ export function BalanceContextProvider({children}) {
       .where('createdBy', '==', uid)
       .where('monthYear', '==', Utils.getMonthAndYear(date))
       .where('deleted', '==', false)
-      .orderBy('description', 'asc')
+      .orderBy('descriptionInLowerCaseForSearching', 'asc')
       .get()
       .then(
         data => {
@@ -307,7 +307,7 @@ export function BalanceContextProvider({children}) {
       .where('createdBy', '==', uid)
       .where('monthYear', '==', Utils.getMonthAndYear(date))
       .where('deleted', '==', false)
-      .orderBy('description', 'desc')
+      .orderBy('descriptionInLowerCaseForSearching', 'desc')
       .get()
       .then(
         data => {
@@ -354,6 +354,7 @@ export function BalanceContextProvider({children}) {
         totalExpenses,
         totalReservations,
         doReload,
+        reload,
         loadRegistersFromTitleAscendlyAtoZ,
         sortRegistersList,
         loadingSortList,

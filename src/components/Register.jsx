@@ -9,7 +9,12 @@ import {Utils} from '../utils/Utils';
 import {CustomIcon} from './CustomIcon';
 import {TextContent} from './TextContent';
 
-export default function Item({data, color, closeAllPopUps}) {
+export default function Item({
+  data,
+  color,
+  closeAllPopUps = () => {},
+  isFromTransactionHistory = false,
+}) {
   const {tag, amount, description, key, createdAt, dayMonthYear} = data;
   const {user} = useUserContext();
   const {deleteRegister} = useRegister();
@@ -24,32 +29,32 @@ export default function Item({data, color, closeAllPopUps}) {
   }, [tag]);
 
   var onLongPress = () => {
-    const isNotPremium = true;
-    const registerItem = {
-      amount: amount,
-      key: key,
-      tag: tag,
-      createdBy: userUid,
-    };
-    if (isNotPremium) {
-      const alertButtons = [
-        {
-          text: 'Cancelar',
-          onPress: () => {},
-          style: 'cancel',
-        },
-        {text: 'SIM', onPress: () => deleteRegister(registerItem)},
-      ];
-      Utils.showAlert('Deseja excluir esse registro?', null, alertButtons);
+    if (!isFromTransactionHistory) {
+      const isNotPremium = true;
+      const registerItem = {
+        amount: amount,
+        key: key,
+        tag: tag,
+        createdBy: userUid,
+      };
+      if (isNotPremium) {
+        const alertButtons = [
+          {
+            text: 'Cancelar',
+            onPress: () => {},
+            style: 'cancel',
+          },
+          {text: 'SIM', onPress: () => deleteRegister(registerItem)},
+        ];
+        Utils.showAlert('Deseja excluir esse registro?', null, alertButtons);
+      }
     }
   };
 
   return (
     <TouchableOpacity
-      activeOpacity={0.6}
-      onPress={() => {
-        closeAllPopUps();
-      }}
+      activeOpacity={isFromTransactionHistory ? 1.0 : 0.6}
+      onPress={closeAllPopUps}
       onLongPress={onLongPress}>
       <View
         style={{

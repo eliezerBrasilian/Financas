@@ -1,6 +1,6 @@
-import React from 'react';
 import {FlatList, View} from 'react-native';
 
+import React from 'react';
 import {BannerAds} from './BannerAds';
 import {HeaderOfOverlayView} from './HeaderOfOverlayView';
 import {Loading} from './Loading';
@@ -15,6 +15,7 @@ export const OverlayView = ({
   loading,
   color,
   closeAllPopUps,
+  isFromTransactionHistory,
 }) => {
   return (
     <View
@@ -44,6 +45,7 @@ export const OverlayView = ({
                 data={item}
                 color={color}
                 closeAllPopUps={closeAllPopUps}
+                isFromTransactionHistory={isFromTransactionHistory}
               />
             )}
             contentContainerStyle={{rowGap: 10}}

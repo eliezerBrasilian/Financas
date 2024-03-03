@@ -1,9 +1,9 @@
 import {adapty} from 'react-native-adapty';
 import {Exception} from '../Exceptions/Exception';
+import {User} from '../classes/User';
 import {Utils} from '../utils/Utils';
-import {User} from './User';
 
-class Payment {
+class PaymentServices {
   private paywallProduct: any;
 
   constructor() {
@@ -46,6 +46,16 @@ class Payment {
       new Exception('process payment', error);
     }
   }
+
+  public async getSubscriptionStatus() {
+    try {
+      const profile = await adapty.getProfile();
+      return profile?.accessLevels['premium']?.isActive;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 }
 
-export {Payment};
+export {PaymentServices};

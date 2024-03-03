@@ -3,6 +3,7 @@ import React, {createContext, useContext, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
 import {GoogleAdsService} from '../services/GoogleAdsService';
 import {Utils} from '../utils/Utils';
+import {useBalanceContext} from './BalanceContext';
 
 const RegisterContext = createContext();
 
@@ -12,6 +13,7 @@ export const useRegister = () => {
 
 export const RegisterProvider = ({children}) => {
   const [updated, setUpdated] = useState(false);
+  const {doReload} = useBalanceContext();
   var googleAds = new GoogleAdsService();
 
   var deleteRegister = registerItem => {
@@ -61,6 +63,7 @@ export const RegisterProvider = ({children}) => {
   function deletedSuccessufully() {
     Utils.ShowToast('Registro excluido');
     setUpdated(!updated);
+    doReload();
     googleAds.showAds();
   }
   return (

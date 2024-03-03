@@ -1,12 +1,12 @@
+import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
+import {colors} from '../../../assets/colors/colors';
 import {Navigation} from '../../../classes/Navigation';
 import ProfileImage from '../../../components/ProfileImage';
-import React from 'react';
 import {TextContent} from '../../../components/TextContent';
-import {Utils} from '../../../utils/Utils';
-import {colors} from '../../../assets/colors/colors';
 import {tags} from '../../../enums/Tag';
+import {Utils} from '../../../utils/Utils';
 
 function TopOverView({uid, totalRevenues, totalExpenses, totalReservations}) {
   return (
@@ -45,7 +45,7 @@ function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
     <View
       style={{
         flexDirection: 'row',
-        columnGap: 10,
+        columnGap: 9,
         justifyContent: 'center',
         paddingTop: 20,
       }}>
@@ -53,26 +53,71 @@ function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
         iconImage={require('../../../assets/images/receita.png')}
         title={'Receitas'}
         value={Utils.getBrazilianCurrency(totalRevenues)}
+        originalValue={totalRevenues}
         destinationScreen={tags.REVENUE}
       />
       <Card
         iconImage={require('../../../assets/images/despesa.png')}
         title={'Despesas'}
         value={Utils.getBrazilianCurrency(totalExpenses)}
+        originalValue={totalExpenses}
         destinationScreen={tags.EXPENSE}
       />
       <Card
         iconImage={require('../../../assets/images/reserva.png')}
         title={'Reservas'}
         value={Utils.getBrazilianCurrency(totalReservations)}
+        originalValue={totalReservations}
         destinationScreen={tags.RESERVATION}
       />
     </View>
   );
 }
 
-function Card({iconImage, title, value, destinationScreen}) {
+function Card({iconImage, title, value, destinationScreen, originalValue}) {
   const nav = new Navigation();
+
+  const [formatedValue, setFormatedValue] = useState(originalValue);
+  const [originalValue_, setOriginalValue_] = useState(originalValue);
+
+  useMemo(() => {
+    setOriginalValue_(originalValue);
+    if (originalValue >= 10000 && originalValue < 100000) {
+      const stringfied = originalValue.toString();
+
+      const formaatedValue =
+        'R$ ' +
+        stringfied[0] +
+        stringfied[1] +
+        ',' +
+        stringfied[2] +
+        stringfied[3] +
+        stringfied[4] +
+        '...';
+
+      console.log(formaatedValue);
+
+      setFormatedValue(formaatedValue);
+    }
+    if (originalValue >= 100000 && originalValue < 999000) {
+      const stringfied = originalValue.toString();
+
+      const formaatedValue =
+        'R$ ' +
+        stringfied[0] +
+        stringfied[1] +
+        stringfied[2] +
+        '.' +
+        stringfied[3] +
+        stringfied[4] +
+        '...';
+
+      console.log(formaatedValue);
+
+      setFormatedValue(formaatedValue);
+    }
+  }, [originalValue]);
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -84,7 +129,7 @@ function Card({iconImage, title, value, destinationScreen}) {
       <View
         style={{
           height: 160,
-          width: 110,
+          width: 112,
           backgroundColor: 'white',
           borderRadius: 16,
           justifyContent: 'center',
@@ -98,7 +143,7 @@ function Card({iconImage, title, value, destinationScreen}) {
             fontSize={19}
             fontWeight="500"
             color={colors.almost_black}>
-            {value}
+            {originalValue_ >= 10000 ? formatedValue : value}
           </TextContent>
         </View>
       </View>

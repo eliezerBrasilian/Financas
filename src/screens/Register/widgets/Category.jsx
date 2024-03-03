@@ -2,9 +2,10 @@ import {View} from 'react-native';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {Category as Ca} from '../../../classes/Category';
 import {CustomIcon} from '../../../components/CustomIcon';
+import {Spacer} from '../../../components/Spacer';
 import {TextContent} from '../../../components/TextContent';
 
-function Category({handleCategoryChange}) {
+function Category({handleCategoryChange, categoryWasNotProvided}) {
   return (
     <View
       onPress={() => setDateVisible(true)}
@@ -20,6 +21,7 @@ function Category({handleCategoryChange}) {
       <CategorySelect
         categories={Ca.getCategories()}
         handleCategoryChange={handleCategoryChange}
+        categoryWasNotProvided={categoryWasNotProvided}
       />
 
       {/* <TouchableOpacity
@@ -50,7 +52,11 @@ function Top() {
   );
 }
 
-function CategorySelect({categories, handleCategoryChange}) {
+function CategorySelect({
+  categories,
+  handleCategoryChange,
+  categoryWasNotProvided,
+}) {
   return (
     <View style={{width: '70%'}}>
       <SelectList
@@ -63,6 +69,14 @@ function CategorySelect({categories, handleCategoryChange}) {
         setSelected={handleCategoryChange}
         search={false}
       />
+      {categoryWasNotProvided && (
+        <View>
+          <Spacer />
+          <TextContent color="red">
+            Por favor, escolha uma categoria*
+          </TextContent>
+        </View>
+      )}
     </View>
   );
 }

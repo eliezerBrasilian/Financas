@@ -5,17 +5,14 @@ import {sort} from '../enums/Sort';
 import {Spacer} from './Spacer';
 import {TextContent} from './TextContent';
 
-function SortBy({setMenuOpen, tag, isFromTransactionHistory = false}) {
-  const {
-    changeWayRegistersAreSort,
-    changeWayRegistersAreSortOnTransactionHistory,
-  } = useBalanceContext();
+function SortBy({setMenuOpen, tag, isFromTransactionHistory = false, onClick}) {
+  const {changeWayRegistersAreSortOnTransactionHistory} = useBalanceContext();
 
   var handleOnClick = sortType => {
     if (isFromTransactionHistory) {
       changeWayRegistersAreSortOnTransactionHistory(sortType);
     } else {
-      changeWayRegistersAreSort(sortType, tag);
+      onClick(sortType, tag);
     }
   };
 

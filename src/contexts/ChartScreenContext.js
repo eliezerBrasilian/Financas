@@ -25,7 +25,7 @@ export const ChartScreenContextProvider = ({children}) => {
   function handleChangeCurrentTag(newTag) {
     setSelectChartScreenTag(newTag);
   }
-  console.log(selectedChartScreenTag);
+
   return (
     <ChartScreenContext.Provider
       value={{

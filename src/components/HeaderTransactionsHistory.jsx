@@ -4,11 +4,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {Navigation} from '../classes/Navigation';
 import {CustomIcon} from './CustomIcon';
 
-function HeaderTransactionsHistory({title, onClick}) {
+function HeaderTransactionsHistory({title, onClick, activateSortMenu}) {
   return (
     <Row>
       <Left title={title} />
-      <Right />
+      <Right activateSortMenu={activateSortMenu} />
     </Row>
   );
 }
@@ -48,15 +48,15 @@ function Left({title}) {
     </TouchableOpacity>
   );
 }
-function Right() {
+function Right({activateSortMenu}) {
   return (
     <View style={{flexDirection: 'row', columnGap: 30}}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={activateSortMenu}>
         <CustomIcon path={require('../assets/images/filtro.png')} />
       </TouchableOpacity>
-      <TouchableOpacity>
+      {/* <TouchableOpacity>
         <CustomIcon path={require('../assets/images/download.png')} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }

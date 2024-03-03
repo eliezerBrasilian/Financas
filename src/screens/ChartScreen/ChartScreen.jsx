@@ -133,6 +133,7 @@ function ChartScreen() {
       activeOpacity={1.0}
       onPress={closeAllPopUps}>
       <StatusBar backgroundColor={bgColor} barStyle={'light-content'} />
+
       <View style={{margin: 10}}>
         <DropDownSelect
           title={currentTitle}
@@ -160,5 +161,7 @@ function ChartScreen() {
     </TouchableOpacity>
   );
 }
+
+const commomStyles = {};
 
 export {ChartScreen};

@@ -1,12 +1,12 @@
 //import firestore from '@react-native-firebase/firestore';
 
-import React from 'react';
-import {View} from 'react-native';
-import {useUserContext} from '../contexts/UserContext';
 import {ChartView} from '../screens/TypeOfBalanceSelected/widgets/ChartView';
-import {Utils} from '../utils/Utils';
+import React from 'react';
 import {Spacer} from './Spacer';
 import {TextContent} from './TextContent';
+import {Utils} from '../utils/Utils';
+import {View} from 'react-native';
+import {useUserContext} from '../contexts/UserContext';
 
 export const Top = ({tag, amount, title}) => {
   const [isPremium, setPremium] = React.useState(false);

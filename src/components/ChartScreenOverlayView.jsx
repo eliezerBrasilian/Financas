@@ -1,11 +1,14 @@
 import React, {useMemo, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 
+import {BlurView} from '@react-native-community/blur';
 import {PieChart} from 'react-native-gifted-charts';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {colors} from '../assets/colors/colors';
+import {useUserContext} from '../contexts/UserContext';
 import {Category} from '../enums/Category';
 import {Utils} from '../utils/Utils';
+import {BluerPremium} from './BluerPremium';
 import {HeaderOfOverlayView} from './HeaderOfOverlayView';
 import {Loading} from './Loading';
 import {PiLegend} from './PieLegend';
@@ -158,6 +161,8 @@ function ChartScreenOverlayView({
     },
   ];
 
+  const {isPremium} = useUserContext();
+
   return (
     <View
       style={{
@@ -174,73 +179,95 @@ function ChartScreenOverlayView({
       />
 
       <ScrollView style={{flex: 1, width: '100%'}}>
-        <View
-          style={{flex: 1, justifyContent: 'center', paddingHorizontal: 20}}>
-          {(casaTotal_ > 0 ||
-            lazerTotal_ > 0 ||
-            trabalhoTotal_ > 0 ||
-            investimentoTotal_ > 0) && (
-            <PieChartContainer>
-              <PieChart
-                data={pieData}
-                donut
-                showGradient
-                sectionAutoFocus
-                radius={90}
-                innerRadius={60}
-                innerCircleColor={'#232B5D'}
-                centerLabelComponent={() => {
-                  return (
-                    <View
-                      style={{justifyContent: 'center', alignItems: 'center'}}>
-                      <TextContent
-                        style={{
-                          fontSize: 22,
-                          color: 'white',
-                          fontWeight: 'bold',
-                        }}>
-                        ...
-                      </TextContent>
-                      <TextContent fontSize={14} color={'white'}>
-                        I finanças
-                      </TextContent>
-                    </View>
-                  );
-                }}
-              />
-
-              <View style={{marginHorizontal: 20, marginTop: 20}}>
-                {loading ? <Loading /> : <LegendItems />}
-              </View>
-            </PieChartContainer>
+        <View>
+          {!isPremium && (
+            <BlurView
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 2,
+              }}
+              blurAmount={9}
+              //  overlayColor="transparent"
+              blurType="xlight"
+            />
           )}
+          {!isPremium && <BluerPremium />}
 
           <View
-            style={{
-              marginTop: 20,
-              rowGap: 8,
-              marginBottom: 20,
-            }}>
-            <TextItem
-              text={Category.CASA}
-              amount={casaTotal}
-              iconName={'home'}
-            />
-            <TextItem
-              text={Category.LAZER}
-              amount={lazerTotal}
-              iconName={'Trophy'}
-            />
-            <TextItem
-              text={Category.TRABALHO}
-              amount={trabalhoTotal}
-              iconName={'tool'}
-            />
-            <TextItem
-              text={Category.INVESTIMENTO}
-              amount={investimentoTotal}
-              iconName={'barchart'}
-            />
+            style={{flex: 1, justifyContent: 'center', paddingHorizontal: 20}}>
+            {(casaTotal_ > 0 ||
+              lazerTotal_ > 0 ||
+              trabalhoTotal_ > 0 ||
+              investimentoTotal_ > 0) && (
+              <PieChartContainer>
+                <PieChart
+                  data={pieData}
+                  donut
+                  showGradient
+                  sectionAutoFocus
+                  radius={90}
+                  innerRadius={60}
+                  innerCircleColor={'#232B5D'}
+                  centerLabelComponent={() => {
+                    return (
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}>
+                        <TextContent
+                          style={{
+                            fontSize: 22,
+                            color: 'white',
+                            fontWeight: 'bold',
+                          }}>
+                          ...
+                        </TextContent>
+                        <TextContent fontSize={14} color={'white'}>
+                          I finanças
+                        </TextContent>
+                      </View>
+                    );
+                  }}
+                />
+
+                <View style={{marginHorizontal: 20, marginTop: 20}}>
+                  {loading ? <Loading /> : <LegendItems />}
+                </View>
+              </PieChartContainer>
+            )}
+
+            <View
+              style={{
+                marginTop: 20,
+                rowGap: 8,
+                marginBottom: 20,
+              }}>
+              <TextItem
+                text={Category.CASA}
+                amount={casaTotal}
+                iconName={'home'}
+              />
+              <TextItem
+                text={Category.LAZER}
+                amount={lazerTotal}
+                iconName={'Trophy'}
+              />
+              <TextItem
+                text={Category.TRABALHO}
+                amount={trabalhoTotal}
+                iconName={'tool'}
+              />
+              <TextItem
+                text={Category.INVESTIMENTO}
+                amount={investimentoTotal}
+                iconName={'barchart'}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -2,11 +2,11 @@ import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
 
-import {Collections} from '../enums/Collections';
 import {Exception} from '../Exceptions/Exception';
+import {Collections} from '../enums/Collections';
+import {UserProperties} from '../enums/UserProperties';
 import {Firestore} from './Firestore';
 import {InternalStorage} from './InternalStorage';
-import {UserProperties} from '../enums/UserProperties';
 
 class User extends Firestore {
   private userData;
@@ -85,6 +85,19 @@ class User extends Firestore {
       );
     } catch (error) {
       new Exception('unlock premium access', error);
+    }
+  }
+
+  public async removeAccessPremium() {
+    try {
+      var userUid = await this.getStoredUserUid();
+      await this.userRef.doc(userUid).update({isPremium: false});
+      await this.internalStorage.updateDataOnDevice(
+        UserProperties.IS_PREMIUM,
+        false,
+      );
+    } catch (error) {
+      new Exception('cancel premium access', error);
     }
   }
 }

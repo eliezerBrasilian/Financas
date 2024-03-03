@@ -1,8 +1,10 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import {Collections} from '../enums/Collections';
+import {Ifinancas} from '../utils/Ifinancas.utils';
 import {Utils} from '../utils/Utils';
 
 const ProfilePictureContext = createContext();
@@ -12,21 +14,26 @@ export const useProfilePicture = () => {
 };
 
 export const ProfilePictureProvider = ({children}) => {
-  const [isLoadingAuth, setLoadingAuth] = useState(false);
-  const [user, setUser] = useState(null);
-  const [isLoadingApp, setLoadingApp] = useState(true);
-  const [isSendingResetLink, setSendingLink] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
   const [savingPhoto, setSavingPhoto] = useState(false);
 
+  useEffect(() => {
+    const unsubscribe = loadProfilePictureFromDevice();
+    return () => unsubscribe;
+  }, []);
+
+  async function loadProfilePictureFromDevice() {
+    var profilePictureFromDevice = await Ifinancas.getImageFromDevice();
+    setProfilePicture(profilePictureFromDevice);
+  }
+
   async function savePhoto(path, userUid) {
     setSavingPhoto(true);
-    const docRef = firestore().collection('users').doc(userUid);
+    const docRef = firestore().collection(Collections.USERS).doc(userUid);
 
     const storagePath = await getPhotoUrl(path);
-    console.log('STORAGEPATH: ' + storage);
+
     if (storagePath == '') {
-      console.log('não foi possivel salvar a foto no storage');
       Utils.ShowToast('Erro ao atualizar foto de perfil');
     } else {
       try {

@@ -1,10 +1,11 @@
+import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
-import React from 'react';
 import Feather from 'react-native-vector-icons/Feather';
-import {CustomIcon} from '../../../components/CustomIcon';
+import {Navigation} from '../../../classes/Navigation';
 import ProfileImage from '../../../components/ProfileImage';
 import {TextContent} from '../../../components/TextContent';
+import {useProfilePicture} from '../../../contexts/ProfilePictureContext';
 import {Utils} from '../../../utils/Utils';
 
 export default function Header({
@@ -12,7 +13,6 @@ export default function Header({
   setMenuOpen,
   setMonthListVisible,
   monthSelected,
-
   balance,
 }) {
   return (
@@ -28,6 +28,15 @@ export default function Header({
 }
 
 function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
+  const nav = new Navigation();
+  const {profilePicture} = useProfilePicture();
+
+  const [profilePicture_, setProfilePicture] = useState(profilePicture);
+
+  useMemo(() => {
+    setProfilePicture(profilePicture);
+  }, [profilePicture]);
+
   return (
     <View
       style={{
@@ -37,7 +46,14 @@ function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
         alignItems: 'flex-start',
       }}>
       <View style={{height: 45, marginTop: -10}}>
-        <ProfileImage size={40} />
+        <TouchableOpacity onPress={() => nav.navigateTo(nav.screens.PROFILE)}>
+          <ProfileImage
+            profilePhoto={profilePicture_}
+            isAsynchronous={true}
+            size={40}
+            hasBorderRadius={true}
+          />
+        </TouchableOpacity>
       </View>
       <Month
         setMonthListVisible={setMonthListVisible}
@@ -49,6 +65,12 @@ function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
 }
 
 function Total({balance}) {
+  const [balanceIsHidden, setBalanceHidden] = useState(false);
+
+  var toogleBalanceHidden = () => {
+    setBalanceHidden(v => !v);
+  };
+
   return (
     <View style={{marginLeft: 20, marginTop: 28}}>
       <TextContent color="#fff" fontWeight="400">
@@ -60,13 +82,30 @@ function Total({balance}) {
           columnGap: 10,
           alignItems: 'center',
         }}>
-        <TextContent color="#fff" fontWeight="bold" fontSize={32}>
-          {Utils.getBrazilianCurrency(balance)}
-        </TextContent>
+        {balanceIsHidden ? (
+          <TextContent color="#fff" fontWeight="bold" fontSize={32}>
+            R$ ****
+          </TextContent>
+        ) : (
+          <TextContent color="#fff" fontWeight="bold" fontSize={32}>
+            {Utils.getBrazilianCurrency(balance)}
+          </TextContent>
+        )}
+
         {/* <ProfileImage
         profilePhoto={require('../../../assets/images/olho.png')}
       /> */}
-        <Feather name="eye" color="#fff" size={20} />
+        <TouchableOpacity onPress={toogleBalanceHidden}>
+          <View
+            style={{
+              height: 33,
+              width: 33,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Feather name="eye" color="#fff" size={20} />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -80,7 +119,6 @@ function Month({setMonthListVisible, monthSelected}) {
           flexDirection: 'row',
           alignItems: 'center',
           columnGap: 5,
-          marginLeft: 27,
           marginTop: 25,
         }}>
         <TextContent fontWeight="bold" fontSize={22} color="#fff">
@@ -98,16 +136,6 @@ function Month({setMonthListVisible, monthSelected}) {
 function Right({setMenuOpen}) {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 35}}>
-      {/* <ProfileImage
-        size={20}
-        profilePhoto={require('../../../assets/images/editar.png')}
-      /> */}
-      <CustomIcon
-        height={25}
-        width={25}
-        path={require('../../../assets/images/pencil_premium.png')}
-      />
-
       <TouchableOpacity onPress={() => setMenuOpen(true)}>
         <ProfileImage
           size={20}

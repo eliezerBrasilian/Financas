@@ -1,18 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import CurrencyInput from 'react-native-currency-input';
+import {colors} from '../../../assets/colors/colors';
 import {BackgroundColor} from '../../../classes/BackgroundColor';
 import Icon from '../../../components/Icon';
 import {TextContent} from '../../../components/TextContent';
 import {tags} from '../../../enums/Tag';
 
-export function Top({title, value, setValue}) {
+export function Top({title, value, setValue, amountWasInvalid}) {
   const nav = useNavigation();
   const [titulo, setTitulo] = useState('');
   const [subtitulo, setSubTitulo] = useState('');
+  const [focus, setFocus] = useState(true);
 
+  const [amountWasInvalid_, setAmountWasInvalid_] = useState(amountWasInvalid);
+  useMemo(() => {
+    setAmountWasInvalid_(amountWasInvalid);
+  }, [amountWasInvalid]);
   useEffect(() => {
     setTitulo(getTitle);
     setSubTitulo(getSubTitle);
@@ -23,6 +29,7 @@ export function Top({title, value, setValue}) {
     else if (title == tags.RESERVATION) return 'Nova Reserva';
     else return 'Nova Despesa';
   }
+
   function getSubTitle() {
     if (title == tags.REVENUE) return 'Receita';
     else if (title == tags.RESERVATION) return 'Reserva';
@@ -39,7 +46,13 @@ export function Top({title, value, setValue}) {
       }}>
       <Header titulo={titulo} nav={nav} />
 
-      <View style={{marginTop: 20, width: '100%', alignItems: 'center'}}>
+      <View
+        style={{
+          marginTop: 20,
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%',
+        }}>
         <TextContent
           fontSize={20}
           color="#fff"
@@ -51,12 +64,25 @@ export function Top({title, value, setValue}) {
         <CurrencyInput
           value={value}
           onChangeValue={value => setValue(value)}
-          placeholder="R$ 0,00"
+          autoFocus={true}
+          placeholder="R$ 0,0"
           placeholderTextColor={'#fff'}
-          style={{fontSize: 30, fontWeight: 'bold', color: '#fff'}}
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            color: '#fff',
+          }}
           keyboardType="decimal-pad"
           prefix="R$ "
+          cursorColor={colors.main_purple}
         />
+        {amountWasInvalid_ && (
+          <View style={{position: 'absolute', top: 72, zIndex: 3}}>
+            <TextContent color="red" textAlign="center">
+              Por favor, digite um valor válido*
+            </TextContent>
+          </View>
+        )}
       </View>
     </View>
   );

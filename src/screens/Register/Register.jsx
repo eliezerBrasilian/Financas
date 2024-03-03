@@ -1,33 +1,51 @@
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
 
-import {BackgroundColor} from '../../classes/BackgroundColor';
-import {Collections} from '../../enums/Collections';
-import {DateTime} from '../../classes/DateTime';
-import {Dia} from '../../enums/Dia';
-import {Overview} from './widgets/OverView';
-import {Top} from './widgets/Top';
-import {Utils} from '../../utils/Utils';
 import firestore from '@react-native-firebase/firestore';
+import {BackgroundColor} from '../../classes/BackgroundColor';
+import {DateTime} from '../../classes/DateTime';
 import {useBalanceContext} from '../../contexts/BalanceContext';
 import {useUserContext} from '../../contexts/UserContext';
+import {Collections} from '../../enums/Collections';
+import {Dia} from '../../enums/Dia';
+import {Utils} from '../../utils/Utils';
+import {Overview} from './widgets/OverView';
+import {Top} from './widgets/Top';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
   const {user} = useUserContext();
-  const [amount, setAmount] = useState(5);
-  const [description, setDescription] = useState('teste');
+  const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [daySelected, setDaySelected] = useState(Dia.TODAY);
   const [localDateTime, setLocalDatetime] = useState(new Date());
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [categoryWasNotProvided, setCategoryNotProvided] = useState(false);
+  const [descriptionWasNotProvided, setDescriptionNotProvided] =
+    useState(false);
+  const [amountWasInvalid, setAmountWasInvalid] = useState(false);
 
   const {doReload} = useBalanceContext();
 
   var bgColor = BackgroundColor.getBackgrouncColor(tag);
 
   async function handleSendOfRegister() {
-    await sendRegister();
+    if (
+      category !== '' &&
+      !(amount === 0) &&
+      !(amount === '') &&
+      !(description == '')
+    ) {
+      await sendRegister();
+    }
+    if (category == '') setCategoryNotProvided(true);
+    if (category != '') setCategoryNotProvided(false);
+    if (description == '') setDescriptionNotProvided(true);
+    if (description != '') setDescriptionNotProvided(false);
+    if (amount === 0 || amount === '') {
+      setAmountWasInvalid(true);
+    }
   }
 
   var handleDescriptionChange = text => {
@@ -50,8 +68,6 @@ export default Register = ({route}) => {
   };
 
   async function sendRegister() {
-    if (amount === null || amount === 0 || description == '' || category == '')
-      return;
     await firestore()
       .collection(Collections.REGISTERS)
       .add({
@@ -110,11 +126,18 @@ export default Register = ({route}) => {
   return (
     <View style={{backgroundColor: bgColor, flex: 1}}>
       <StatusBar backgroundColor={bgColor} barStyle={'light-content'} />
-      <Top title={tag} value={amount} setValue={setAmount} />
+      <Top
+        title={tag}
+        value={amount}
+        setValue={setAmount}
+        amountWasInvalid={amountWasInvalid}
+      />
 
       <Overview
         tag={tag}
         description={description}
+        categoryWasNotProvided={categoryWasNotProvided}
+        descriptionWasNotProvided={descriptionWasNotProvided}
         handleDescriptionChange={handleDescriptionChange}
         pickerVisible={pickerVisible}
         currentDate={localDateTime}
