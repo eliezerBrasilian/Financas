@@ -1,5 +1,7 @@
 import {TouchableOpacity, View} from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
+import {useState} from 'react';
 import Modal from 'react-native-modal';
 import {Navigation} from '../../classes/Navigation';
 import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
@@ -7,13 +9,15 @@ import {CustomIcon} from '../CustomIcon';
 import {TextContent} from '../TextContent';
 
 export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
-  const nav = new Navigation();
+  const [registerScreen] = useState(new Navigation().screens.REGISTER);
+  const [historyScreen] = useState(new Navigation().tabs.TRANSACTION);
+  const nav = useNavigation();
 
   const {handleClosePopUpOfPlusButton} = usePlusButtonContext();
   function navTo(destinationScreen) {
-    //setModalVisible(false);
     handleClosePopUpOfPlusButton();
-    nav.navigateToDestinationScreenUsingParams(nav.screens.REGISTER, {
+
+    nav.navigate(registerScreen, {
       tag: String(destinationScreen).toLowerCase(),
     });
   }
@@ -52,7 +56,7 @@ export default ModalSelectFinanceOption = ({visible, setModalVisible}) => {
             image={require('../../assets/images/historico_menu.png')}
             onClick={() => {
               handleClosePopUpOfPlusButton();
-              nav.navigateTo(nav.tabs.TRANSACTION);
+              nav.navigate(historyScreen);
             }}
           />
           <FinanceItem

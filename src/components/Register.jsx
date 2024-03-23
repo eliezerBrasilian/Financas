@@ -2,8 +2,6 @@ import React, {useMemo} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
 import {colors} from '../assets/colors/colors';
-import {useRegister} from '../contexts/RegisterContext';
-import {useUserContext} from '../contexts/UserContext';
 import {tags} from '../enums/Tag';
 import {Utils} from '../utils/Utils';
 import {CustomIcon} from './CustomIcon';
@@ -11,14 +9,14 @@ import {TextContent} from './TextContent';
 
 export default function Item({
   data,
+  userUid,
+  googleAdsService,
+  deleteRegister,
   color,
   closeAllPopUps = () => {},
   isFromTransactionHistory = false,
 }) {
   const {tag, amount, description, key, createdAt, dayMonthYear} = data;
-  const {user} = useUserContext();
-  const {deleteRegister} = useRegister();
-  const userUid = user.uid;
 
   const icon = useMemo(() => {
     if (tag == tags.REVENUE)
@@ -41,7 +39,7 @@ export default function Item({
         const alertButtons = [
           {
             text: 'Cancelar',
-            onPress: () => {},
+            onPress: () => googleAdsService.showAds(),
             style: 'cancel',
           },
           {text: 'SIM', onPress: () => deleteRegister(registerItem)},
@@ -59,6 +57,7 @@ export default function Item({
       <View
         style={{
           paddingHorizontal: 15,
+          paddingVertical: 10,
           paddingBottom: 5,
           flexDirection: 'row',
           justifyContent: 'space-between',
@@ -91,7 +90,11 @@ function Left({description, icon, createdAt}) {
       }}>
       <Circle icon={icon} />
       <View>
-        <TextContent fontSize={17} numberOfLines={1} fontWeight="500">
+        <TextContent
+          maxCharacters={11}
+          fontSize={17}
+          numberOfLines={1}
+          fontWeight="500">
           {description}
         </TextContent>
         <TextContent fontSize={11} fontWeight="400">

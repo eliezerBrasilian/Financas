@@ -14,8 +14,16 @@ export function TextContent({
   borderBottomColor = '#fff',
   clickable = false,
   editable = false,
+  maxCharacters = undefined,
   onClick = () => {},
 }) {
+  const truncarTexto = (texto, maxCharacters) => {
+    if (texto.length <= maxCharacters) {
+      return texto;
+    }
+    return texto.substring(0, maxCharacters) + '...';
+  };
+
   return clickable ? (
     <TouchableOpacity onPress={onClick}>
       <Text
@@ -31,7 +39,9 @@ export function TextContent({
           borderBottomWidth: borderBottomWidth,
           borderBottomColor: borderBottomColor,
         }}>
-        {children}
+        {maxCharacters === undefined
+          ? children
+          : truncarTexto(children, maxCharacters)}
       </Text>
     </TouchableOpacity>
   ) : (
@@ -48,7 +58,9 @@ export function TextContent({
         borderBottomWidth: borderBottomWidth,
         borderBottomColor: borderBottomColor,
       }}>
-      {children}
+      {maxCharacters === undefined
+        ? children
+        : truncarTexto(children, maxCharacters)}
     </Text>
   );
 }

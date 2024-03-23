@@ -12,7 +12,7 @@ import {useUserContext} from '../../../contexts/UserContext';
 import {Ifinancas} from '../../../utils/Ifinancas.utils';
 
 export function Top() {
-  const {user} = useUserContext();
+  const {user, isPremium} = useUserContext();
 
   return (
     <View style={{marginBottom: 10, padding: 15}}>
@@ -28,6 +28,7 @@ export function Top() {
       </ViewCenteredInTheMiddle>
       <BottomStatus
         activeSince={DateTime.convertMilisecondsToMonthAndYear(user?.createdAt)}
+        isPremium={isPremium}
       />
     </View>
   );
@@ -99,7 +100,7 @@ const Pencil = () => {
   );
 };
 
-const BottomStatus = ({activeSince}) => {
+const BottomStatus = ({activeSince, isPremium}) => {
   return (
     <View
       style={{
@@ -113,7 +114,7 @@ const BottomStatus = ({activeSince}) => {
       <BottomItem
         icon={require('../../../assets/images/crown_status.png')}
         title={'Status'}
-        description={'Conta gratuita'}
+        description={isPremium ? 'Conta premium' : 'Conta gratuita'}
       />
       <BottomItem
         icon={require('../../../assets/images/calendar.png')}

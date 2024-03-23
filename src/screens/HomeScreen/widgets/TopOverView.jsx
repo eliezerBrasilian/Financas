@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
 import {colors} from '../../../assets/colors/colors';
 import {Navigation} from '../../../classes/Navigation';
 import ProfileImage from '../../../components/ProfileImage';
@@ -8,7 +9,13 @@ import {TextContent} from '../../../components/TextContent';
 import {tags} from '../../../enums/Tag';
 import {Utils} from '../../../utils/Utils';
 
-function TopOverView({uid, totalRevenues, totalExpenses, totalReservations}) {
+function TopOverView({
+  uid,
+  totalRevenues,
+  totalExpenses,
+  totalReservations,
+  balanceIsHidden,
+}) {
   return (
     <MainContent>
       <Cards
@@ -16,6 +23,7 @@ function TopOverView({uid, totalRevenues, totalExpenses, totalReservations}) {
         totalRevenues={totalRevenues}
         totalExpenses={totalExpenses}
         totalReservations={totalReservations}
+        balanceIsHidden={balanceIsHidden}
       />
     </MainContent>
   );
@@ -40,7 +48,13 @@ function MainContent({children}) {
   );
 }
 
-function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
+function Cards({
+  uid,
+  totalRevenues,
+  totalExpenses,
+  totalReservations,
+  balanceIsHidden,
+}) {
   return (
     <View
       style={{
@@ -55,6 +69,7 @@ function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
         value={Utils.getBrazilianCurrency(totalRevenues)}
         originalValue={totalRevenues}
         destinationScreen={tags.REVENUE}
+        balanceIsHidden={balanceIsHidden}
       />
       <Card
         iconImage={require('../../../assets/images/despesa.png')}
@@ -62,6 +77,7 @@ function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
         value={Utils.getBrazilianCurrency(totalExpenses)}
         originalValue={totalExpenses}
         destinationScreen={tags.EXPENSE}
+        balanceIsHidden={balanceIsHidden}
       />
       <Card
         iconImage={require('../../../assets/images/reserva.png')}
@@ -69,13 +85,28 @@ function Cards({uid, totalRevenues, totalExpenses, totalReservations}) {
         value={Utils.getBrazilianCurrency(totalReservations)}
         originalValue={totalReservations}
         destinationScreen={tags.RESERVATION}
+        balanceIsHidden={balanceIsHidden}
       />
     </View>
   );
 }
 
-function Card({iconImage, title, value, destinationScreen, originalValue}) {
-  const nav = new Navigation();
+function Card({
+  iconImage,
+  title,
+  value,
+  destinationScreen,
+  originalValue,
+  balanceIsHidden,
+}) {
+  const [balanceScreen] = useState(
+    new Navigation().screens.TYPE_OF_BALANCE_SELECTED,
+  );
+  const nav = useNavigation();
+
+  function navigateToBalanceScreen() {
+    nav.navigate(balanceScreen, {tag: String(destinationScreen).toLowerCase()});
+  }
 
   const [formatedValue, setFormatedValue] = useState(originalValue);
   const [originalValue_, setOriginalValue_] = useState(originalValue);
@@ -118,14 +149,20 @@ function Card({iconImage, title, value, destinationScreen, originalValue}) {
     }
   }, [originalValue]);
 
+  const newValue = useMemo(() => {
+    if (originalValue_ >= 10000 && !balanceIsHidden) {
+      return formatedValue;
+    } else if (originalValue_ >= 10000 && balanceIsHidden) {
+      return 'R$ ****';
+    } else if (originalValue_ < 10000 && !balanceIsHidden) {
+      return value;
+    } else if (originalValue_ < 10000 && balanceIsHidden) {
+      return 'R$ ****';
+    }
+  }, [originalValue_, balanceIsHidden]);
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        nav.navigateToDestinationScreenUsingParams(
-          nav.screens.TYPE_OF_BALANCE_SELECTED,
-          {tag: String(destinationScreen).toLowerCase()},
-        );
-      }}>
+    <TouchableOpacity onPress={navigateToBalanceScreen}>
       <View
         style={{
           height: 160,
@@ -140,10 +177,10 @@ function Card({iconImage, title, value, destinationScreen, originalValue}) {
         <View>
           <TextContent>{title}</TextContent>
           <TextContent
-            fontSize={19}
+            fontSize={18}
             fontWeight="500"
             color={colors.almost_black}>
-            {originalValue_ >= 10000 ? formatedValue : value}
+            {newValue}
           </TextContent>
         </View>
       </View>

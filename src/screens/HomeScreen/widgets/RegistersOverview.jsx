@@ -2,7 +2,6 @@ import {Text, TouchableOpacity, View} from 'react-native';
 
 import React from 'react';
 import {colors} from '../../../assets/colors/colors';
-import {Navigation} from '../../../classes/Navigation';
 import {CustomIcon} from '../../../components/CustomIcon';
 import {TextContent} from '../../../components/TextContent';
 import {useChartScreenContext} from '../../../contexts/ChartScreenContext';
@@ -59,8 +58,11 @@ function MainContent({children}) {
 }
 
 function Register({imageIcon, title, tag}) {
-  const nav = new Navigation();
   const {handleSelectChartScreenTag} = useChartScreenContext();
+
+  const handleSelectRegisterItem = () => {
+    handleSelectChartScreenTag(tag);
+  };
   return (
     <View
       style={{
@@ -78,10 +80,7 @@ function Register({imageIcon, title, tag}) {
       </View>
       <View style={{flex: 1}} />
 
-      <TouchableOpacity
-        onPress={() => {
-          handleSelectChartScreenTag(tag);
-        }}>
+      <TouchableOpacity onPress={handleSelectRegisterItem}>
         <View
           style={{
             height: '100%',

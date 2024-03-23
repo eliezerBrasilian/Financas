@@ -22,12 +22,15 @@ export default function TypeOfBalanceSelected({route}) {
   const uid = auth().currentUser?.uid;
   const [bgColor, setBgColor] = useState('#fff');
   const [title, setTitle] = useState('');
-  const [sortRegistersList, setSortRegistersList] = useState([]);
-  const [date, setDate] = useState(new Date());
   const [menuIsOpen, setMenuOpen] = React.useState(false);
   const [listViewBalancesVisible, setListViewBalancesVisible] = useState(false);
   const tag = route.params?.tag;
   const nav = new Navigation();
+  const [sortRegistersList, setSortRegistersList] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [givenMonthYear, setGivenMonthYear] = useState(
+    new DateTime().getMonthName(),
+  );
 
   const [loadingSortList, setLoadingSortList] = useState(false);
   const [sortTotal, setSortTotal] = React.useState(0);
@@ -43,7 +46,7 @@ export default function TypeOfBalanceSelected({route}) {
   }, [date, tag]);
 
   const {hideTabBar} = useTabBarContext();
-  const isFocused = useIsFocused();
+  const [isFocused] = useState(useIsFocused());
 
   useEffect(() => {
     if (isFocused) {
@@ -197,6 +200,63 @@ export default function TypeOfBalanceSelected({route}) {
         },
       );
   }
+
+  function changeWayRegistersAreSort(sortType, tag) {
+    if (sortType == sort.DESCRIPTION_ASC) {
+      loadRegistersFromTitleAscendlyAtoZ(tag);
+    } else if (sortType == sort.DESCRIPTION_DESC) {
+      loadRegistersFromTitleDescendlyZtoA(tag);
+    } else {
+      loadRegistersFromDateDescendly(tag);
+    }
+  }
+
+  function loadRegistersFromDateDescendly(tag) {
+    setLoadingSortList(true);
+    firestore()
+      .collection(Collections.REGISTERS)
+      .where('createdBy', '==', uid)
+      .where('monthYear', '==', Utils.getMonthAndYear(date))
+      .where('tag', '==', tag.toLocaleLowerCase())
+      .where('deleted', '==', false)
+      .orderBy('dayMonthYear', 'desc')
+      .get()
+      .then(
+        data => {
+          let listOfRegisters = [];
+          let amount = 0;
+
+          data.docs.forEach(i => {
+            let data = i.data();
+            amount += data.amount;
+            listOfRegisters.push({
+              key: i.id,
+              ...data,
+            });
+          });
+
+          setSortTotal(amount);
+          setSortRegistersList(listOfRegisters);
+          setLoadingSortList(false);
+        },
+        error => {
+          console.log('error');
+          console.log(error.message);
+        },
+      );
+  }
+
+  var decrementMonth = () => {
+    const thisDate = date;
+    const newDate = new DateTime().decreaseMonth(thisDate);
+    setDate(newDate);
+  };
+
+  var incrementMonth = () => {
+    const thisDate = date;
+    const newDate = new DateTime().increaseMonth(thisDate);
+    setDate(newDate);
+  };
 
   return (
     <TouchableOpacity

@@ -1,12 +1,10 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 
+import {Collections} from '../enums/Collections';
+import {DateTime} from '../classes/DateTime';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import {DateTime} from '../classes/DateTime';
-import {Collections} from '../enums/Collections';
-import {sort} from '../enums/Sort';
 import {tags} from '../enums/Tag';
-import {Utils} from '../utils/Utils';
 import {useUserContext} from './UserContext';
 
 const BalanceContext = createContext();
@@ -22,10 +20,9 @@ export function BalanceContextProvider({children}) {
   const [totalRevenues, setTotalRevenues] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
   const [totalReservations, setTotalReservations] = useState(0);
-  const [sortRegistersList, setSortRegistersList] = useState([]);
   const [date, setDate] = useState(new Date());
   const [loadingSortList, setLoadingSortList] = useState(false);
-  const [sortTotal, setSortTotal] = React.useState(0);
+
   const [reload, setReload] = useState(false);
   const [givenMonthYear, setGivenMonthYear] = useState(
     new DateTime().getMonthName(),
@@ -111,240 +108,6 @@ export function BalanceContextProvider({children}) {
     }
   }
 
-  function changeWayRegistersAreSort(sortType, tag) {
-    if (sortType == sort.DESCRIPTION_ASC) {
-      loadRegistersFromTitleAscendlyAtoZ(tag);
-    } else if (sortType == sort.DESCRIPTION_DESC) {
-      loadRegistersFromTitleDescendlyZtoA(tag);
-    } else {
-      loadRegistersFromDateDescendly(tag);
-    }
-  }
-  function changeWayRegistersAreSortOnTransactionHistory(sortType) {
-    if (sortType == sort.DESCRIPTION_ASC) {
-      loadRegistersFromTitleAscendlyAtoZOnTransactionHistory();
-    } else if (sortType == sort.DESCRIPTION_DESC) {
-      loadRegistersFromTitleDescendlyZtoAOnTransactionHistory();
-    } else {
-      loadRegistersFromDateDescendlyOnTransactionHistory();
-    }
-  }
-
-  function loadRegistersFromDateDescendly(tag) {
-    setLoadingSortList(true);
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('tag', '==', tag.toLocaleLowerCase())
-      .where('deleted', '==', false)
-      .orderBy('dayMonthYear', 'desc')
-      .get()
-      .then(
-        data => {
-          let listOfRegisters = [];
-          let amount = 0;
-
-          data.docs.forEach(i => {
-            let data = i.data();
-            amount += data.amount;
-            listOfRegisters.push({
-              key: i.id,
-              ...data,
-            });
-          });
-
-          setSortTotal(amount);
-          setSortRegistersList(listOfRegisters);
-          setLoadingSortList(false);
-        },
-        error => {
-          console.log('error');
-          console.log(error.message);
-        },
-      );
-  }
-
-  function loadRegistersFromDateDescendlyOnTransactionHistory() {
-    setLoadingSortList(true);
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('deleted', '==', false)
-      .orderBy('dayMonthYear', 'desc')
-      .get()
-      .then(
-        data => {
-          let listOfRegisters = [];
-          let amount = 0;
-
-          data.docs.forEach(i => {
-            let data = i.data();
-            amount += data.amount;
-            listOfRegisters.push({
-              key: i.id,
-              ...data,
-            });
-          });
-
-          setSortTotal(amount);
-          setSortRegistersList(listOfRegisters);
-          setLoadingSortList(false);
-        },
-        error => {
-          console.log('error');
-          console.log(error.message);
-        },
-      );
-  }
-
-  function loadRegistersFromTitleAscendlyAtoZ(tag) {
-    setLoadingSortList(true);
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('tag', '==', tag.toLocaleLowerCase())
-      .where('deleted', '==', false)
-      .orderBy('description', 'asc')
-      .get()
-      .then(
-        data => {
-          let listOfRegisters = [];
-          let amount = 0;
-
-          data.docs.forEach(i => {
-            let data = i.data();
-            amount += data.amount;
-            listOfRegisters.push({
-              key: i.id,
-              ...data,
-            });
-          });
-          setSortTotal(amount);
-          setSortRegistersList(listOfRegisters);
-          setLoadingSortList(false);
-        },
-        error => {
-          console.log('error');
-          console.log(error.message);
-        },
-      );
-  }
-
-  function loadRegistersFromTitleAscendlyAtoZOnTransactionHistory() {
-    setLoadingSortList(true);
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('deleted', '==', false)
-      .orderBy('descriptionInLowerCaseForSearching', 'asc')
-      .get()
-      .then(
-        data => {
-          let listOfRegisters = [];
-          let amount = 0;
-
-          data.docs.forEach(i => {
-            let data = i.data();
-            amount += data.amount;
-            listOfRegisters.push({
-              key: i.id,
-              ...data,
-            });
-          });
-          setSortTotal(amount);
-          setSortRegistersList(listOfRegisters);
-          setLoadingSortList(false);
-        },
-        error => {
-          console.log('error');
-          console.log(error.message);
-        },
-      );
-  }
-
-  function loadRegistersFromTitleDescendlyZtoA(tag) {
-    setLoadingSortList(true);
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('tag', '==', tag.toLocaleLowerCase())
-      .where('deleted', '==', false)
-      .orderBy('description', 'desc')
-      .get()
-      .then(
-        data => {
-          let listOfRegisters = [];
-          let amount = 0;
-
-          data.docs.forEach(i => {
-            let data = i.data();
-            amount += data.amount;
-            listOfRegisters.push({
-              key: i.id,
-              ...data,
-            });
-          });
-          setSortTotal(amount);
-          setSortRegistersList(listOfRegisters);
-          setLoadingSortList(false);
-        },
-        error => {
-          console.log('error');
-          console.log(error.message);
-        },
-      );
-  }
-
-  function loadRegistersFromTitleDescendlyZtoAOnTransactionHistory() {
-    setLoadingSortList(true);
-    firestore()
-      .collection(Collections.REGISTERS)
-      .where('createdBy', '==', uid)
-      .where('monthYear', '==', Utils.getMonthAndYear(date))
-      .where('deleted', '==', false)
-      .orderBy('descriptionInLowerCaseForSearching', 'desc')
-      .get()
-      .then(
-        data => {
-          let listOfRegisters = [];
-          let amount = 0;
-
-          data.docs.forEach(i => {
-            let data = i.data();
-            amount += data.amount;
-            listOfRegisters.push({
-              key: i.id,
-              ...data,
-            });
-          });
-          setSortTotal(amount);
-          setSortRegistersList(listOfRegisters);
-          setLoadingSortList(false);
-        },
-        error => {
-          console.log('error');
-          console.log(error.message);
-        },
-      );
-  }
-
-  var decrementMonth = () => {
-    const thisDate = date;
-    const newDate = new DateTime().decreaseMonth(thisDate);
-    setDate(newDate);
-  };
-
-  var incrementMonth = () => {
-    const thisDate = date;
-    const newDate = new DateTime().increaseMonth(thisDate);
-    setDate(newDate);
-  };
-
   return (
     <BalanceContext.Provider
       value={{
@@ -355,17 +118,7 @@ export function BalanceContextProvider({children}) {
         totalReservations,
         doReload,
         reload,
-        loadRegistersFromTitleAscendlyAtoZ,
-        sortRegistersList,
-        loadingSortList,
-        sortTotal,
-        changeWayRegistersAreSort,
-        loadRegistersFromDateDescendly,
-        decrementMonth,
-        incrementMonth,
         date,
-        changeWayRegistersAreSortOnTransactionHistory,
-        loadRegistersFromDateDescendlyOnTransactionHistory,
         updateMonthYear,
         givenMonthYear,
         resetDate,

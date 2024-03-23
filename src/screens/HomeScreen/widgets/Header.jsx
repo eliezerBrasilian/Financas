@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 import {Navigation} from '../../../classes/Navigation';
 import ProfileImage from '../../../components/ProfileImage';
@@ -14,6 +15,8 @@ export default function Header({
   setMonthListVisible,
   monthSelected,
   balance,
+  toogleBalanceHidden,
+  balanceIsHidden,
 }) {
   return (
     <View style={{height: 210, paddingTop: 30}}>
@@ -22,13 +25,20 @@ export default function Header({
         setMonthListVisible={setMonthListVisible}
         monthSelected={monthSelected}
       />
-      <Total uid={uid} balance={balance} />
+      <Total
+        uid={uid}
+        balance={balance}
+        toogleBalanceHidden={toogleBalanceHidden}
+        balanceIsHidden={balanceIsHidden}
+      />
     </View>
   );
 }
 
 function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
-  const nav = new Navigation();
+  const nav = useNavigation();
+  const profileScreen = new Navigation().screens.PROFILE;
+
   const {profilePicture} = useProfilePicture();
 
   const [profilePicture_, setProfilePicture] = useState(profilePicture);
@@ -46,7 +56,7 @@ function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
         alignItems: 'flex-start',
       }}>
       <View style={{height: 45, marginTop: -10}}>
-        <TouchableOpacity onPress={() => nav.navigateTo(nav.screens.PROFILE)}>
+        <TouchableOpacity onPress={() => nav.navigate(profileScreen)}>
           <ProfileImage
             profilePhoto={profilePicture_}
             isAsynchronous={true}
@@ -64,13 +74,7 @@ function Top({setMenuOpen, setMonthListVisible, monthSelected}) {
   );
 }
 
-function Total({balance}) {
-  const [balanceIsHidden, setBalanceHidden] = useState(false);
-
-  var toogleBalanceHidden = () => {
-    setBalanceHidden(v => !v);
-  };
-
+function Total({balance, toogleBalanceHidden, balanceIsHidden}) {
   return (
     <View style={{marginLeft: 20, marginTop: 28}}>
       <TextContent color="#fff" fontWeight="400">
@@ -136,7 +140,7 @@ function Month({setMonthListVisible, monthSelected}) {
 function Right({setMenuOpen}) {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center', columnGap: 35}}>
-      <TouchableOpacity onPress={() => setMenuOpen(true)}>
+      <TouchableOpacity onPress={setMenuOpen}>
         <ProfileImage
           size={20}
           profilePhoto={require('../../../assets/images/menu.png')}

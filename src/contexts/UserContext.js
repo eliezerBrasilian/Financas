@@ -1,6 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 
-import {AppState} from 'react-native';
 import {InternalStorage} from '../classes/InternalStorage';
 import {PaymentServices} from '../services/PaymentServices';
 
@@ -23,33 +22,21 @@ export function UserProvider({children}) {
     loadData();
   }, [reloadedOnPremium]);
 
-  const [appState, setAppState] = React.useState(AppState.currentState);
-
-  useEffect(() => {
-    const handleAppStateChange = async nextAppState => {
-      setAppState(nextAppState);
-
-      if (nextAppState === 'active') {
-        const premium = await paymentService.getSubscriptionStatus();
-        console.log(premium);
-
-        setPremium(premium);
-      }
-    };
-
-    AppState.addEventListener('change', handleAppStateChange);
-  }, []);
-
   async function loadData() {
     setLoadingUser(true);
 
     const response = await storedUser.getLoadedData();
+    const premium = await paymentService.getSubscriptionStatus();
+    console.log(premium);
+
+    setPremium(premium);
 
     setUser(response);
     setLoadingUser(false);
   }
 
   var handlePremiumAccess = () => {
+    setPremium(true);
     setReloadOnPremium(v => !v);
   };
 

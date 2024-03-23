@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {StatusBar, TouchableOpacity, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import {BackgroundColor} from '../../classes/BackgroundColor';
@@ -44,8 +44,11 @@ function ChartScreen() {
   const {user} = useUserContext();
   const [homeTotal, setHomeTotal] = useState(0);
   const [lazerTotal, setLazerTotal] = useState(0);
+  const [lancheTotal, setLancheTotal] = useState(0);
   const [trabalhoTotal, setTrabalhoTotal] = useState(0);
   const [investimentoTotal, setInvestimentoTotal] = useState(0);
+  const [outrosTotal, setOutrosTotal] = useState(0);
+  const [saudeTotal, setSaudeTotal] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const uid = user?.uid;
@@ -60,26 +63,36 @@ function ChartScreen() {
       .onSnapshot(querySnap => {
         var total = 0;
         var casa = 0;
+        var lanche = 0;
         var lazer = 0;
         var trabalho = 0;
         var investimento = 0;
+        var outros = 0;
+        var saude = 0;
 
         querySnap.docs.forEach(i => {
           total += i.data().amount;
 
           if (i.data().category == Category.CASA) casa += i.data().amount;
+          if (i.data().category == Category.LANCHE_FASTFOOD)
+            lanche += i.data().amount;
           if (i.data().category == Category.LAZER) lazer += i.data().amount;
           if (i.data().category == Category.TRABALHO)
             trabalho += i.data().amount;
           if (i.data().category == Category.INVESTIMENTO)
             investimento += i.data().amount;
+          if (i.data().category == Category.OUTROS) outros += i.data().amount;
+          if (i.data().category == Category.SAUDE) saude += i.data().amount;
         });
 
         setTotal(total);
         setHomeTotal(casa);
         setTrabalhoTotal(trabalho);
+        setLancheTotal(lanche);
         setLazerTotal(lazer);
         setInvestimentoTotal(investimento);
+        setOutrosTotal(outros);
+        setSaudeTotal(saude);
       });
   }
 
@@ -125,7 +138,7 @@ function ChartScreen() {
   };
 
   return (
-    <TouchableOpacity
+    <View
       style={{
         backgroundColor: bgColor,
         flex: 1,
@@ -149,16 +162,19 @@ function ChartScreen() {
         decrementMonth={decrementMonth}
         loading={loading}
         casaTotal={homeTotal}
+        lancheTotal={lancheTotal}
         lazerTotal={lazerTotal}
         trabalhoTotal={trabalhoTotal}
         investimentoTotal={investimentoTotal}
+        outrosTotal={outrosTotal}
+        saudeTotal={saudeTotal}
         montanteTotal={total}
       />
 
       {dropdownListVisible && (
         <ListViewBalances onClick={handleClickOnListBalances} />
       )}
-    </TouchableOpacity>
+    </View>
   );
 }
 

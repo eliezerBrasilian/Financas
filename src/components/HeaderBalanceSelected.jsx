@@ -1,5 +1,9 @@
 import {TouchableOpacity, View} from 'react-native';
 
+import {useNavigation} from '@react-navigation/native';
+import {useState} from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {GoogleAdsService} from '../services/GoogleAdsService';
 import {CustomIcon} from './CustomIcon';
 import {DropDownSelect} from './DropDownSelect';
 
@@ -11,12 +15,32 @@ function HeaderBalanceSelected({
 }) {
   return (
     <Row>
+      <Left title={title} dropdownListOfBalance={dropdownListOfBalance} />
+      <Right activateSortMenu={activateSortMenu} />
+    </Row>
+  );
+}
+
+function Left({title, dropdownListOfBalance}) {
+  const nav = useNavigation();
+  const [ads] = useState(new GoogleAdsService());
+
+  function goBack() {
+    ads.showAds();
+    nav.goBack();
+  }
+
+  return (
+    <View style={{flexDirection: 'row', columnGap: 30, alignItems: 'center'}}>
+      <TouchableOpacity onPress={goBack}>
+        <AntDesign name="arrowleft" size={27} color="#fff" />
+      </TouchableOpacity>
+
       <DropDownSelect
         title={title}
         dropdownListOfBalance={dropdownListOfBalance}
       />
-      <Right activateSortMenu={activateSortMenu} />
-    </Row>
+    </View>
   );
 }
 

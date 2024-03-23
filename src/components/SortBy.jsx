@@ -1,16 +1,13 @@
 import {TouchableOpacity, View} from 'react-native';
 
-import {useBalanceContext} from '../contexts/BalanceContext';
 import {sort} from '../enums/Sort';
 import {Spacer} from './Spacer';
 import {TextContent} from './TextContent';
 
 function SortBy({setMenuOpen, tag, isFromTransactionHistory = false, onClick}) {
-  const {changeWayRegistersAreSortOnTransactionHistory} = useBalanceContext();
-
   var handleOnClick = sortType => {
     if (isFromTransactionHistory) {
-      changeWayRegistersAreSortOnTransactionHistory(sortType);
+      onClick(sortType);
     } else {
       onClick(sortType, tag);
     }

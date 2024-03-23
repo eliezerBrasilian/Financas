@@ -99,7 +99,9 @@ function IniciateSession({route}) {
               resizeMode="contain"
             />
             <TextContent color="#fff" fontWeight="400">
-              Continuar com email
+              {cameFromSignUpClickEvent
+                ? 'Cadastrar com email'
+                : 'Continuar com email'}
             </TextContent>
           </View>
         </TouchableOpacity>

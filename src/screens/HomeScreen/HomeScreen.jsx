@@ -1,25 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar, TouchableOpacity, View} from 'react-native';
 
-import {useIsFocused} from '@react-navigation/native';
-import {colors} from '../../assets/colors/colors';
-import {Spacer} from '../../components/Spacer';
-import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
-import {useBalanceContext} from '../../contexts/BalanceContext';
-import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
-import {useTabBarContext} from '../../contexts/TabBarContext';
-import {useUserContext} from '../../contexts/UserContext';
 import {BannerPremium} from './widgets/BannerPremium';
 import Header from './widgets/Header';
 import {Menu} from './widgets/Menu';
+import ModalSelectFinanceOption from '../../components/modals/ModalSelectFinanceOption';
 import {MonthList} from './widgets/MonthList';
 import {RegistersOverview} from './widgets/RegistersOverview';
+import {Spacer} from '../../components/Spacer';
 import {TopOverView} from './widgets/TopOverView';
+import {colors} from '../../assets/colors/colors';
+import {useBalanceContext} from '../../contexts/BalanceContext';
+import {useIsFocused} from '@react-navigation/native';
+import {usePlusButtonContext} from '../../contexts/PlusButtonContext';
+import {useTabBarContext} from '../../contexts/TabBarContext';
+import {useUserContext} from '../../contexts/UserContext';
 
 export default function HomeScreen() {
   const {user} = useUserContext();
-  const [menuIsOpen, setMenuOpen] = React.useState(false);
-  const [monthListVisible, setMonthListVisible] = React.useState(false);
+  const [menuIsOpen, setMenuOpen] = useState(false);
+  const [monthListVisible, setMonthListVisible] = useState(false);
+  const [balanceIsHidden, setBalanceHidden] = useState(false);
   const {plusButtonClicked} = usePlusButtonContext();
   const {
     totalRevenues,
@@ -56,7 +57,13 @@ export default function HomeScreen() {
     }
   }, [isFocused]);
 
-  function editBalance() {}
+  function handleMenuVisibility() {
+    setMenuOpen(v => !v);
+  }
+
+  var toogleBalanceHidden = () => {
+    setBalanceHidden(v => !v);
+  };
 
   return (
     <ScrollView
@@ -73,10 +80,12 @@ export default function HomeScreen() {
 
         <Header
           uid={user?.uid}
-          setMenuOpen={setMenuOpen}
+          setMenuOpen={handleMenuVisibility}
           setMonthListVisible={setMonthListVisible}
           monthSelected={givenMonthYear}
           balance={balance}
+          toogleBalanceHidden={toogleBalanceHidden}
+          balanceIsHidden={balanceIsHidden}
         />
         {menuIsOpen && <Menu setMenuOpen={setMenuOpen} />}
         {monthListVisible && (
@@ -93,6 +102,7 @@ export default function HomeScreen() {
             totalRevenues={totalRevenues}
             totalExpenses={totalExpenses}
             totalReservations={totalReservations}
+            balanceIsHidden={balanceIsHidden}
           />
           <Spacer marginTop={185} />
           <BannerPremium />

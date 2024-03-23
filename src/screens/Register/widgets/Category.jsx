@@ -1,6 +1,5 @@
 import {View} from 'react-native';
-import {SelectList} from 'react-native-dropdown-select-list';
-import {Category as Ca} from '../../../classes/Category';
+import {CategoryList} from '../../../components/CategoryList';
 import {CustomIcon} from '../../../components/CustomIcon';
 import {Spacer} from '../../../components/Spacer';
 import {TextContent} from '../../../components/TextContent';
@@ -19,7 +18,6 @@ function Category({handleCategoryChange, categoryWasNotProvided}) {
       <Top />
 
       <CategorySelect
-        categories={Ca.getCategories()}
         handleCategoryChange={handleCategoryChange}
         categoryWasNotProvided={categoryWasNotProvided}
       />
@@ -52,22 +50,13 @@ function Top() {
   );
 }
 
-function CategorySelect({
-  categories,
-  handleCategoryChange,
-  categoryWasNotProvided,
-}) {
+function CategorySelect({handleCategoryChange, categoryWasNotProvided}) {
   return (
     <View style={{width: '70%'}}>
-      <SelectList
-        data={categories}
+      <CategoryList
         label="Categorias"
         placeholder="Escolha uma categoria"
-        save="value"
-        inputStyles={{color: '#000'}}
-        dropdownTextStyles={{color: '#000'}}
-        setSelected={handleCategoryChange}
-        search={false}
+        handleCategoryChange={handleCategoryChange}
       />
       {categoryWasNotProvided && (
         <View>

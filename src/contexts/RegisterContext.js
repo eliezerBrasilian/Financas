@@ -1,9 +1,12 @@
 import React, {createContext, useContext, useState} from 'react';
 
 import firestore from '@react-native-firebase/firestore';
+import {Collections} from '../enums/Collections';
+import {tags} from '../enums/Tag';
 import {GoogleAdsService} from '../services/GoogleAdsService';
 import {Utils} from '../utils/Utils';
 import {useBalanceContext} from './BalanceContext';
+import {useUserContext} from './UserContext';
 
 const RegisterContext = createContext();
 
@@ -14,12 +17,14 @@ export const useRegister = () => {
 export const RegisterProvider = ({children}) => {
   const [updated, setUpdated] = useState(false);
   const {doReload} = useBalanceContext();
-  var googleAds = new GoogleAdsService();
+  const [googleAds] = useState(new GoogleAdsService());
+
+  const {isPremium} = useUserContext();
 
   var deleteRegister = registerItem => {
     const {amount, key, tag, createdBy} = registerItem;
     firestore()
-      .collection('Registers')
+      .collection(Collections.REGISTERS)
       .doc(key)
       .update({
         deleted: true,
@@ -30,8 +35,10 @@ export const RegisterProvider = ({children}) => {
   };
 
   function updateBalance(amount, tag, createdBy) {
-    const balancesRef = firestore().collection('Balances').doc(createdBy);
-    if (tag == 'receita') {
+    const balancesRef = firestore()
+      .collection(Collections.BALANCES)
+      .doc(createdBy);
+    if (tag == tags.REVENUE) {
       balancesRef
         .update({
           total: firestore.FieldValue.increment(-amount),
@@ -40,7 +47,7 @@ export const RegisterProvider = ({children}) => {
         .then(() => {
           deletedSuccessufully();
         });
-    } else if (tag == 'despesa')
+    } else if (tag == tags.EXPENSE)
       balancesRef
         .update({
           total: firestore.FieldValue.increment(amount),
@@ -49,7 +56,7 @@ export const RegisterProvider = ({children}) => {
         .then(() => {
           deletedSuccessufully();
         });
-    else if (tag == 'reserva')
+    else if (tag == tags.RESERVATION)
       balancesRef
         .update({
           total: firestore.FieldValue.increment(amount),
@@ -64,7 +71,7 @@ export const RegisterProvider = ({children}) => {
     Utils.ShowToast('Registro excluido');
     setUpdated(!updated);
     doReload();
-    googleAds.showAds();
+    if (!isPremium) googleAds.showAds();
   }
   return (
     <RegisterContext.Provider

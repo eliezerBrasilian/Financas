@@ -15,7 +15,7 @@ function Menu({setMenuOpen}) {
         backgroundColor: '#fff',
         position: 'absolute',
         right: 20,
-        top: 40,
+        top: 65,
         borderRadius: 13,
         padding: 10,
         zIndex: 2,

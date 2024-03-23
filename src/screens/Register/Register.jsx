@@ -8,13 +8,14 @@ import {useBalanceContext} from '../../contexts/BalanceContext';
 import {useUserContext} from '../../contexts/UserContext';
 import {Collections} from '../../enums/Collections';
 import {Dia} from '../../enums/Dia';
+import {GoogleAdsService} from '../../services/GoogleAdsService';
 import {Utils} from '../../utils/Utils';
 import {Overview} from './widgets/OverView';
 import {Top} from './widgets/Top';
 
 export default Register = ({route}) => {
   const tag = route?.params?.tag;
-  const {user} = useUserContext();
+  const {user, isPremium} = useUserContext();
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -27,26 +28,9 @@ export default Register = ({route}) => {
   const [amountWasInvalid, setAmountWasInvalid] = useState(false);
 
   const {doReload} = useBalanceContext();
+  const googleAds = new GoogleAdsService();
 
   var bgColor = BackgroundColor.getBackgrouncColor(tag);
-
-  async function handleSendOfRegister() {
-    if (
-      category !== '' &&
-      !(amount === 0) &&
-      !(amount === '') &&
-      !(description == '')
-    ) {
-      await sendRegister();
-    }
-    if (category == '') setCategoryNotProvided(true);
-    if (category != '') setCategoryNotProvided(false);
-    if (description == '') setDescriptionNotProvided(true);
-    if (description != '') setDescriptionNotProvided(false);
-    if (amount === 0 || amount === '') {
-      setAmountWasInvalid(true);
-    }
-  }
 
   var handleDescriptionChange = text => {
     setDescription(text);
@@ -67,6 +51,24 @@ export default Register = ({route}) => {
     }
   };
 
+  async function handleSendOfRegister() {
+    if (
+      category !== '' &&
+      !(amount === 0) &&
+      !(amount === '') &&
+      !(description == '')
+    ) {
+      await sendRegister();
+    }
+    if (category == '') setCategoryNotProvided(true);
+    if (category != '') setCategoryNotProvided(false);
+    if (description == '') setDescriptionNotProvided(true);
+    if (description != '') setDescriptionNotProvided(false);
+    if (amount === 0 || amount === '') {
+      setAmountWasInvalid(true);
+    }
+  }
+
   async function sendRegister() {
     await firestore()
       .collection(Collections.REGISTERS)
@@ -86,42 +88,16 @@ export default Register = ({route}) => {
       })
       .then(() => {
         Utils.ShowToast(`${tag} registrada`);
+        resetFields();
+        if (!isPremium) googleAds.showAds();
         doReload();
       });
   }
-  // async function updateBalance() {
-  //   if (amount === null || amount === 0 || description == '') {
-  //     Utils.ShowToast('Preencha todos os campos');
-  //     return;
-  //   }
 
-  //   let fieldsToUpdate;
-  //   if (tag == 'receita') {
-  //     fieldsToUpdate = {
-  //       revenues: firestore.FieldValue.increment(Number(amount)),
-  //       total: firestore.FieldValue.increment(Number(amount)),
-  //     };
-  //   } else if (tag == 'reserva') {
-  //     fieldsToUpdate = {
-  //       reservations: firestore.FieldValue.increment(Number(amount)),
-  //       total: firestore.FieldValue.increment(-Number(amount)),
-  //     };
-  //   } else {
-  //     fieldsToUpdate = {
-  //       expenses: firestore.FieldValue.increment(Number(amount)),
-  //       total: firestore.FieldValue.increment(-Number(amount)),
-  //     };
-  //   }
-
-  //   await firestore()
-  //     .collection(Collections.BALANCES)
-  //     .doc(user.uid)
-  //     .update(fieldsToUpdate)
-  //     .then(() => {
-  //       setAmount(0);
-  //       setDescription('');
-  //     });
-  // }
+  function resetFields() {
+    setAmount('');
+    setDescription('');
+  }
 
   return (
     <View style={{backgroundColor: bgColor, flex: 1}}>

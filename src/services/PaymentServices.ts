@@ -35,12 +35,13 @@ class PaymentServices {
     }
   }
 
-  public async makePurchase() {
+  public async makePurchase(callback: () => void) {
     var user = new User();
     try {
       await this.getProduct();
       await adapty.makePurchase(this.paywallProduct);
       await user.becomePremium();
+      callback();
       Utils.ShowToast('Você agora é Premium');
     } catch (error) {
       new Exception('process payment', error);
@@ -50,9 +51,14 @@ class PaymentServices {
   public async getSubscriptionStatus() {
     try {
       const profile = await adapty.getProfile();
-      return profile?.accessLevels['premium']?.isActive;
+      if (profile.accessLevels != undefined) {
+        var isActive = profile?.accessLevels['premium']?.isActive;
+        if (isActive == undefined) return false;
+        else {
+          return isActive;
+        }
+      } else return false;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }

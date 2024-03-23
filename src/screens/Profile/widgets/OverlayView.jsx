@@ -23,7 +23,7 @@ export function OverlayView() {
       <Item
         title={'i Finanças Premium'}
         icon={require('../../../assets/images/crown_list.png')}
-        onClick={() => nav.navigateTo(nav.screens.PREMIUM)}
+        onClick={() => nav.navigateTo(nav.tabs.PREMIUM)}
       />
       <Spacer />
       <Line />

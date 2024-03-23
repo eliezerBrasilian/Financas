@@ -1,12 +1,13 @@
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
-import React from 'react';
 import {colors} from '../../../assets/colors/colors';
 import {DateTime} from '../../../classes/DateTime';
 import {TextContent} from '../../../components/TextContent';
 
 function MonthList({monthSelected, changeMonthSelected}) {
-  var months = new DateTime();
+  const [months] = useState(new DateTime());
+
   return (
     <View
       style={{

@@ -230,8 +230,7 @@ function Button({isPremium, handlePremiumAccess, removePremiumAccess}) {
         'https://play.google.com/store/account/subscriptions',
       );
     } else {
-      await payment.makePurchase();
-      handlePremiumAccess();
+      await payment.makePurchase(handlePremiumAccess);
     }
   }
 
