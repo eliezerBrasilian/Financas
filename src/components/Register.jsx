@@ -6,6 +6,10 @@ import {tags} from '../enums/Tag';
 import {Utils} from '../utils/Utils';
 import {CustomIcon} from './CustomIcon';
 import {TextContent} from './TextContent';
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { Category } from '../classes/Category';
+import { IconPack } from '../enums/IconPack';
 
 export default function Item({
   data,
@@ -16,7 +20,8 @@ export default function Item({
   closeAllPopUps = () => {},
   isFromTransactionHistory = false,
 }) {
-  const {tag, amount, description, key, createdAt, dayMonthYear} = data;
+
+  const {tag, amount, description, key, category, dayMonthYear} = data;
 
   const icon = useMemo(() => {
     if (tag == tags.REVENUE)
@@ -70,6 +75,7 @@ export default function Item({
           tag={tag}
           icon={icon}
           createdAt={dayMonthYear}
+          category={category}
         />
         <TextContent fontWeight="600" color={color} fontSize={15}>
           {Utils.getBrazilianCurrency(amount)}
@@ -79,7 +85,7 @@ export default function Item({
   );
 }
 
-function Left({description, icon, createdAt}) {
+function Left({description, icon, createdAt, category}) {
   return (
     <View
       style={{
@@ -100,6 +106,17 @@ function Left({description, icon, createdAt}) {
         <TextContent fontSize={11} fontWeight="400">
           {createdAt}
         </TextContent>
+        {category !== null && (
+        <TouchableOpacity>
+        <View style={{flexDirection:'row', alignItems:'center', columnGap:5}}>
+           <Icon categoryName={category}  /> 
+           <TextContent fontSize={11} fontWeight="400" color='#000'>
+        {category}
+      </TextContent>
+        </View>
+      </TouchableOpacity>
+
+        )}
       </View>
     </View>
   );
@@ -107,4 +124,21 @@ function Left({description, icon, createdAt}) {
 
 function Circle({icon}) {
   return <CustomIcon path={icon} height={30} width={30} />;
+}
+
+
+function Icon({categoryName}){
+
+  const icone = useMemo(()=>{
+    var encontrado = Category.getCategories().find(v=>v.value == categoryName)
+    return encontrado;
+  },[categoryName])
+
+  if(icone.iconPack == IconPack.MATERIAL_ICONS)
+  return(
+    <MaterialIcons name = {icone.iconName} size={20} color ={"#000"} />
+  )
+  return (
+    <AntDesign name = {icone.iconName} size={icone.iconName == "smileo"? 17: 20} color ={"#000"} />
+  )
 }

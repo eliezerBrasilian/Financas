@@ -15,6 +15,7 @@ import {useUserContext} from '../../contexts/UserContext';
 import {PaymentServices} from '../../services/PaymentServices';
 import {Utils} from '../../utils/Utils';
 import {ListItem} from './widgets/ListItem';
+import { ShowToast } from '../../components/Toast';
 
 export default function PremiumScreen() {
   const {isPremium, handlePremiumAccess, removePremiumAccess} =
@@ -175,12 +176,11 @@ function OverView() {
             Google Play Store. Sua assinatura está configurada para que ocorra a
             renovação automática. Você pode alterar o seu plano de assinatura ou
             desativar a renovação automática até 24 horas antes da data da
-            renovação nas configurações da sua conta da Play Store. Planos de
-            assinatura. Há um período de teste, que ocorre por 3 dias para novos
+            renovação nas configurações da sua conta da Play Store. Há um período de teste, que ocorre por 3 dias para novos
             usuários, após esse prazo, sua assinatura mensal entrará em vigor e
-            você será cobrado mensalmente. Você pode cancelar a sua assinatura a
+            você será cobrado mensalmente no valor acima em R$ 22,99. Você pode cancelar a sua assinatura a
             qualquer momento, através do aplicativo iFinanças ou diretamente na
-            Google Play Store
+            Google Play Store, e você não será mais cobrado. 
           </TextContent>
         </View>
       </ScrollView>
@@ -234,8 +234,12 @@ function Button({isPremium, handlePremiumAccess, removePremiumAccess}) {
     }
   }
 
+  function subscribeInactive(){
+    Utils.ShowToast("Indisponível no momento!")
+  }
+
   return (
-    <TouchableOpacity onPress={handleSubscription}>
+    <TouchableOpacity onPress={subscribeInactive}>
       <View
         style={{
           backgroundColor: '#E2306C',
@@ -247,6 +251,7 @@ function Button({isPremium, handlePremiumAccess, removePremiumAccess}) {
         <TextContent color="#fff">
           {isPremium ? 'Cancelar Assinatura' : ' Assinar Premium'}
         </TextContent>
+        
       </View>
     </TouchableOpacity>
   );

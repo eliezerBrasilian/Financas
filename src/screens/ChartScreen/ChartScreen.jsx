@@ -178,6 +178,5 @@ function ChartScreen() {
   );
 }
 
-const commomStyles = {};
 
 export {ChartScreen};

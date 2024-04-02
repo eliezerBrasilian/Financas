@@ -78,8 +78,8 @@ android {
         applicationId "com.ifinancas"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 37
-        versionName "1.3.0"
+        versionCode 41
+        versionName "1.3.4"
         multiDexEnabled true
     }
     signingConfigs {

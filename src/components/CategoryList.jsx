@@ -81,6 +81,16 @@ function CategoryList({handleCategoryChange}) {
         handleCategoryChange={handleCategoryChange}
         activatePlaceholder={activatePlaceholder}
       />
+      <CategoryItem
+        category={categories[7]}
+        handleCategoryChange={handleCategoryChange}
+        activatePlaceholder={activatePlaceholder}
+      />
+      <CategoryItem
+        category={categories[8]}
+        handleCategoryChange={handleCategoryChange}
+        activatePlaceholder={activatePlaceholder}
+      />
     </View>
   );
 }
