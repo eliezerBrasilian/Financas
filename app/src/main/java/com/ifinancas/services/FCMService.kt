@@ -7,10 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.ifinancas.MainActivity
-import com.ifinancas.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.ifinancas.MainActivity
+import com.ifinancas.R
 
 class FCMService : FirebaseMessagingService() {
 
@@ -23,26 +23,28 @@ class FCMService : FirebaseMessagingService() {
         print.log(message.data)
         super.onMessageReceived(message)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val notificationId = 1
         val requestCode = 1
 
         val channelId = "Firebase Messaging ID"
         val channelName = "Firebase Messaging"
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(
                 NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
             )
         }
 
         val intent = Intent(this, MainActivity::class.java)
-        val pendingIntentFlag = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) 0 else PendingIntent.FLAG_IMMUTABLE
+        val pendingIntentFlag =
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) 0 else PendingIntent.FLAG_IMMUTABLE
         val pendingIntent = PendingIntent.getActivity(this, requestCode, intent, pendingIntentFlag)
 
         val notification = NotificationCompat.Builder(this, channelId)
             .setContentTitle(message.notification?.title)
             .setContentText(message.notification?.body)
-            .setSmallIcon(R.drawable.top_logo)
+            .setSmallIcon(R.drawable.crown_list)
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
             .build()

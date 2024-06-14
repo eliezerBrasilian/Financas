@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ifinancas.R
-import com.ifinancas.ui.components.OfertasColumn
 import com.ifinancas.ui.components.RendaExtraColumn
 
 @Preview
@@ -44,7 +43,7 @@ fun ExtrasScreen(
                 modifier = Modifier.height(200.dp)
             )
             RendaExtraColumn()
-            OfertasColumn()
+            /* OfertasColumn()*/
         }
     }
 }

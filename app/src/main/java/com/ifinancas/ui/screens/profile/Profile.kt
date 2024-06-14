@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,20 +21,23 @@ import com.ifinancas.ui.components.ProfileTop
 import com.ifinancas.ui.theme.MAINPURPLE
 import com.ifinancas.ui.viewModel.UserViewModel
 
-
 @Composable
 fun Profile(
     nav: NavHostController = rememberNavController(),
     userViewModel: UserViewModel,
     clearDataOnExit: () -> Unit
 ) {
-    Column(
+    Surface(
         modifier = Modifier
-            .fillMaxSize()
             .background(MAINPURPLE)
-            .verticalScroll(rememberScrollState())
     ) {
-        Column(modifier = Modifier.padding(10.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp)
+                .verticalScroll(rememberScrollState())
+
+        ) {
             CustomTopBar("Perfil", color = Color.White, nav)
             ProfileTop(userViewModel)
         }

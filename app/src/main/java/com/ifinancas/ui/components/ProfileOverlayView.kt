@@ -21,7 +21,6 @@ fun ProfileOverlayView(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .background(Color.White, RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
     ) {
         ProfileOverlayViewItem(text = "Finanças extras", icon = R.drawable.crown_list)
@@ -30,7 +29,12 @@ fun ProfileOverlayView(
             clearDataOnExit()
         }
         Line()
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
             Text(text = "Desenvolvido com ☕❤️", fontSize = 15.sp, fontWeight = FontWeight.Bold)
         }
     }
