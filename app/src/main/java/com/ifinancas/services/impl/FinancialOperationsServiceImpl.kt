@@ -1,5 +1,6 @@
 package com.ifinancas.services.impl
 
+import android.content.Context
 import android.util.Log
 import com.foodfacil.enums.Collections
 import com.google.firebase.Timestamp
@@ -9,7 +10,9 @@ import com.ifinancas.data.dataclass.Register
 import com.ifinancas.data.enums.Tags
 import com.ifinancas.services.DateTimeService
 import com.ifinancas.services.FinancialOperationsService
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
+import com.ifinancas.utils.Toast
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -18,7 +21,8 @@ import kotlin.coroutines.resumeWithException
 
 class FinancialOperationsServiceImpl @Inject constructor(
     val firestore: FirebaseFirestore,
-    val dateTimeService: DateTimeService
+    val dateTimeService: DateTimeService,
+    @ApplicationContext private val context: Context
 ) : FinancialOperationsService {
     override suspend fun getRevenues(userUid: String, monthName: String): Double {
         var receitas = 0.0;
@@ -173,5 +177,24 @@ class FinancialOperationsServiceImpl @Inject constructor(
             println("Erro ao registrar: ${e.message}")
             return false;
         }
+    }
+
+    override suspend fun deleteRegister(
+        id: String,
+        onSuccessDelete: () -> Unit,
+        onFailureDelete: () -> Unit
+    ) {
+        val documentRef = firestore.collection(Collections.REGISTERS).document(id)
+        documentRef.delete()
+            .addOnSuccessListener {
+                // Document successfully deleted
+                Log.d(AppTag, "excluido com sucesso")
+                Toast(context).showToast("excluido com sucesso ✅")
+                onSuccessDelete()
+            }
+            .addOnFailureListener { e ->
+                Log.d(AppTag, "erro ao deletar: " + e)
+                onFailureDelete()
+            }
     }
 }

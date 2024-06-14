@@ -42,7 +42,7 @@ import com.ifinancas.ui.components.InputText
 import com.ifinancas.ui.theme.MAINBLUE
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import kotlinx.coroutines.launch
 
 
@@ -130,22 +130,22 @@ fun SignUp(
     val onClick: () -> Unit = {
         resetInputStates()
 
-        if (!nameInput.isNullOrEmpty() && !emailInput.isNullOrEmpty() && !passwordInput.isNullOrEmpty()) {
+        if (nameInput.isNotEmpty() && emailInput.isNotEmpty() && passwordInput.isNotEmpty()) {
             authViewModel.createUserWithEmailAndPassword(
-                emailInput,
-                passwordInput,
-                nameInput,
+                emailInput.trim(),
+                passwordInput.trim(),
+                nameInput.trim(),
                 onSuccess,
                 onError
             )
         } else {
-            if (nameInput.isNullOrEmpty()) {
+            if (nameInput.isEmpty()) {
                 nameIsEmpty = true
             }
-            if (emailInput.isNullOrEmpty()) {
+            if (emailInput.isEmpty()) {
                 loginIsEmpty = true
             }
-            if (passwordInput.isNullOrEmpty()) {
+            if (passwordInput.isEmpty()) {
                 passwordIsEmpty = true
             }
         }
@@ -234,6 +234,6 @@ fun SignUp(
         )
 
         Spacer(modifier = Modifier.height(50.dp))
-        AuthButton(isLoading, "CADASTRAR", onClick = onClick)
+        AuthButton(isLoading, "CADASTRAR", onClick = onClick, disableClickIfLoading = true)
     }
 }

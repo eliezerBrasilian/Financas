@@ -4,11 +4,11 @@ import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.ifinancas.services.AuthService
-import com.ifinancas.services.impl.AuthServiceImpl
 import com.ifinancas.services.DateTimeService
 import com.ifinancas.services.FinancialOperationsService
 import com.ifinancas.services.InterstitialAdsService
 import com.ifinancas.services.UserService
+import com.ifinancas.services.impl.AuthServiceImpl
 import com.ifinancas.services.impl.DateTimeServiceImpl
 import com.ifinancas.services.impl.FinancialOperationsServiceImpl
 import com.ifinancas.services.impl.IntersititialAdsServiceImpl
@@ -53,20 +53,26 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFinancialOperationsService(firestore: FirebaseFirestore,
-                                          dateTimeService: DateTimeService):FinancialOperationsService{
-        return FinancialOperationsServiceImpl(firestore,dateTimeService)
+    fun provideFinancialOperationsService(
+        firestore: FirebaseFirestore,
+        dateTimeService: DateTimeService,
+        @ApplicationContext context: Context
+    ): FinancialOperationsService {
+        return FinancialOperationsServiceImpl(firestore, dateTimeService, context)
     }
 
     @Provides
     @Singleton
-    fun provideUserService(@ApplicationContext context: Context): UserService {
-        return UserServiceImpl(context)
+    fun provideUserService(
+        @ApplicationContext context: Context,
+        firestore: FirebaseFirestore
+    ): UserService {
+        return UserServiceImpl(context, firestore)
     }
 
     @Provides
     @Singleton
-    fun provideInterstitialAdsService(@ApplicationContext context: Context):InterstitialAdsService{
+    fun provideInterstitialAdsService(@ApplicationContext context: Context): InterstitialAdsService {
         return IntersititialAdsServiceImpl(context)
     }
 }

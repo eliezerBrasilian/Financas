@@ -10,8 +10,9 @@ import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.ifinancas.data.gitignore.intersitititialAdId
 import com.ifinancas.services.InterstitialAdsService
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -19,13 +20,11 @@ class IntersititialAdsServiceImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : InterstitialAdsService {
     var mInterstitialAd: InterstitialAd? = null
-    private val intersitititialAdIdTest = "ca-app-pub-3940256099942544/1033173712"
-    private val intersitititialAdId = "ca-app-pub-4318787550457876/1403400131"
 
     override fun loadAd() {
         InterstitialAd.load(
             context,
-            intersitititialAdIdTest,
+            intersitititialAdId,
             AdRequest.Builder().build(),
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {

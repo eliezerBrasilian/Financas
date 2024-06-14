@@ -18,16 +18,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ifinancas.R
 
-@Preview
+
 @Composable
-fun ProfileOverlayViewItem(text:String = "", icon:Int = R.drawable.user_profile, onClick:()->Unit = {}){
+fun ProfileOverlayViewItem(
+    text: String,
+    icon: Int = R.drawable.user_profile,
+    onClick: () -> Unit = {}
+) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(25.dp).clickable { onClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(25.dp)
+            .clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
@@ -51,7 +57,7 @@ fun ProfileOverlayViewItem(text:String = "", icon:Int = R.drawable.user_profile,
 
         Text(
             text = text,
-            fontSize = 15.sp,
+            fontSize = 14.sp,
             color = Color.Black,
             fontWeight = FontWeight.Normal
         )

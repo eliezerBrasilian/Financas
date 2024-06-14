@@ -67,4 +67,12 @@ class UserViewModel @Inject constructor(
             userService.clearAllData()
         }
     }
+
+    fun updateProfilePicture(
+        oldProfilePictureReferenceUrl: String?,
+        newProfilePicture: String,
+        userUid: String
+    ) = viewModelScope.launch {
+        userService.updateProfilePicture(oldProfilePictureReferenceUrl, newProfilePicture, userUid)
+    }
 }

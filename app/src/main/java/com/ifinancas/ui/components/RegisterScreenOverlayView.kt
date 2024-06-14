@@ -86,7 +86,8 @@ fun RegisterScreenOverlayView(
             isLoading = buttonIsLoading,
             text = "Salvar",
             backgroundColor = AppUtils.getBackgroundColor(tag.toString()),
-            onClick = handleSendRegister
+            onClick = handleSendRegister,
+            disableClickIfLoading = true
         )
         Spacer(modifier = Modifier.height(35.dp))
         if (savedSuccessfully) {

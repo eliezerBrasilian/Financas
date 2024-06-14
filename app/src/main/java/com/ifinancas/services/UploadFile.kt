@@ -1,10 +1,12 @@
 package com.ifinancas.services
 
+import android.util.Log
 import androidx.core.net.toUri
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.ifinancas.data.dataclass.StorageFileResponse
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
@@ -42,13 +44,15 @@ class UploadFile {
         }
     }
 
-    suspend fun deleteFile(fileRef: StorageReference) {
-        val print = Print("deleteFile")
+    fun deleteFile(url: String) {
+        val storage = FirebaseStorage.getInstance()
+        val fileRef = storage.getReferenceFromUrl(url)
+
         try {
             fileRef.delete();
-            print.log("deletado com sucesso")
+            Log.d(AppTag, "deletado com sucesso")
         } catch (e: Exception) {
-            print.log("erro ao deletar arquivo: ${e.message}")
+            Log.d(AppTag, "erro ao deletar arquivo: ${e.message}")
         }
     }
 }

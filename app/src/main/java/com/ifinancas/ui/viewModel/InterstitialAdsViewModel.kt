@@ -6,11 +6,17 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class InterstitialAdsViewModel @Inject constructor(private val interstitialAdsService: InterstitialAdsService): ViewModel() {
-    fun loadAd(){
+class InterstitialAdsViewModel @Inject constructor(private val interstitialAdsService: InterstitialAdsService) :
+    ViewModel() {
+    fun loadAd() {
         interstitialAdsService.loadAd()
     }
-    fun show(){
+
+    fun show() {
         interstitialAdsService.show()
+    }
+
+    fun stopAdd() {
+        interstitialAdsService.removeListener()
     }
 }

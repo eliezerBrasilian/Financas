@@ -15,7 +15,7 @@ import com.ifinancas.data.enums.FirebaseErrorCode
 import com.ifinancas.ui.components.LoginForm
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import kotlinx.coroutines.launch
 
 @Composable
@@ -91,7 +91,7 @@ fun Login(
 
         if (!emailInput.isNullOrEmpty() && !passwordInput.isNullOrEmpty()) {
             scope.launch {
-                authViewModel.login(emailInput, passwordInput, onSuccess, onError)
+                authViewModel.login(emailInput.trim(), passwordInput.trim(), onSuccess, onError)
             }
         } else {
             if (emailInput.isNullOrEmpty()) {

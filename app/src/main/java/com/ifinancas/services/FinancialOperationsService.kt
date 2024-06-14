@@ -18,4 +18,10 @@ interface FinancialOperationsService {
     ): List<Register>
 
     suspend fun saveRegister(registerData: HashMap<String, Any>): Boolean
+
+    suspend fun deleteRegister(
+        id: String,
+        onSuccessDelete: () -> Unit,
+        onFailureDelete: () -> Unit = {}
+    )
 }

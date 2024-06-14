@@ -23,13 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ifinancas.R
-import com.ifinancas.navigation.NavigationScreens
 import com.ifinancas.navigation.ArrowBackTop
+import com.ifinancas.navigation.NavigationScreens
 
 @Composable
 fun LoginForm(
     nav: NavHostController,
-    onClick:()->Unit,
+    onClick: () -> Unit,
     loginIsEmpty: Boolean,
     loginError: String,
     emailInput: String,
@@ -92,7 +92,7 @@ fun LoginForm(
 
         Spacer(modifier = Modifier.height(100.dp))
 
-        AuthButton(isLoading,"ENTRAR",onClick = onClick)
+        AuthButton(isLoading, "ENTRAR", onClick = onClick, disableClickIfLoading = true)
         Spacer(modifier = Modifier.height(15.dp))
 
         Text(text = "ESQUECEU A SENHA",

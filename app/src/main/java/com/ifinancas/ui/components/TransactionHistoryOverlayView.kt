@@ -1,8 +1,10 @@
 package com.ifinancas.ui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,7 +53,8 @@ fun TransactionHistoryOverlayView(
     sortRegistersList: SnapshotStateList<Register>,
     currentDate: Date,
     incrementMonth: () -> Unit,
-    decrementMonth: () -> Unit
+    decrementMonth: () -> Unit,
+    handleDeleteRegister: (id: Register) -> Unit
 ) {
     val dateTimeViewModel: DateTimeViewModel = hiltViewModel()
 
@@ -98,15 +101,16 @@ fun TransactionHistoryOverlayView(
 
         LazyColumn {
             items(sortRegistersList) {
-                TransactionItem(it)
+                TransactionItem(it, handleDeleteRegister)
             }
         }
 
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TransactionItem(register: Register) {
+fun TransactionItem(register: Register, handleDeleteRegister: (id: Register) -> Unit) {
     val dateTimeViewModel: DateTimeViewModel = hiltViewModel()
 
     var expanded by remember {
@@ -119,7 +123,11 @@ fun TransactionItem(register: Register) {
         else -> R.drawable.despesa_menu
     }
 
-    Column {
+    Column(
+        modifier = Modifier.combinedClickable(
+            onClick = {},
+            onLongClick = { handleDeleteRegister(register) })
+    ) {
         if (!expanded) {
             Row(
                 modifier = Modifier

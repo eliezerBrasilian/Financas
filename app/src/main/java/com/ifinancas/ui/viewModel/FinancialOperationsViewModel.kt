@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ifinancas.data.dataclass.Register
-import com.ifinancas.services.DateTimeService
+import com.ifinancas.data.enums.FinancialOperation
 import com.ifinancas.services.FinancialOperationsService
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -17,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FinancialOperationsViewModel @Inject constructor(
-    private val financialOperationsService: FinancialOperationsService,
-    private val dateTimeService: DateTimeService
+    private val financialOperationsService: FinancialOperationsService
 ) :
     ViewModel() {
     private val _loadedState = MutableStateFlow(true)
@@ -35,6 +34,9 @@ class FinancialOperationsViewModel @Inject constructor(
 
     private val _totalInExpenses = MutableStateFlow(0.00)
     val totalInExpense: StateFlow<Double> = _totalInExpenses
+
+    private val _performingFinancialOperation = MutableStateFlow(FinancialOperation.IDLE)
+    val performingFinancialOperation: StateFlow<FinancialOperation> = _performingFinancialOperation
 
 
     fun getTotalBalance(userUid: String, givenMonthYear: String) = viewModelScope.launch {
@@ -77,6 +79,16 @@ class FinancialOperationsViewModel @Inject constructor(
         return@async financialOperationsService.saveRegister(registerData)
     }
 
+    fun deleteRegister(id: String, onSuccessDelete: () -> Unit, onFailureDelete: () -> Unit = {}) =
+        viewModelScope.launch {
+            _performingFinancialOperation.value = FinancialOperation.DELETING
+            financialOperationsService.deleteRegister(id, onSuccessDelete = {
+                _performingFinancialOperation.value = FinancialOperation.IDLE
+                canLoadBalance()
+                onSuccessDelete()
+            }, onFailureDelete = onFailureDelete)
+        }
+
     fun resetBalance() {
         _totalInBalance.value = 0.0
         _totalInRevenues.value = 0.0
@@ -93,5 +105,6 @@ class FinancialOperationsViewModel @Inject constructor(
     private fun stopLoadBalance() {
         _loadedState.value = false
     }
+
 
 }

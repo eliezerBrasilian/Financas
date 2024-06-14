@@ -25,13 +25,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ifinancas.data.customremembers.rememberCustomModalBottomSheetState
 import com.ifinancas.data.dataclass.Register
+import com.ifinancas.data.enums.Tags
+import com.ifinancas.ui.components.PopUpDeleteRegister
 import com.ifinancas.ui.components.TransactionHistoryOverlayView
 import com.ifinancas.ui.components.TransactionsHistoryTop
 import com.ifinancas.ui.theme.MAINPURPLE
 import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import java.util.Date
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -45,7 +47,6 @@ fun TransactionsHistory(
     val uid by userViewModel.uid.observeAsState(initial = "")
     val dateTimeViewModel: DateTimeViewModel = hiltViewModel()
 
-
     val sortRegistersList = remember {
         mutableStateListOf<Register>()
     }
@@ -53,8 +54,14 @@ fun TransactionsHistory(
         mutableDoubleStateOf(0.00)
     }
 
+    var popUpDeleteRegisterIsVisible by remember {
+        mutableStateOf(false)
+    }
+
     val context = LocalContext.current
 
+
+    Log.d(AppTag, "dhdhdhudududuudud")
     var date by remember {
         mutableStateOf(Date())
     }
@@ -67,6 +74,17 @@ fun TransactionsHistory(
         date = dateTimeViewModel.incrementMonth(date)
     }
 
+    var registerEscolhidoParaDeletar by remember { mutableStateOf<Register?>(null) }
+
+    var registerChoosedId by remember {
+        mutableStateOf("")
+    }
+
+    val handleDeleteRegister: (register: Register) -> Unit = {
+        registerChoosedId = it.id
+        registerEscolhidoParaDeletar = it
+        popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
+    }
 
     val sheetState = rememberCustomModalBottomSheetState()
 
@@ -77,7 +95,6 @@ fun TransactionsHistory(
 
         sortRegistersList.clear()
         sortRegistersList.addAll(registers)
-        Log.d(AppTag, "registers: $registers")
 
         var movimentacaoTotalAux = 0.0
         registers.forEach {
@@ -86,10 +103,45 @@ fun TransactionsHistory(
         movimentacaoTotalEfetuada = movimentacaoTotalAux
     }
 
+    val onDismissRequestOpoUp = {
+        popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
+    }
+
+    val delete = {
+        if (registerEscolhidoParaDeletar != null) {
+            financialOperationsViewModel.deleteRegister(registerChoosedId, onSuccessDelete = {
+
+                sortRegistersList.removeIf { it.id == registerEscolhidoParaDeletar!!.id }
+
+                if (registerEscolhidoParaDeletar!!.tag == Tags.EXPENSE.tag || registerEscolhidoParaDeletar!!.tag == Tags.RESERVATION.tag) {
+                    movimentacaoTotalEfetuada += registerEscolhidoParaDeletar!!.amount
+                } else {
+                    movimentacaoTotalEfetuada -= registerEscolhidoParaDeletar!!.amount
+                }
+
+                popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
+            })
+        }
+    }
+
+    if (popUpDeleteRegisterIsVisible) {
+        PopUpDeleteRegister(
+            onDismissRequest = onDismissRequestOpoUp,
+            delete = delete,
+            financialOperationsViewModel = financialOperationsViewModel
+        )
+    }
+
     ModalBottomSheetLayout(
         scrimColor = Color.Unspecified,
         sheetContent = {
-            TransactionHistoryOverlayView(sortRegistersList, date, incrementMonth, decrementMonth)
+            TransactionHistoryOverlayView(
+                sortRegistersList,
+                date,
+                incrementMonth,
+                decrementMonth,
+                handleDeleteRegister
+            )
         },
         sheetState = sheetState,
         sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -63,11 +64,10 @@ fun HomePopUpMenu(
         }))
     })
 
-
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 65.dp, start = 20.dp, end = 20.dp),
+            .padding(top = 65.dp, start = 20.dp, end = 18.dp),
         contentAlignment = Alignment.TopEnd
     ) {
         Card(
@@ -76,8 +76,8 @@ fun HomePopUpMenu(
                 .scale(scale.value),
             colors = CardDefaults.cardColors(Color.White),
             shape = RoundedCornerShape(15.dp),
-
-            ) {
+            elevation = CardDefaults.cardElevation(12.dp)
+        ) {
             LazyColumn {
                 items(items) {
                     HomePopUpMenuItem(item = it, onChangeMenuItem = onChangeMenuItem)
@@ -104,7 +104,11 @@ fun HomePopUpMenuItem(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.padding(start = 10.dp, top = 10.dp)
         ) {
-            Image(painter = painterResource(id = item.icon), contentDescription = null)
+            Image(
+                painter = painterResource(id = item.icon),
+                contentDescription = null,
+                modifier = Modifier.size(20.dp)
+            )
             Text(text = item.title, color = Color.Black, fontSize = 16.sp)
         }
 

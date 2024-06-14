@@ -32,7 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ifinancas.navigation.BottomBarScreen
 import com.ifinancas.navigation.CircleBtnAdd
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 
 @Preview
 @Composable
@@ -72,7 +72,8 @@ fun CustomBottomBar(
             CircleBtnAdd(
                 Modifier
                     .align(Alignment.TopCenter)
-                    .offset(y = (-25).dp)) {
+                    .offset(y = (-25).dp)
+            ) {
                 popUpHomeViewModel.activeVisibility()
 
                 val currentRoute = navController.currentDestination?.route

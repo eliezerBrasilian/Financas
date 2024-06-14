@@ -11,10 +11,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
- fun AuthButton(isLoading: Boolean?,text:String,
-                backgroundColor:Color = Color.Blue,
-                onClick: () -> Unit) {
+fun AuthButton(
+    isLoading: Boolean?, text: String,
+    backgroundColor: Color = Color.Blue,
+    disableClickIfLoading: Boolean = false,
+    onClick: () -> Unit,
+) {
     Button(
+        enabled = !disableClickIfLoading,
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()

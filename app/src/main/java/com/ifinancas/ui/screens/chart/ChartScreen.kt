@@ -32,8 +32,8 @@ import com.ifinancas.ui.components.FinancialBalanceSelectedTop
 import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppTag
 import com.ifinancas.utils.AppUtils
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import java.util.Date
 
 @OptIn(ExperimentalMaterialApi::class)

@@ -17,21 +17,20 @@ import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.loadInterstitial
-import com.ifinancas.utils.removeInterstitial
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val authViewModel: AuthViewModel by viewModels()
-    private val financialOperationsViewModel:FinancialOperationsViewModel by viewModels()
-    private val userViewModel:UserViewModel by viewModels()
+    private val financialOperationsViewModel: FinancialOperationsViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
+    private val interstitialAdsViewModel: InterstitialAdsViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        loadInterstitial(this)
         super.onCreate(savedInstanceState)
+        interstitialAdsViewModel.loadAd()
         setContent {
             IFinançasTheme {
                 val navController: NavHostController = rememberNavController()
@@ -45,13 +44,14 @@ class MainActivity : ComponentActivity() {
                     financialOperationsViewModel = financialOperationsViewModel,
                     userViewModel = userViewModel,
 
-                )
+                    )
             }
         }
     }
 
     override fun onDestroy() {
-        removeInterstitial()
+        //removeInterstitial()
+        interstitialAdsViewModel.stopAdd()
         super.onDestroy()
     }
 }

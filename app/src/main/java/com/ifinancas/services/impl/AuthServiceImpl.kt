@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ifinancas.data.dataclass.FirebaseUserResponse
 import com.ifinancas.data.dataclass.UserAuthSignUpData
 import com.ifinancas.services.AuthService
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext

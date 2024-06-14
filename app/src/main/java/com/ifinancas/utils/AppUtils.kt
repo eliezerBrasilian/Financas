@@ -6,14 +6,9 @@ import com.ifinancas.ui.theme.BACKGROUNDGREEN
 import com.ifinancas.ui.theme.BACKGROUNDRED
 import com.ifinancas.ui.theme.MAINPURPLE
 
-val AppTag = "App"
-
 class AppUtils {
     companion object {
         val AppTag = "App"
-        const val intersitititialAdIdTest = "ca-app-pub-3940256099942544/1033173712"
-        const val interstitialAdId = "ca-app-pub-4318787550457876/7332774466"
-
         fun getBackgroundColor(tag: String): Color {
             return when (tag) {
                 "receita" -> BACKGROUNDGREEN
@@ -40,6 +35,7 @@ class AppUtils {
                 else -> "Nova Receita"
             }
         }
+
     }
 
 }

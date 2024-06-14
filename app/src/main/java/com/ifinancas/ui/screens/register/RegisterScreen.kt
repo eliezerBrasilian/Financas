@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.gamestate.utils.Toast
 import com.google.firebase.firestore.FieldValue
 import com.ifinancas.data.enums.Category
 import com.ifinancas.data.enums.Dia
@@ -38,10 +36,10 @@ import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import com.ifinancas.utils.AppUtils.Companion.getBackgroundColor
 import com.ifinancas.utils.AppUtils.Companion.getTitleText
-import com.ifinancas.utils.showInterstitial
+import com.ifinancas.utils.Toast
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -53,10 +51,6 @@ fun RegisterScreen(
     financialOperationsViewModel: FinancialOperationsViewModel
 ) {
     val interstitialAdsViewModel: InterstitialAdsViewModel = hiltViewModel()
-
-    LaunchedEffect(Unit) {
-        interstitialAdsViewModel.loadAd()
-    }
     val userViewModel: UserViewModel = hiltViewModel()
     val dateTimeService: DateTimeViewModel = hiltViewModel()
 
@@ -128,12 +122,13 @@ fun RegisterScreen(
         println("Sucesso")
         /*Log.d(AppTag,"Sucesso: ${colRef.id}")*/
         Toast(context).showToast("Registrado com sucesso")
-        showInterstitial(context)
+        //showInterstitial(context)
+        interstitialAdsViewModel.show()
         savedSuccessfully = true
     }
 
     val handleSendRegister: () -> Unit = {
-
+        interstitialAdsViewModel.show()
         buttonIsLoading = true
 
         var v = 0.00;

@@ -21,22 +21,23 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.ifinancas.data.customremembers.rememberCustomModalBottomSheetState
 import com.ifinancas.data.dataclass.Register
+import com.ifinancas.data.enums.Tags
 import com.ifinancas.navigation.CustomTopBar
 import com.ifinancas.ui.components.FinanceSelectRow
 import com.ifinancas.ui.components.FinancialBalanceSelectedMenu
 import com.ifinancas.ui.components.FinancialBalanceSelectedTop
+import com.ifinancas.ui.components.PopUpDeleteRegister
 import com.ifinancas.ui.components.TransactionHistoryOverlayView
 import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppTag
 import com.ifinancas.utils.AppUtils
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import java.util.Date
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -70,7 +71,6 @@ fun FinancialBalanceSelected(
     val uid by userViewModel.uid.observeAsState(initial = "")
     val dateTimeViewModel: DateTimeViewModel = hiltViewModel()
 
-
     val sortRegistersList = remember {
         mutableStateListOf<Register>()
     }
@@ -78,11 +78,26 @@ fun FinancialBalanceSelected(
         mutableDoubleStateOf(0.00)
     }
 
-    val context = LocalContext.current
-
     var date by remember {
         mutableStateOf(Date())
     }
+
+    var popUpDeleteRegisterIsVisible by remember {
+        mutableStateOf(false)
+    }
+
+    var registerEscolhidoParaDeletar by remember { mutableStateOf<Register?>(null) }
+
+    var registerChoosedId by remember {
+        mutableStateOf("")
+    }
+
+    val handleDeleteRegister: (register: Register) -> Unit = {
+        registerChoosedId = it.id
+        registerEscolhidoParaDeletar = it
+        popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
+    }
+
 
     val decrementMonth = {
         date = dateTimeViewModel.decrementMonth(date)
@@ -109,17 +124,47 @@ fun FinancialBalanceSelected(
     }
 
     val sheetState = rememberCustomModalBottomSheetState(
-        tag = tag.toString(),
-        onBackgroundColorChanged = { backgroundSelected = it })
+        tag = tag.toString()
+    )
+
+    val onDismissRequestOpoUp = {
+        popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
+    }
+
+    val delete = {
+        if (registerEscolhidoParaDeletar != null) {
+            financialOperationsViewModel.deleteRegister(registerChoosedId, onSuccessDelete = {
+
+                sortRegistersList.removeIf { it.id == registerEscolhidoParaDeletar!!.id }
+
+                if (registerEscolhidoParaDeletar!!.tag == Tags.EXPENSE.tag || registerEscolhidoParaDeletar!!.tag == Tags.RESERVATION.tag) {
+                    movimentacaoTotalEfetuada += registerEscolhidoParaDeletar!!.amount
+                } else {
+                    movimentacaoTotalEfetuada -= registerEscolhidoParaDeletar!!.amount
+                }
+
+                popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
+            })
+        }
+    }
+
+    if (popUpDeleteRegisterIsVisible) {
+        PopUpDeleteRegister(
+            onDismissRequest = onDismissRequestOpoUp,
+            delete = delete,
+            financialOperationsViewModel = financialOperationsViewModel
+        )
+    }
 
     ModalBottomSheetLayout(
         scrimColor = Color.Unspecified,
         sheetContent = {
             TransactionHistoryOverlayView(
                 sortRegistersList,
+                currentDate = date,
                 incrementMonth = incrementMonth,
                 decrementMonth = decrementMonth,
-                currentDate = date
+                handleDeleteRegister
             )
         },
         sheetState = sheetState,

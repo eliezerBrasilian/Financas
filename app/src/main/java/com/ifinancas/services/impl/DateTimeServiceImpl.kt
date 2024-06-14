@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.google.firebase.Timestamp
 import com.ifinancas.services.DateTimeService
-import com.ifinancas.utils.AppTag
+import com.ifinancas.utils.AppUtils.Companion.AppTag
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.LocalDateTime

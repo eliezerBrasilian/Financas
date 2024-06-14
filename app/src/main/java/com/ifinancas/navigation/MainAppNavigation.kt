@@ -95,7 +95,8 @@ fun MainAppNavigation(
                             navController,
                             popUpHomeViewModel,
                             financialOperationsViewModel,
-                            userViewModel
+                            userViewModel,
+                            pv
                         )
                     }
                     composable(NavigationScreens.PROFILE) {
