@@ -234,6 +234,6 @@ fun SignUp(
         )
 
         Spacer(modifier = Modifier.height(50.dp))
-        AuthButton(isLoading, "CADASTRAR", onClick = onClick, disableClickIfLoading = true)
+        AuthButton(isLoading, "CADASTRAR", onClick = onClick)
     }
 }

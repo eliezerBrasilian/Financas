@@ -8,14 +8,17 @@ import androidx.compose.material.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+@Preview
 @Composable
 fun AuthButton(
-    isLoading: Boolean?, text: String,
+    isLoading: Boolean? = false,
+    text: String = "",
     backgroundColor: Color = Color.Blue,
     disableClickIfLoading: Boolean = false,
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
 ) {
     Button(
         enabled = !disableClickIfLoading,

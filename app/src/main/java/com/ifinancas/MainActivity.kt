@@ -16,6 +16,7 @@ import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
+import com.ifinancas.ui.viewModel.PopUpOfertaViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,6 +36,7 @@ class MainActivity : ComponentActivity() {
             IFinançasTheme {
                 val navController: NavHostController = rememberNavController()
                 val popUpHomeViewModel: PopUpHomeViewModel = viewModel()
+                val popUpOfertaViewModel:PopUpOfertaViewModel = viewModel()
 
                 NavigationBarColor()
                 MainAppNavigation(
@@ -43,14 +45,14 @@ class MainActivity : ComponentActivity() {
                     popUpHomeViewModel = popUpHomeViewModel,
                     financialOperationsViewModel = financialOperationsViewModel,
                     userViewModel = userViewModel,
-
-                    )
+                    interstitialAdsViewModel = interstitialAdsViewModel,
+                    popUpOfertaViewModel = popUpOfertaViewModel
+                )
             }
         }
     }
 
     override fun onDestroy() {
-        //removeInterstitial()
         interstitialAdsViewModel.stopAdd()
         super.onDestroy()
     }

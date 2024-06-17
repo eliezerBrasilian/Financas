@@ -17,7 +17,11 @@ interface FinancialOperationsService {
         tag: String
     ): List<Register>
 
-    suspend fun saveRegister(registerData: HashMap<String, Any>): Boolean
+    suspend fun saveRegister(
+        registerData: HashMap<String, Any>,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit = {}
+    ): Boolean
 
     suspend fun deleteRegister(
         id: String,

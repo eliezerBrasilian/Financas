@@ -89,15 +89,15 @@ fun Login(
     val onClick: () -> Unit = {
         resetInputStates()
 
-        if (!emailInput.isNullOrEmpty() && !passwordInput.isNullOrEmpty()) {
+        if (emailInput.isNotEmpty() && passwordInput.isNotEmpty()) {
             scope.launch {
                 authViewModel.login(emailInput.trim(), passwordInput.trim(), onSuccess, onError)
             }
         } else {
-            if (emailInput.isNullOrEmpty()) {
+            if (emailInput.isEmpty()) {
                 loginIsEmpty = true
             }
-            if (passwordInput.isNullOrEmpty()) {
+            if (passwordInput.isEmpty()) {
                 passwordIsEmpty = true
             }
         }

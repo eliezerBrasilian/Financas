@@ -48,9 +48,10 @@ fun RegisterScreen(
     nav: NavHostController = rememberNavController(),
     tag: String? = "receita",
     pv: PaddingValues = PaddingValues(0.dp),
-    financialOperationsViewModel: FinancialOperationsViewModel
+    financialOperationsViewModel: FinancialOperationsViewModel,
+    interstitialAdsViewModel: InterstitialAdsViewModel
 ) {
-    val interstitialAdsViewModel: InterstitialAdsViewModel = hiltViewModel()
+   
     val userViewModel: UserViewModel = hiltViewModel()
     val dateTimeService: DateTimeViewModel = hiltViewModel()
 
@@ -120,9 +121,7 @@ fun RegisterScreen(
 
     val successOnRegister = {
         println("Sucesso")
-        /*Log.d(AppTag,"Sucesso: ${colRef.id}")*/
         Toast(context).showToast("Registrado com sucesso")
-        //showInterstitial(context)
         interstitialAdsViewModel.show()
         savedSuccessfully = true
     }
@@ -132,7 +131,7 @@ fun RegisterScreen(
         buttonIsLoading = true
 
         var v = 0.00;
-        if (!valueInput.isNullOrEmpty()) {
+        if (valueInput.isNotEmpty()) {
             v = valueInput.toDouble() / 100;
         }
 

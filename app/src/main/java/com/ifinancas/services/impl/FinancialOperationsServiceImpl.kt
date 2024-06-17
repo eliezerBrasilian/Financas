@@ -167,14 +167,19 @@ class FinancialOperationsServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveRegister(registerData: HashMap<String, Any>): Boolean {
+    override suspend fun saveRegister(
+        registerData: HashMap<String, Any>, onSuccess: () -> Unit,
+        onFailure: () -> Unit
+    ): Boolean {
         try {
             val colRef = firestore.collection(Collections.REGISTERS)
                 .add(registerData)
                 .await()
+            onSuccess()
             return true;
         } catch (e: Exception) {
             println("Erro ao registrar: ${e.message}")
+            onFailure()
             return false;
         }
     }

@@ -75,8 +75,16 @@ class FinancialOperationsViewModel @Inject constructor(
     }
 
     fun saveRegister(registerData: HashMap<String, Any>): Deferred<Boolean> = viewModelScope.async {
-        canLoadBalance()
-        return@async financialOperationsService.saveRegister(registerData)
+        _performingFinancialOperation.value = FinancialOperation.ADDING
+        return@async financialOperationsService.saveRegister(registerData,
+            onSuccess = {
+                canLoadBalance()
+                _performingFinancialOperation.value = FinancialOperation.IDLE
+            },
+            onFailure = {
+                _performingFinancialOperation.value = FinancialOperation.IDLE
+            }
+        )
     }
 
     fun deleteRegister(id: String, onSuccessDelete: () -> Unit, onFailureDelete: () -> Unit = {}) =
@@ -86,7 +94,10 @@ class FinancialOperationsViewModel @Inject constructor(
                 _performingFinancialOperation.value = FinancialOperation.IDLE
                 canLoadBalance()
                 onSuccessDelete()
-            }, onFailureDelete = onFailureDelete)
+            }, onFailureDelete = {
+                _performingFinancialOperation.value = FinancialOperation.IDLE
+                onFailureDelete()
+            })
         }
 
     fun resetBalance() {

@@ -92,7 +92,7 @@ fun LoginForm(
 
         Spacer(modifier = Modifier.height(100.dp))
 
-        AuthButton(isLoading, "ENTRAR", onClick = onClick, disableClickIfLoading = true)
+        AuthButton(isLoading, "ENTRAR", onClick = onClick, disableClickIfLoading = false)
         Spacer(modifier = Modifier.height(15.dp))
 
         Text(text = "ESQUECEU A SENHA",

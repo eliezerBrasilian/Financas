@@ -34,7 +34,9 @@ import com.ifinancas.ui.screens.transactionsHistory.TransactionsHistory
 import com.ifinancas.ui.screens.welcomeLogin.WelcomeLogin
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
+import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
+import com.ifinancas.ui.viewModel.PopUpOfertaViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 
 @SuppressLint(
@@ -48,6 +50,8 @@ fun MainAppNavigation(
     popUpHomeViewModel: PopUpHomeViewModel,
     financialOperationsViewModel: FinancialOperationsViewModel,
     userViewModel: UserViewModel,
+    interstitialAdsViewModel: InterstitialAdsViewModel,
+    popUpOfertaViewModel: PopUpOfertaViewModel,
 ) {
 
     Scaffold(bottomBar = { CustomBottomBar(navController, popUpHomeViewModel) }) { pv ->
@@ -96,7 +100,8 @@ fun MainAppNavigation(
                             popUpHomeViewModel,
                             financialOperationsViewModel,
                             userViewModel,
-                            pv
+                            pv,
+                            popUpOfertaViewModel
                         )
                     }
                     composable(NavigationScreens.PROFILE) {
@@ -113,7 +118,11 @@ fun MainAppNavigation(
                         Profile(navController, userViewModel, clearDataOnExit)
                     }
                     composable(BottomBarScreen.Historico.route) {
-                        TransactionsHistory(pv, financialOperationsViewModel)
+                        TransactionsHistory(
+                            pv,
+                            financialOperationsViewModel,
+                            interstitialAdsViewModel
+                        )
                     }
                     composable(
                         NavigationScreens.FINANCIAL_BALANCE_SELECTED + "/{tag}",
@@ -134,7 +143,13 @@ fun MainAppNavigation(
                         arguments = listOf(navArgument(name = "tag") { type = NavType.StringType })
                     ) { backStackEntry ->
                         val tag = backStackEntry.arguments?.getString("tag")
-                        RegisterScreen(navController, tag, pv, financialOperationsViewModel)
+                        RegisterScreen(
+                            navController,
+                            tag,
+                            pv,
+                            financialOperationsViewModel,
+                            interstitialAdsViewModel
+                        )
                     }
 
                     composable(

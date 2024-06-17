@@ -17,17 +17,25 @@ import com.ifinancas.R
 
 @Composable
 fun ProfileOverlayView(
-    clearDataOnExit: () -> Unit
+    clearDataOnExit: () -> Unit,
+    navigateToExtrasScreen: () -> Unit
 ) {
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(Color.White, RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
     ) {
-        ProfileOverlayViewItem(text = "Finanças extras", icon = R.drawable.crown_list)
+        ProfileOverlayViewItem(
+            text = "Finanças extras",
+            icon = R.drawable.crown_list,
+            onClick = navigateToExtrasScreen
+        )
         Line()
-        ProfileOverlayViewItem(text = "Encerrar sessão", icon = R.drawable.logout) {
-            clearDataOnExit()
-        }
+        ProfileOverlayViewItem(
+            text = "Encerrar sessão",
+            icon = R.drawable.logout,
+            onClick = clearDataOnExit
+        )
         Line()
         Box(
             modifier = Modifier
