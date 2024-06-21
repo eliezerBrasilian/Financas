@@ -21,7 +21,7 @@ fun DayChooserItem(
 ) {
     Box(modifier = Modifier
         .background(
-            if (daySelected == day) Color.Green else Color(0xffb5cdd6),
+            if (daySelected == day) Color(0xff88527F) else Color(0xffb5cdd6),
             RoundedCornerShape(12.dp)
         )
         .padding(10.dp)

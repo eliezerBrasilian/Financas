@@ -34,12 +34,12 @@ import com.ifinancas.ui.components.RegisterScreenOverlayView
 import com.ifinancas.ui.components.RegisterValueInput
 import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
-import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 import com.ifinancas.utils.AppUtils.Companion.AppTag
 import com.ifinancas.utils.AppUtils.Companion.getBackgroundColor
 import com.ifinancas.utils.AppUtils.Companion.getTitleText
 import com.ifinancas.utils.Toast
+import com.ifinancas.utils.showInterstitial
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -49,9 +49,8 @@ fun RegisterScreen(
     tag: String? = "receita",
     pv: PaddingValues = PaddingValues(0.dp),
     financialOperationsViewModel: FinancialOperationsViewModel,
-    interstitialAdsViewModel: InterstitialAdsViewModel
 ) {
-   
+
     val userViewModel: UserViewModel = hiltViewModel()
     val dateTimeService: DateTimeViewModel = hiltViewModel()
 
@@ -122,12 +121,19 @@ fun RegisterScreen(
     val successOnRegister = {
         println("Sucesso")
         Toast(context).showToast("Registrado com sucesso")
-        interstitialAdsViewModel.show()
         savedSuccessfully = true
     }
+    /*
+        LaunchedEffect(Unit) {
+            interstitialAdsViewModel.loadAd()
+        }*/
+
+    /*    val handleSendRegister = {
+            showInterstitial(context)
+        }*/
 
     val handleSendRegister: () -> Unit = {
-        interstitialAdsViewModel.show()
+        showInterstitial(context)
         buttonIsLoading = true
 
         var v = 0.00;

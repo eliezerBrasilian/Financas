@@ -64,7 +64,7 @@ fun CategoryChooser(
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
-                text = if (categorySelected != Category.OUTROS) categorySelected.value else "Categoria",
+                text = categorySelected.value,
                 fontSize = 13.sp,
                 color = Color.Black,
                 fontWeight = FontWeight.SemiBold,

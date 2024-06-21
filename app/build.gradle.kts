@@ -16,8 +16,8 @@ android {
         applicationId = "com.ifinancas"
         minSdk = 24
         targetSdk = 34
-        versionCode = 47
-        versionName = "1.4.0"
+        versionCode = 50
+        versionName = "1.4.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

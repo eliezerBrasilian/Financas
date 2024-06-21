@@ -12,30 +12,23 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.ifinancas.R
-import com.ifinancas.data.enums.FinancialOperation
-import com.ifinancas.data.gitignore.tigrinhoInvite
-import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 
-@Preview
 @SuppressLint("NewApi")
 @Composable
 fun PopUpOferta(
-    question:String = "Ganhe 6 reais agora, baixando o TikTok abaixo",
-    text:String = "Baixar TikTok",
-    onDismissRequest: () -> Unit = {},
-    link: String = "",
+    question: String,
+    text: String,
+    onDismissRequest: () -> Unit,
+    link: String,
 ) {
     val uriHandler = LocalUriHandler.current
 

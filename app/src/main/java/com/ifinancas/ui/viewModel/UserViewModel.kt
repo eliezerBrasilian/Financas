@@ -31,7 +31,6 @@ class UserViewModel @Inject constructor(
         }
     }
 
-
     val photo: LiveData<String?> = liveData {
         userService.getPhoto().collect { photoValue ->
             emit(photoValue)

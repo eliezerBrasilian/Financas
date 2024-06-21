@@ -34,7 +34,6 @@ import com.ifinancas.ui.screens.transactionsHistory.TransactionsHistory
 import com.ifinancas.ui.screens.welcomeLogin.WelcomeLogin
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
-import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
 import com.ifinancas.ui.viewModel.PopUpOfertaViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
@@ -50,7 +49,6 @@ fun MainAppNavigation(
     popUpHomeViewModel: PopUpHomeViewModel,
     financialOperationsViewModel: FinancialOperationsViewModel,
     userViewModel: UserViewModel,
-    interstitialAdsViewModel: InterstitialAdsViewModel,
     popUpOfertaViewModel: PopUpOfertaViewModel,
 ) {
 
@@ -77,10 +75,10 @@ fun MainAppNavigation(
                         Presentation(nav = navController)
                     }
                     composable(route = NavigationScreens.WELCOME_LOGIN) {
-                        WelcomeLogin(nav = navController)
+                        WelcomeLogin(nav = navController, authViewModel, userViewModel)
                     }
                     composable(route = NavigationScreens.WELCOME_SIGN_UP) {
-                        WelcomeSignUp(nav = navController)
+                        WelcomeSignUp(nav = navController, authViewModel, userViewModel)
                     }
                     composable(route = NavigationScreens.LOGIN) {
                         Login(nav = navController, authViewModel, userViewModel)
@@ -121,7 +119,6 @@ fun MainAppNavigation(
                         TransactionsHistory(
                             pv,
                             financialOperationsViewModel,
-                            interstitialAdsViewModel
                         )
                     }
                     composable(
@@ -148,7 +145,6 @@ fun MainAppNavigation(
                             tag,
                             pv,
                             financialOperationsViewModel,
-                            interstitialAdsViewModel
                         )
                     }
 

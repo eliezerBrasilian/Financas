@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.ifinancas.data.customremembers.rememberCustomModalBottomSheetState
@@ -30,8 +31,8 @@ import com.ifinancas.ui.components.TransactionsHistoryTop
 import com.ifinancas.ui.theme.MAINPURPLE
 import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
-import com.ifinancas.ui.viewModel.InterstitialAdsViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
+import com.ifinancas.utils.showInterstitial
 import java.util.Date
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -39,7 +40,6 @@ import java.util.Date
 fun TransactionsHistory(
     pv: PaddingValues,
     financialOperationsViewModel: FinancialOperationsViewModel,
-    interstitialAdsViewModel: InterstitialAdsViewModel
 ) {
 
     val userViewModel: UserViewModel = hiltViewModel()
@@ -101,6 +101,8 @@ fun TransactionsHistory(
         popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
     }
 
+    val context = LocalContext.current
+
     val delete = {
         if (registerEscolhidoParaDeletar != null) {
             financialOperationsViewModel.deleteRegister(registerChoosedId, onSuccessDelete = {
@@ -114,7 +116,7 @@ fun TransactionsHistory(
                 }
 
                 popUpDeleteRegisterIsVisible = !popUpDeleteRegisterIsVisible
-                interstitialAdsViewModel.show()
+                showInterstitial(context)
             })
         }
     }

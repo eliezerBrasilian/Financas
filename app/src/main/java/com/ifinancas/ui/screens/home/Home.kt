@@ -35,7 +35,6 @@ import com.ifinancas.R
 import com.ifinancas.data.enums.MenuItem
 import com.ifinancas.data.enums.Tags
 import com.ifinancas.data.gitignore.appGooglePlayUri
-import com.ifinancas.data.gitignore.tiktokInviteLink
 import com.ifinancas.ui.components.BannerAdd
 import com.ifinancas.ui.components.CardFinanceItem
 import com.ifinancas.ui.components.GraficoGeralCard
@@ -43,7 +42,6 @@ import com.ifinancas.ui.components.HomeBlueTop
 import com.ifinancas.ui.components.HomePopUpMenu
 import com.ifinancas.ui.components.MonthListPopUpDialog
 import com.ifinancas.ui.components.PopUpAddRegisterDialog
-import com.ifinancas.ui.components.PopUpOferta
 import com.ifinancas.ui.components.ViewSobreposta
 import com.ifinancas.ui.theme.BACKGROUNDCARDSOBREPOSTO
 import com.ifinancas.ui.theme.BACKGROUNDHOME
@@ -149,16 +147,15 @@ fun Home(
         }, nav
     )
 
+    /*    val popUpOfertaVisible by popUpOfertaViewModel.visible.collectAsState()
 
-    val popUpOfertaVisible by popUpOfertaViewModel.visible.collectAsState()
-
-    if (popUpOfertaVisible) {
-        PopUpOferta(
-            text = "Baixar TikToK",
-            question = "Ganhe 6 reais agora, baixando o TikTok abaixo",
-            link = tiktokInviteLink,
-            onDismissRequest = { popUpOfertaViewModel.turnOffVisibility() })
-    }
+        if (popUpOfertaVisible) {
+            PopUpOferta(
+                text = "Baixar TikToK",
+                question = "Ganhe 6 reais agora, baixando o TikTok abaixo",
+                link = tiktokInviteLink,
+                onDismissRequest = { popUpOfertaViewModel.turnOffVisibility() })
+        }*/
 
 
     Surface(

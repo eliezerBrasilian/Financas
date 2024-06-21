@@ -25,7 +25,7 @@ fun CategoryChooserItem(
         Box(
             modifier = Modifier
                 .background(
-                    color = Color.Green,
+                    color = Color(0xff88527F),
                     shape = RoundedCornerShape(14.dp)
                 )
                 .padding(3.dp)

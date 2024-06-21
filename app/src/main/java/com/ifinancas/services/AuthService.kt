@@ -17,4 +17,13 @@ interface AuthService {
         onSuccess: (user: UserAuthSignUpData) -> Unit,
         onError: (errorCode: String) -> Unit
     ): Unit
+
+    suspend fun loginWithGoogle(
+        email: String,
+        name: String,
+        photo: String?,
+        userUid: String,
+        onSuccess: (user: FirebaseUserResponse) -> Unit,
+        onError: (errorCode: String) -> Unit
+    ): Unit
 }

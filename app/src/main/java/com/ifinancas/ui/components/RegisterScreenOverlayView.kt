@@ -2,6 +2,7 @@ package com.ifinancas.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.TextSelectionColors
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -82,13 +85,20 @@ fun RegisterScreenOverlayView(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(35.dp))
-        AuthButton(
-            isLoading = buttonIsLoading,
-            text = "Salvar",
-            backgroundColor = AppUtils.getBackgroundColor(tag.toString()),
+        Button(
             onClick = handleSendRegister,
-            disableClickIfLoading = buttonIsLoading
-        )
+            colors = ButtonDefaults.buttonColors(AppUtils.getBackgroundColor(tag.toString())),
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(vertical = 12.dp)
+        ) {
+            Text(
+                text = "Salvar",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+
         Spacer(modifier = Modifier.height(35.dp))
         if (savedSuccessfully) {
             Text(

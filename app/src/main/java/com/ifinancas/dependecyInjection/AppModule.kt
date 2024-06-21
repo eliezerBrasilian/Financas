@@ -6,12 +6,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.ifinancas.services.AuthService
 import com.ifinancas.services.DateTimeService
 import com.ifinancas.services.FinancialOperationsService
-import com.ifinancas.services.InterstitialAdsService
 import com.ifinancas.services.UserService
 import com.ifinancas.services.impl.AuthServiceImpl
 import com.ifinancas.services.impl.DateTimeServiceImpl
 import com.ifinancas.services.impl.FinancialOperationsServiceImpl
-import com.ifinancas.services.impl.IntersititialAdsServiceImpl
 import com.ifinancas.services.impl.UserServiceImpl
 import dagger.Module
 import dagger.Provides
@@ -70,9 +68,4 @@ object AppModule {
         return UserServiceImpl(context, firestore)
     }
 
-    @Provides
-    @Singleton
-    fun provideInterstitialAdsService(@ApplicationContext context: Context): InterstitialAdsService {
-        return IntersititialAdsServiceImpl(context)
-    }
 }

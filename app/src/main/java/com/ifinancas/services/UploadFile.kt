@@ -46,12 +46,16 @@ class UploadFile {
 
     fun deleteFile(url: String) {
         val storage = FirebaseStorage.getInstance()
-        val fileRef = storage.getReferenceFromUrl(url)
 
         try {
+            val fileRef = storage.getReferenceFromUrl(url)
             fileRef.delete();
             Log.d(AppTag, "deletado com sucesso")
+
+
         } catch (e: Exception) {
+            Log.d(AppTag, "erro ao deletar arquivo: ${e.message}")
+        } catch (e: IllegalArgumentException) {
             Log.d(AppTag, "erro ao deletar arquivo: ${e.message}")
         }
     }

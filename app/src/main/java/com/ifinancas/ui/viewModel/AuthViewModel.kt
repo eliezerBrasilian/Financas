@@ -1,6 +1,8 @@
 package com.ifinancas.ui.viewModel
 
+import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import com.ifinancas.data.dataclass.FirebaseUserResponse
 import com.ifinancas.data.dataclass.UserAuthSignUpData
 import com.ifinancas.services.AuthService
+import com.ifinancas.utils.AppUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +26,21 @@ class AuthViewModel @Inject constructor(private val authService: AuthService) : 
     private val _loading = MutableLiveData(false);
 
     val loading: LiveData<Boolean> = _loading;
+
+    fun loginWithGoogle(
+        email: String,
+        name: String,
+        photo: Uri?,
+        userUid: String,
+        onSuccess: (user: FirebaseUserResponse) -> Unit,
+        onError: (errorCode: String) -> Unit
+    ) = viewModelScope.launch {
+        _loading.value = true;
+
+        Log.i(AppUtils.AppTag, "clicked --1")
+        authService.loginWithGoogle(email, name, photo.toString(), userUid, onSuccess, onError)
+        _loading.value = false;
+    }
 
     fun login(
         email: String, password: String,
@@ -51,6 +69,7 @@ class AuthViewModel @Inject constructor(private val authService: AuthService) : 
 
         _loading.value = false;
     }
+
 
     fun getUserUid(): String? {
         return auth.currentUser?.uid;

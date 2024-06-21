@@ -20,7 +20,6 @@ class IntersititialAdsServiceImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : InterstitialAdsService {
     var mInterstitialAd: InterstitialAd? = null
-
     override fun loadAd() {
         InterstitialAd.load(
             context,
@@ -56,7 +55,7 @@ class IntersititialAdsServiceImpl @Inject constructor(
                     loadAd()
                 }
             }
-            mInterstitialAd?.show(activity as Activity)
+            mInterstitialAd?.show(activity)
         }
     }
 

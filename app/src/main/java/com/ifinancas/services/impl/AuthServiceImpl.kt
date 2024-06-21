@@ -114,6 +114,54 @@ class AuthServiceImpl @Inject constructor(
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun loginWithGoogle(
+        email: String,
+        name: String,
+        photo: String?,
+        userUid: String,
+        onSuccess: (user: FirebaseUserResponse) -> Unit,
+        onError: (errorCode: String) -> Unit
+    ) {
+        Log.i(AppTag, "clicked")
+
+        val userDataFromFirestore = retrieveUserDataFromFirestore(userUid)
+
+        Log.i(AppTag, "userDataFromFirestore: $userDataFromFirestore")
+        if (userDataFromFirestore != null) {
+            val user = firestoreUserMaptoFirebaseUserResponseWhithoutPrefixIs(userDataFromFirestore)
+            Log.d(AppTag, userDataFromFirestore.toString())
+
+            onSuccess(user)
+        } else {
+            val instant = Instant.now();
+
+            val userData = UserAuthSignUpData(
+                userUid,
+                email,
+                name,
+                photo,
+                false,
+                false,
+                instant.toEpochMilli(),
+            );
+
+            saveUserOnFirestore(userData)
+            createCollectionBalancesRelatedToTheUser(userUid)
+            onSuccess(
+                FirebaseUserResponse(
+                    email = email,
+                    name = name,
+                    createdAt = userData.createdAt,
+                    uid = userUid,
+                    isPremium = userData.isPremium,
+                    isAdmin = userData.isAdmin,
+                    profilePicture = photo
+                )
+            )
+        }
+    }
+
     private suspend fun saveUserOnFirestore(userData: UserAuthSignUpData) {
         try {
             firestore.collection(Collections.USERS).document(userData.uid)
@@ -159,7 +207,19 @@ class AuthServiceImpl @Inject constructor(
             profilePicture = userDataFromFirestore["profilePicture"] as String?,
             isAdmin = userDataFromFirestore["isAdmin"] as Boolean,
             isPremium = userDataFromFirestore["isPremium"] as Boolean,
-            phone = userDataFromFirestore["phone"].toString(),
+            uid = userDataFromFirestore["uid"].toString()
+        )
+        return firebaseUserResponseData;
+    }
+
+    fun firestoreUserMaptoFirebaseUserResponseWhithoutPrefixIs(userDataFromFirestore: MutableMap<String, Any>): FirebaseUserResponse {
+        val firebaseUserResponseData = FirebaseUserResponse(
+            createdAt = userDataFromFirestore["createdAt"] as Long,
+            email = userDataFromFirestore["email"].toString(),
+            name = userDataFromFirestore["name"].toString(),
+            profilePicture = userDataFromFirestore["profilePicture"] as String?,
+            isAdmin = userDataFromFirestore["admin"] as Boolean,
+            isPremium = userDataFromFirestore["premium"] as Boolean,
             uid = userDataFromFirestore["uid"].toString()
         )
         return firebaseUserResponseData;
