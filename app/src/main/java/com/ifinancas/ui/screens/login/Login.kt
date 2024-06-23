@@ -24,7 +24,7 @@ fun Login(
     authViewModel: AuthViewModel,
     userViewModel: UserViewModel,
 ) {
-    val isLoading by authViewModel.loading.observeAsState()
+    val isLoading by authViewModel.loading.observeAsState(initial = false)
 
     var emailInput by remember {
         mutableStateOf("")

@@ -37,7 +37,7 @@ fun LoginForm(
     passwordIsEmpty: Boolean,
     passwordInput: String,
     onChangePassword: (String) -> Unit,
-    isLoading: Boolean?,
+    isLoading: Boolean,
 ) {
 
     Column(

@@ -55,7 +55,7 @@ fun SignUp(
 ) {
 
     val uid by userViewModel.uid.observeAsState(initial = "")
-    val isLoading by authViewModel.loading.observeAsState()
+    val isLoading by authViewModel.loading.observeAsState(initial = false)
 
     var nameInput by remember {
         mutableStateOf("")

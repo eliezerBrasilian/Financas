@@ -18,20 +18,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ifinancas.R
 import com.ifinancas.data.enums.FinancialOperation
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 
-
+@Preview
 @SuppressLint("NewApi")
 @Composable
 fun PopUpDeleteRegister(
     onDismissRequest: () -> Unit = {},
-    delete: () -> Unit,
-    financialOperationsViewModel: FinancialOperationsViewModel,
+    delete: () -> Unit = {},
+    financialOperationsViewModel: FinancialOperationsViewModel = hiltViewModel(),
 ) {
 
     val performingOperationListener by financialOperationsViewModel.performingFinancialOperation.collectAsState()
@@ -57,6 +59,7 @@ fun PopUpDeleteRegister(
                 Text(text = "Deseja excluir registro?", fontSize = 14.sp, color = Color.Black)
                 AuthButton(
                     isLoading = performingOperationListener == FinancialOperation.DELETING,
+                    backgroundColor = Color.Red,
                     text = "Deletar",
                     disableClickIfLoading = performingOperationListener == FinancialOperation.DELETING
                 ) {

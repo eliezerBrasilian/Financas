@@ -54,7 +54,6 @@ fun PopUpOferta(
                 AuthButton(
                     isLoading = false,
                     text = text,
-                    disableClickIfLoading = false,
                     onClick = {
                         uriHandler.openUri(link)
                     }

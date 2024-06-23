@@ -108,7 +108,7 @@ fun RowScope.AddItem(
             Text(
                 text = screen.title,
                 color = if (selected) Color(0xffFF0303) else LocalContentColor.current,
-                fontSize = 12.sp
+                fontSize = 11.sp
             )
         },
         icon = {
