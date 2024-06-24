@@ -43,6 +43,7 @@ import com.ifinancas.ui.screens.welcomeLogin.rememberGoogleSignUp
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 import com.ifinancas.utils.AppUtils
+import com.ifinancas.utils.Toast
 import kotlinx.coroutines.launch
 
 
@@ -72,6 +73,8 @@ fun WelcomeSignUp(
         }
     }
 
+    val context = LocalContext.current
+
     val onClickGoogleSignIn = rememberGoogleSignUp(
         clientId = clientId,
         context = LocalContext.current,
@@ -84,6 +87,9 @@ fun WelcomeSignUp(
                 onError = {},
                 onSuccess = onSuccess
             )
+        },
+        onError = {
+            Toast(context).showToast("Falha ao logar com Google ❌")
         }
     )
 

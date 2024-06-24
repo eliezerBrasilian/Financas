@@ -16,8 +16,8 @@ android {
         applicationId = "com.ifinancas"
         minSdk = 24
         targetSdk = 34
-        versionCode = 53
-        versionName = "1.4.5"
+        versionCode = 55
+        versionName = "1.4.7"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -78,7 +78,8 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.7.0-alpha05")
 
     //google signin
-    implementation("com.google.android.gms:play-services-auth:19.2.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")

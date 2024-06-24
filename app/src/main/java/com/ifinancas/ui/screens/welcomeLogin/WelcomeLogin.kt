@@ -55,6 +55,7 @@ import com.ifinancas.ui.theme.MAINBLUE
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 import com.ifinancas.utils.AppUtils
+import com.ifinancas.utils.Toast
 import kotlinx.coroutines.launch
 
 
@@ -62,11 +63,14 @@ import kotlinx.coroutines.launch
 fun GoogleSignInPopUp(
     clientId: String,
     context: Context,
-    onSuccess: (result: GoogleSignInAccount) -> Unit
+    onSuccess: (result: GoogleSignInAccount) -> Unit,
+    onError: () -> Unit
 ) {
     val googleSignInClient = getGoogleLoginAuth(clientId, context)
     val startForResult =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { activityResult ->
+            Log.d(AppUtils.AppTag, "activity result: $activityResult")
+
             if (activityResult.resultCode == Activity.RESULT_OK) {
                 val intent = activityResult.data
                 if (intent != null) {
@@ -76,6 +80,8 @@ fun GoogleSignInPopUp(
                         onSuccess(result)
                     }
                 }
+            } else {
+                onError()
             }
         }
     LaunchedEffect(Unit) {
@@ -87,7 +93,8 @@ fun GoogleSignInPopUp(
 fun rememberGoogleSignUp(
     clientId: String,
     context: Context,
-    onSuccess: (result: GoogleSignInAccount) -> Unit
+    onSuccess: (result: GoogleSignInAccount) -> Unit,
+    onError: () -> Unit
 ): () -> Unit {
     var showGoogleSignInPopUp by remember { mutableStateOf(false) }
 
@@ -98,7 +105,8 @@ fun rememberGoogleSignUp(
             onSuccess = { result ->
                 onSuccess(result)
                 showGoogleSignInPopUp = false
-            }
+            },
+            onError = onError
         )
     }
 
@@ -119,6 +127,8 @@ fun WelcomeLogin(
     val isLoading by authViewModel.loading.observeAsState(initial = false)
 
     val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
 
     val onSuccess: (user: FirebaseUserResponse) -> Unit = { user ->
         scope.launch {
@@ -148,6 +158,9 @@ fun WelcomeLogin(
                 onError = {},
                 onSuccess = onSuccess
             )
+        },
+        onError = {
+            Toast(context).showToast("Falha ao logar com Google ❌")
         }
     )
 

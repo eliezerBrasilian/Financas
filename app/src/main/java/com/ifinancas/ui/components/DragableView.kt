@@ -10,8 +10,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.ifinancas.ui.theme.ASSINATURACOLOR
 
 @Composable
 fun DragableView() {
@@ -25,7 +25,7 @@ fun DragableView() {
             modifier = Modifier
                 .height(10.dp)
                 .width(60.dp)
-                .background(ASSINATURACOLOR, RoundedCornerShape(20.dp))
+                .background(Color(0xff212529), RoundedCornerShape(20.dp))
         )
     }
 }

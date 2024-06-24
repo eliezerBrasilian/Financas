@@ -19,7 +19,6 @@ val BACKGROUNDGREEN = Color(0xff35C761)
 val BACKGROUNDRED = Color(0xffEC1515)
 val OVERVIEW = Color(0xfff3f5f8)
 
-
 val APOSTACOLOR = Color(0xffFCE694)
 val ASSINATURACOLOR = Color(0xffe63946)
 val CASACOLOR = Color(0xff009FFF)
