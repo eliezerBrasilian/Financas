@@ -22,44 +22,46 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ifinancas.R
 
-
 @Composable
 fun ProfileOverlayViewItem(
     text: String,
     icon: Int = R.drawable.user_profile,
     onClick: () -> Unit = {}
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(25.dp)
-            .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
 
-        Box(
+    Box(modifier = Modifier.clickable { onClick() }) {
+        Row(
             modifier = Modifier
-                .size(30.dp)
-                .background(Color(0xffE8EDFF), shape = CircleShape),
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .padding(25.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Image(
-                painter = painterResource(id = icon),
-                contentDescription = null,
+
+            Box(
                 modifier = Modifier
-                    .size(17.dp)
-                    .clip(
-                        CircleShape
-                    )
+                    .size(30.dp)
+                    .background(Color(0xffE8EDFF), shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = icon),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(17.dp)
+                        .clip(
+                            CircleShape
+                        )
+                )
+            }
+
+            Text(
+                text = text,
+                fontSize = 14.sp,
+                color = Color.Black,
+                fontWeight = FontWeight.Normal
             )
         }
-
-        Text(
-            text = text,
-            fontSize = 14.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Normal
-        )
     }
+
 }

@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ifinancas.utils.toBrazilianCurrency
+import com.ifinancas.utils.toDefaultCurrency
 
 
 @Composable
@@ -36,14 +36,14 @@ fun TransactionsHistoryTop(movimentacaoTotalEfetuada: Double) {
         BannerAdd()
         Text(
             text = "Movimentação total efetuada",
-            fontSize = 14.sp,
+            fontSize = 18.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            text = toBrazilianCurrency(movimentacaoTotalEfetuada),
+            text = toDefaultCurrency(movimentacaoTotalEfetuada),
             fontSize = 18.sp,
             color = Color.White,
             fontWeight = FontWeight.Normal,

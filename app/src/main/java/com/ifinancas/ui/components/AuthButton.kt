@@ -1,5 +1,6 @@
 package com.ifinancas.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,10 +27,13 @@ fun AuthButton(
         enabled = !isLoading,
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor),
+        border = BorderStroke(
+            width = 1.dp,
+            color = MaterialTheme.colors.primary
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .border(width = 1.dp, color = MaterialTheme.colors.primary, shape = RoundedCornerShape(9.dp))
     ) {
         TextOrLoading(isLoading = isLoading, text = text)
     }

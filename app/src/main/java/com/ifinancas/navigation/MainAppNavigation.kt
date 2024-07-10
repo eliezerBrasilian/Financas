@@ -21,13 +21,13 @@ import com.ifinancas.components.CustomBottomBar
 import com.ifinancas.data.enums.Tags
 import com.ifinancas.screens.Splash
 import com.ifinancas.screens.welcomeLogin.WelcomeSignUp
-import com.ifinancas.ui.screens.chart.ChartScreen
-import com.ifinancas.ui.screens.extras.ExtrasScreen
-import com.ifinancas.ui.screens.financialBalanceSelected.FinancialBalanceSelected
-import com.ifinancas.ui.screens.home.Home
+import com.ifinancas.ui.screens.ChartScreen
+import com.ifinancas.ui.screens.ExtrasScreen
+import com.ifinancas.ui.screens.FinancialBalanceSelected
+import com.ifinancas.ui.screens.Home
+import com.ifinancas.ui.screens.Profile
 import com.ifinancas.ui.screens.login.Login
 import com.ifinancas.ui.screens.presentation.Presentation
-import com.ifinancas.ui.screens.profile.Profile
 import com.ifinancas.ui.screens.register.RegisterScreen
 import com.ifinancas.ui.screens.signUp.SignUp
 import com.ifinancas.ui.screens.transactionsHistory.TransactionsHistory
@@ -131,8 +131,9 @@ fun MainAppNavigation(
                             pv,
                             financialOperationsViewModel,
                             tag,
-                            navController
-                        )
+                            navController,
+
+                            )
                     }
 
                     composable(

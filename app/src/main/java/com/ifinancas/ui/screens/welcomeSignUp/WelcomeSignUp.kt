@@ -33,13 +33,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.frajola.patches.google_sign_in.rememberGoogleSignUp
 import com.ifinancas.R
 import com.ifinancas.data.dataclass.FirebaseUserResponse
 import com.ifinancas.data.gitignore.clientId
 import com.ifinancas.navigation.ArrowBackTop
 import com.ifinancas.navigation.NavigationScreens
 import com.ifinancas.ui.components.GoogleAuthButton
-import com.ifinancas.ui.screens.welcomeLogin.rememberGoogleSignUp
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 import com.ifinancas.utils.AppUtils
@@ -145,20 +145,20 @@ fun WelcomeSignUp(
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
-        GoogleAuthButton(
+       /* GoogleAuthButton(
             text = "Cadastrar com Google",
             isLoading = isLoading,
             onClick = onClickGoogleSignIn
         )
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(15.dp))*/
 
-        Text(
+        /*Text(
             text = "Já sou cadastrado",
             color = Color.Blue,
             fontWeight = FontWeight.Medium,
             fontSize = 13.sp, modifier = Modifier.clickable {
                 nav.navigate(NavigationScreens.LOGIN)
             }
-        )
+        )*/
     }
 }

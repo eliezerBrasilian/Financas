@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ifinancas.data.dataclass.Register
 import com.ifinancas.data.sealedClass.categories
-import com.ifinancas.ui.screens.chart.getTotalPerItem
+import com.ifinancas.ui.screens.getTotalPerItem
 import me.bytebeats.views.charts.pie.PieChart
 import me.bytebeats.views.charts.pie.PieChartData
 import me.bytebeats.views.charts.pie.render.SimpleSliceDrawer

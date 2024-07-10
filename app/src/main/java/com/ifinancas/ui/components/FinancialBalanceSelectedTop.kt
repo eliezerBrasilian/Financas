@@ -14,28 +14,38 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ifinancas.utils.toBrazilianCurrency
+import com.ifinancas.data.enums.Tags
+import com.ifinancas.utils.toDefaultCurrency
 
 @Composable
-fun FinancialBalanceSelectedTop(movimentacaoTotalEfetuada: Double) {
+fun FinancialBalanceSelectedTop(
+    movimentacaoTotalEfetuada: Double,
+    tagSelected: String
+) {
+    val titulo = when (tagSelected) {
+        Tags.REVENUE.tag -> "Receita total"
+        Tags.EXPENSE.tag -> "Despesa total"
+        Tags.RESERVATION.tag -> "Reserva total"
+        else -> ""
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        
+
         Text(
-            text = "Movimentação total efetuada",
-            fontSize = 14.sp,
+            text = titulo,
+            fontSize = 16.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
         Text(
-            text = toBrazilianCurrency(movimentacaoTotalEfetuada),
-            fontSize = 17.sp,
+            text = toDefaultCurrency(movimentacaoTotalEfetuada),
+            fontSize = 18.sp,
             color = Color.White,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Center,

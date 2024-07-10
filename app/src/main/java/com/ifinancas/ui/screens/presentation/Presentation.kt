@@ -68,7 +68,7 @@ horizontalAlignment = Alignment.CenterHorizontally
         )
 
         Spacer(modifier = Modifier.height(50.dp))
-        Button(onClick = { nav.navigate(NavigationScreens.WELCOME_SIGN_UP) } , modifier = Modifier
+        Button(onClick = { nav.navigate(NavigationScreens.SIGN_UP) } , modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
             .border(width = 1.dp, color = MAINBLUE, shape = RoundedCornerShape(9.dp))
@@ -82,7 +82,7 @@ horizontalAlignment = Alignment.CenterHorizontally
         }
         Spacer(modifier = Modifier.height(15.dp))
         Button(
-            onClick = { nav.navigate(NavigationScreens.WELCOME_LOGIN) },
+            onClick = { nav.navigate(NavigationScreens.LOGIN) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)

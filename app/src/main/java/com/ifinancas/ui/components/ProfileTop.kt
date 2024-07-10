@@ -72,6 +72,7 @@ fun ProfileTop(userViewModel: UserViewModel) {
 
     val descartar = {
         toogleEdicaoEnabled()
+        selectedImage = null
     }
 
     Box(

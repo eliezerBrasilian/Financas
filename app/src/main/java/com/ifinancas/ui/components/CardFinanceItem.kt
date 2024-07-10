@@ -19,15 +19,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.ifinancas.R
 import com.ifinancas.navigation.NavigationScreens
-import com.ifinancas.utils.toBrazilianCurrency
+import com.ifinancas.utils.toDefaultCurrency
 
 @Composable
 fun CardFinanceItem(
-    iconeImage: Int = R.drawable.receita,
-    text: String = "Receita do periodo",
-    valor: Double = 29.0,
+    iconeImage: Int,
+    text: String,
+    valor: Double,
     tag: String,
     nav: NavHostController,
     balanceIsVisible: Boolean
@@ -54,7 +53,7 @@ fun CardFinanceItem(
             Column {
                 Text(text = text, fontSize = 14.sp, color = Color.Black)
                 Text(
-                    text = if (balanceIsVisible) toBrazilianCurrency(valor) else "****",
+                    text = if (balanceIsVisible) toDefaultCurrency(valor) else "****",
                     fontSize = 16.sp,
                     color = Color.Black
                 )

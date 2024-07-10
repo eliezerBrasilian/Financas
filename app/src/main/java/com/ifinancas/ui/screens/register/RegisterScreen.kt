@@ -98,7 +98,7 @@ fun RegisterScreen(
         if (day == Dia.YESTERDAY) {
             localDateTime = dateTimeService.getYesterday()
         }
-    };
+    }
 
     val handleCategoryChange: (category: Category) -> Unit = {
         categorySelected = it
@@ -113,32 +113,32 @@ fun RegisterScreen(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
-
     var savedSuccessfully by remember {
         mutableStateOf(false)
+    }
+
+    val clearInputs = {
+        valueInput = ""
+        descriptionInput = ""
+        daySelected = Dia.TODAY
+        localDateTime = Date()
+        categorySelected = Category.OUTROS
     }
 
     val successOnRegister = {
         println("Sucesso")
         Toast(context).showToast("Registrado com sucesso")
         savedSuccessfully = true
+        clearInputs()
     }
-    /*
-        LaunchedEffect(Unit) {
-            interstitialAdsViewModel.loadAd()
-        }*/
-
-    /*    val handleSendRegister = {
-            showInterstitial(context)
-        }*/
 
     val handleSendRegister: () -> Unit = {
         showInterstitial(context)
         buttonIsLoading = true
 
-        var v = 0.00;
+        var v = 0.00
         if (valueInput.isNotEmpty()) {
-            v = valueInput.toDouble() / 100;
+            v = valueInput.toDouble() / 100
         }
 
         Log.d(AppTag, "valor: " + v)
@@ -179,16 +179,11 @@ fun RegisterScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 RegisterValueInput(
-                    valueInput,
-                    onValueChange,
-                    tag,
-                    isFocused,
-                    onFocusChange,
-                    focusRequester
+                    valueInput, onValueChange, tag, isFocused, onFocusChange, focusRequester
                 )
             }
         }
-        Column() {
+        Column {
             Spacer(modifier = Modifier.height(10.dp))
             RegisterScreenOverlayView(
                 daySelected,

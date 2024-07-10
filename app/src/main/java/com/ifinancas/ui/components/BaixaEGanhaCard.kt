@@ -19,11 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ifinancas.utils.showInterstitial
 
 @Composable
 fun BaixaEGanhaCard(
@@ -38,9 +40,11 @@ fun BaixaEGanhaCard(
 
     val uriHandler = LocalUriHandler.current
 
+    val context = LocalContext.current
+
     Card(
         modifier = Modifier, colors = CardDefaults.cardColors(
-            containerColor = Color(0xffCCD7E4)
+            containerColor = Color.White
         ),
         elevation = CardDefaults.cardElevation(9.dp)
     ) {
@@ -53,7 +57,7 @@ fun BaixaEGanhaCard(
                 painter = painterResource(id = imageResource),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(90.dp)
+                    .size(50.dp)
                     .clip(RoundedCornerShape(15.dp))
             )
             Column {
@@ -67,7 +71,10 @@ fun BaixaEGanhaCard(
                     color = Color.Blue, fontWeight = FontWeight.SemiBold
                 )
                 Button(
-                    onClick = { uriHandler.openUri(googlePlayAppLink) },
+                    onClick = {
+                        showInterstitial(context)
+                        uriHandler.openUri(googlePlayAppLink)
+                    },
                     colors = ButtonDefaults.buttonColors(Color(0xff5D2A42))
                 ) {
                     Text(

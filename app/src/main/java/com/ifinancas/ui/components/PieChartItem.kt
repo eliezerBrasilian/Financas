@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ifinancas.utils.toBrazilianCurrency
+import com.ifinancas.utils.toDefaultCurrency
 
 @Composable
 fun PieChartItem(total: Double, category: String, color: Color) {
@@ -22,7 +22,7 @@ fun PieChartItem(total: Double, category: String, color: Color) {
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(text = "$category =", fontSize = 12.sp, color = Color.Black)
-            Text(text = toBrazilianCurrency(total), fontSize = 12.sp, color = Color.Black)
+            Text(text = toDefaultCurrency(total), fontSize = 12.sp, color = Color.Black)
         }
     }
 }

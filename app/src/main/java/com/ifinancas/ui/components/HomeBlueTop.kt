@@ -31,7 +31,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.ifinancas.R
 import com.ifinancas.navigation.NavigationScreens
@@ -41,7 +40,7 @@ import com.ifinancas.ui.viewModel.UserViewModel
 
 @Composable
 fun HomeBlueTop(
-    nav: NavHostController = rememberNavController(),
+    nav: NavHostController,
     toogleMonthListVisibility: () -> Unit = {},
     toogleMenuListVisibility: () -> Unit = {},
     monthListVisible: Boolean = false,

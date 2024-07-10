@@ -6,12 +6,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.ifinancas.data.dataclass.Register
-import com.ifinancas.utils.toBrazilianCurrency
+import com.ifinancas.utils.toDefaultCurrency
 
 @Composable
 fun PriceView(register: Register) {
     Text(
-        text = toBrazilianCurrency(register.amount),
+        text = toDefaultCurrency(register.amount),
         fontSize = 14.sp,
         color = Color.Black,
         fontWeight = FontWeight.Bold,

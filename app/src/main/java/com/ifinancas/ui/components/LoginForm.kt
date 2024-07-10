@@ -2,7 +2,6 @@ package com.ifinancas.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.ifinancas.R
 import com.ifinancas.navigation.ArrowBackTop
-import com.ifinancas.navigation.NavigationScreens
 
 @Composable
 fun LoginForm(
@@ -44,7 +44,8 @@ fun LoginForm(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(15.dp),
+            .padding(15.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ArrowBackTop(nav = nav)
@@ -90,18 +91,17 @@ fun LoginForm(
             onChangeText = onChangePassword
         )
 
-        Spacer(modifier = Modifier.height(100.dp))
-
+        Spacer(modifier = Modifier.height(90.dp))
         AuthButton(isLoading, "ENTRAR", onClick = onClick, disableClickIfLoading = false)
-        Spacer(modifier = Modifier.height(15.dp))
+        /* Spacer(modifier = Modifier.height(15.dp))
 
-        Text(text = "ESQUECEU A SENHA",
-            color = Color.Blue,
-            fontWeight = FontWeight.Medium,
-            fontSize = 13.sp,
-            modifier = Modifier.clickable {
-                nav.navigate(NavigationScreens.LOGIN)
-            })
+         Text(text = "ESQUECEU A SENHA",
+             color = Color.Blue,
+             fontWeight = FontWeight.Medium,
+             fontSize = 13.sp,
+             modifier = Modifier.clickable {
+                 nav.navigate(NavigationScreens.LOGIN)
+             })*/
     }
 }
 

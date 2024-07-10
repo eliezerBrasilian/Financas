@@ -175,7 +175,7 @@ fun SignUp(
             text = "Bem vindo, vamos começar!",
             color = Color.Black,
             fontWeight = FontWeight.Normal,
-            fontSize = 22.sp,
+            fontSize = 20.sp,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
@@ -218,7 +218,7 @@ fun SignUp(
         )
 
 
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(90.dp))
 
         Text(
             text = "Ao continuar, você declara estar ciente da nossa ",
@@ -233,7 +233,7 @@ fun SignUp(
             fontSize = 15.sp,
         )
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(40.dp))
         AuthButton(isLoading, "CADASTRAR", onClick = onClick)
     }
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
-import com.ifinancas.utils.toBrazilianCurrency
+import com.ifinancas.utils.toDefaultCurrency
 import compose.icons.FeatherIcons
 import compose.icons.feathericons.Eye
 import compose.icons.feathericons.EyeOff
@@ -38,7 +38,7 @@ fun SaldoComponent(
             horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(
-                text = if (balanceIsVisible) toBrazilianCurrency(total) else "****",
+                text = if (balanceIsVisible) toDefaultCurrency(total) else "****",
                 color = Color.White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold

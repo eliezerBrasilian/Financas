@@ -16,8 +16,8 @@ android {
         applicationId = "com.ifinancas"
         minSdk = 24
         targetSdk = 34
-        versionCode = 55
-        versionName = "1.4.7"
+        versionCode = 63
+        versionName = "1.5.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -57,18 +57,18 @@ android {
 
 dependencies {
 
+    implementation("androidx.activity:activity-ktx:1.2.0")
+
     //googgleads
     implementation("com.google.android.gms:play-services-ads:23.1.0")
-
-    //icons
 
     //skeletum
     implementation("com.valentinilk.shimmer:compose-shimmer:1.3.0")
     /*  implementation(libs.firebase.storage.ktx)*/
     /*
 
-        // messaging
-        implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")*/
+    // messaging
+    implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")*/
 
     // Navigation Compose
     implementation("androidx.compose.material:material:1.4.2")
@@ -77,7 +77,8 @@ dependencies {
     //livedata
     implementation("androidx.compose.runtime:runtime-livedata:1.7.0-alpha05")
 
-    //google signin
+
+    implementation("com.github.eliezerBrasilian:jetpack-compose-packages:v1.1.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.firebase:firebase-auth:23.0.0")
 
@@ -93,6 +94,7 @@ dependencies {
 
     // hilt
     implementation("com.google.dagger:hilt-android:2.50")
+    implementation(libs.androidx.appcompat)
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
     implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")

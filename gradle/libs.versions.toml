@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.2"
+agp = "8.5.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -21,6 +21,7 @@ firebaseStorage = "21.0.0"
 firebaseMessaging = "24.0.0"
 brCurrencyVisualTransformation = "v1.0.1"
 charty = "2.0.0-alpha01"
+appcompat = "1.7.0"
 
 [libraries]
 charty = { module = "com.himanshoe:charty", version.ref = "charty" }
@@ -51,6 +52,7 @@ firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx",
 gms-google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServicesVersion" }
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

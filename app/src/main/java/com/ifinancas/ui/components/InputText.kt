@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
@@ -25,6 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ifinancas.R
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.Eye
+import compose.icons.feathericons.EyeOff
 
 @Preview
 @Composable
@@ -67,8 +71,8 @@ fun InputText(
         },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         trailingIcon = {
-            if (isPassword) Image(
-                painter = painterResource(id = if (passwordVisible) R.drawable.olho else R.drawable.olho),
+            if (isPassword) Icon(
+                imageVector = if (!passwordVisible) FeatherIcons.Eye else FeatherIcons.EyeOff,
                 contentDescription = null,
                 modifier = Modifier
                     .size(15.dp)
