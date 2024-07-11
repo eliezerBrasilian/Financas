@@ -16,8 +16,8 @@ android {
         applicationId = "com.ifinancas"
         minSdk = 24
         targetSdk = 34
-        versionCode = 63
-        versionName = "1.5.5"
+        versionCode = 64
+        versionName = "1.5.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -110,7 +110,7 @@ dependencies {
     implementation(libs.composeIcons.feather)
     implementation(libs.composeIcons.font.awesome)
     implementation(libs.br.currency)
-    //
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

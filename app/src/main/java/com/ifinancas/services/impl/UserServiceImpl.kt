@@ -9,7 +9,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.foodfacil.enums.Collections.Companion.USERS
 import com.google.firebase.firestore.FirebaseFirestore
-import com.ifinancas.services.UploadFile
+import com.ifinancas.utils.UploadFile
 import com.ifinancas.services.UserService
 import com.ifinancas.utils.AppUtils.Companion.AppTag
 import com.ifinancas.utils.Toast

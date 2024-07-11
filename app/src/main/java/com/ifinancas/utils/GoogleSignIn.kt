@@ -1,7 +1,6 @@
-package com.ifinancas.services
+package com.ifinancas.utils
 
 import android.content.Context
-import androidx.core.content.ContextCompat.getString
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
