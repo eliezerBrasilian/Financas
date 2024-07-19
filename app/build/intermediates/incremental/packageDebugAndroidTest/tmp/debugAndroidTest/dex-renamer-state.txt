@@ -1,7 +1,0 @@
-#Wed Jul 10 23:16:04 BRT 2024
-base.0=C\:\\DEV\\ANDROID\\JETPACK-COMPOSE\\ifinancas\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeExtDexDebugAndroidTest\\classes.dex
-base.1=C\:\\DEV\\ANDROID\\JETPACK-COMPOSE\\ifinancas\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
-path.0=classes.dex
-path.1=0/classes.dex
-renamed.0=classes.dex
-renamed.1=classes2.dex
