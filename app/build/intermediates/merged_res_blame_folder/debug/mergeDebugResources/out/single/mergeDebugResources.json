@@ -1,0 +1,630 @@
+[
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_baixo_branco.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_baixo_branco.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pencil_premium.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pencil_premium.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_config.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/config.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_user_perfil.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/user_perfil.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pix.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pix.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_mercado_pago.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/mercado_pago.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_shooting_star.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/shooting_star.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_email_icon.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/email_icon.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafico.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafico.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_btn_adicionar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/btn_adicionar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_btn_fechar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/btn_fechar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_premium_barra_roxo.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/premium_barra_roxo.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_update.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/update.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_fechar_x.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/fechar_x.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_google_icon.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/google_icon.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_calendar_premium.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/calendar_premium.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_selecionar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/selecionar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_dir_roxa.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_dir_roxa.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_direita.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_direita.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_reserva_historico.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/reserva_historico.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafico_roxo.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafico_roxo.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_frajola_thumb.jpg.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/frajola_thumb.jpg"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pedido_rotaentrega.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pedido_rotaentrega.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_premium_roxo.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/premium_roxo.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_coworking_greetings_in_online_business_meeting.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/coworking_greetings_in_online_business_meeting.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_caixa_premi.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/caixa_premi.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_logo_iniciar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/logo_iniciar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_gift_box.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/gift_box.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_simbolopix.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/simbolopix.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_chave.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/chave.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_img_premium.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/img_premium.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_ver_relatorio_preto.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/ver_relatorio_preto.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pedido_finalizado.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pedido_finalizado.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_historico_menu.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/historico_menu.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_foguete_icon.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/foguete_icon.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_coroa_premiun.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/coroa_premiun.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pig_menu.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pig_menu.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_top_carrinho.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/top_carrinho.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_fortune_tiger.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/fortune_tiger.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafo_despesa.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafo_despesa.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_logo_ifinancas.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/logo_ifinancas.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_olho.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/olho.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/xml_data_extraction_rules.xml.flat",
+        "source": "com.ifinancas.app-main-7:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_reserva_menu.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/reserva_menu.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pedido_icone_selecionado.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pedido_icone_selecionado.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_voltar_branco.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/voltar_branco.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_instagram.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/instagram.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_concluido.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/concluido.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_compartilhar_amigos.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/compartilhar_amigos.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_calendar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/calendar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_graf_premi.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/graf_premi.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_sem_anotacoes.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/sem_anotacoes.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_edit.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/edit.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pagamento_naoconfirmado.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pagamento_naoconfirmado.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_celular.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/celular.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pedido_icone_padrao.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pedido_icone_padrao.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_mao_iniciar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/mao_iniciar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_categoria.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/categoria.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_ver_relatorio_branco.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/ver_relatorio_branco.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_hostinger.jpg.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/hostinger.jpg"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_givyy_shorts.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/givyy_shorts.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_menu.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/menu.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_transacoes_roxo.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/transacoes_roxo.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_google.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/google.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_sobre_nos.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/sobre_nos.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/xml_backup_rules.xml.flat",
+        "source": "com.ifinancas.app-main-7:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_error.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/error.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_graph.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/graph.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_transacoes_barra.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/transacoes_barra.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_active_woman_working_on_web_design.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/active_woman_working_on_web_design.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_baixo_rosa.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_baixo_rosa.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_calendar_premi.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/calendar_premi.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_premium_cinza.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/premium_cinza.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_casa_barra_cinza.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/casa_barra_cinza.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_star.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/star.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_boba_wealthy_woman_sitting_on_a_safe.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/boba_wealthy_woman_sitting_on_a_safe.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_despesa_historico.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/despesa_historico.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafo_barra.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafo_barra.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_transacoes_cinza.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/transacoes_cinza.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_casa_barra.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/casa_barra.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafo_barra_roxo.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafo_barra_roxo.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_verified.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/verified.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_foguete.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/foguete.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_user_profile.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/user_profile.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_location.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/location.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_despesa.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/despesa.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_esquerda_azul.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_esquerda_azul.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_editar.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/editar.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_email.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/email.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pdf_premi.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pdf_premi.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_receita_historico.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/receita_historico.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_perfil_icone_selecionado.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/perfil_icone_selecionado.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_rocket.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/rocket.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_crown.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/crown.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_mulher_laptop.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/mulher_laptop.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_logout.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/logout.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_home_icone_padrao.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/home_icone_padrao.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_suporte.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/suporte.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_calendario.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/calendario.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_send_.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/send_.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_boas_vindas_pessoas.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/boas_vindas_pessoas.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_olho_branco.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/olho_branco.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_message.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/message.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_customize.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/customize.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_esq_roxa.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_esq_roxa.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pessoas_login.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pessoas_login.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_logo_header_premium.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/logo_header_premium.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_discord.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/discord.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_despesa_menu.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/despesa_menu.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_unlocked.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/unlocked.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_seta_branca.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/seta_branca.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_estrela.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/estrela.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_mulher_tela1.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/mulher_tela1.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_email_branco.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/email_branco.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_mao.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/mao.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_pencil.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/pencil.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_user.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/user.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_perfil.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/perfil.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_premium_barra.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/premium_barra.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_filtro.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/filtro.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_tiktok.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/tiktok.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_receita_menu.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/receita_menu.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_woman_laptop.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/woman_laptop.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_receita.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/receita.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_cupom.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/cupom.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_coupons.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/coupons.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_olho_fechado_roxo.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/olho_fechado_roxo.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.ifinancas.app-main-7:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_crown_status.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/crown_status.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafico_cinza.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafico_cinza.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_atualizar_premi.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/atualizar_premi.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafo_reserva.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafo_reserva.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_reserva.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/reserva.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_btn_premium.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/btn_premium.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_logo_screen.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/logo_screen.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_crown_list.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/crown_list.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_casual_life_email_marketing.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/casual_life_email_marketing.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_grafo_receita.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/grafo_receita.png"
+    },
+    {
+        "merged": "com.ifinancas.app-debug-5:/drawable_perfil_icone_padrao.png.flat",
+        "source": "com.ifinancas.app-main-7:/drawable/perfil_icone_padrao.png"
+    }
+]

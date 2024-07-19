@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.ifinancas.app-mergeDebugResources-3:/values-v25/values-v25.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\eliez\\.gradle\\caches\\transforms-4\\250dd3e5d826e1706571c2c055435e06\\transformed\\appcompat-1.7.0\\res\\values-v25\\values-v25.xml",
+                    "from": {
+                        "startLines": "2,3,4,6",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,126,209,308",
+                        "endLines": "2,3,5,7",
+                        "endColumns": "70,82,12,12",
+                        "endOffsets": "121,204,303,414"
+                    }
+                }
+            ]
+        }
+    ]
+}

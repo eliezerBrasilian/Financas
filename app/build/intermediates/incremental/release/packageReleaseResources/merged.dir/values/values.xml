@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Finanças</string>
+    <string name="default_web_client_id" translatable="false">80275054021-ds2pdpkki041lum3c6l1mrc3htpcv8sp.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">80275054021</string>
+    <string name="google_api_key" translatable="false">AIzaSyCUd7Gz43-msLxDbG9W2cflmZQ2_WL8mzs</string>
+    <string name="google_app_id" translatable="false">1:80275054021:android:9bf983af905d2e4f09ffac</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCUd7Gz43-msLxDbG9W2cflmZQ2_WL8mzs</string>
+    <string name="google_storage_bucket" translatable="false">i-financas.appspot.com</string>
+    <string name="project_id" translatable="false">i-financas</string>
+    <style name="Theme.IFinanças" parent="android:Theme.Material.Light.NoActionBar"/>
+</resources>
