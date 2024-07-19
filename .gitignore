@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+/key
+/app/google-services.json
+/app/src/main/java/com/ifinancas/data/gitignore
