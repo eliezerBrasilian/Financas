@@ -56,7 +56,7 @@ fun DiscordGroupInviteCard() {
             Column {
                 ContentVerifiedLabel()
                 Text(
-                    text = "Frajola comunidade ⚡", fontSize = 15.sp,
+                    text = "Be Dev Studios ⚡", fontSize = 15.sp,
                     color = Color.Black, fontWeight = FontWeight.SemiBold
                 )
                 Text(
@@ -84,10 +84,8 @@ fun DiscordGroupInviteCard() {
                             color = Color.White, fontWeight = FontWeight.SemiBold
                         )
                     }
-
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-
 
             }
         }

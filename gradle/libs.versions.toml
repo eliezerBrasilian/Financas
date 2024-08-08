@@ -1,5 +1,18 @@
 [versions]
+accompanistPermissions = "0.31.1-alpha"
+accompanistSystemuicontroller = "0.27.0"
+activityKtx = "1.9.1"
 agp = "8.5.0"
+androidUi = "2.11.0"
+coilCompose = "2.5.0"
+composeCharts = "0.2.1"
+composeShimmer = "1.3.0"
+datastorePreferences = "1.1.1"
+firebaseAuth = "23.0.0"
+firebaseMessagingKtx = "24.0.0"
+hiltAndroidGradlePlugin = "2.50"
+hiltNavigationFragment = "1.2.0"
+jetpackComposePackages = "v1.1.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -22,13 +35,44 @@ firebaseMessaging = "24.0.0"
 brCurrencyVisualTransformation = "v1.0.1"
 charty = "2.0.0-alpha01"
 appcompat = "1.7.0"
+adapty = "2.11.2"
+material = "1.6.8"
+navigationCompose = "2.5.0-rc01"
+navigationComposeVersion = "2.7.7"
+playServicesAds = "23.2.0"
+playServicesAuth = "21.2.0"
+runtimeLivedataVersion = "1.7.0-beta07"
+uiTextGoogleFonts = "1.6.8"
 
 [libraries]
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
+android-ui = { module = "io.adapty:android-ui", version.ref = "androidUi" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltNavigationFragment" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationFragment" }
+androidx-hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigationFragment" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
+androidx-navigation-compose-v250rc01 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+compose-charts = { module = "io.github.bytebeats:compose-charts", version.ref = "composeCharts" }
+compose-shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "composeShimmer" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "hiltAndroidGradlePlugin" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "hiltAndroidGradlePlugin" }
+firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
+firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidGradlePlugin" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidGradlePlugin" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
+jetpack-compose-adapty = { group = "io.adapty", name = "android-sdk", version.ref = "adapty" }
 charty = { module = "com.himanshoe:charty", version.ref = "charty" }
 br-currency = { module = "com.github.eliezerBrasilian:jetpack-compose-brazilian-currency-visual-transformation", version.ref = "brCurrencyVisualTransformation" }
 composeIcons-feather = { module = "br.com.devsrsouza.compose.icons:feather", version.ref = "composeIcons" }
 composeIcons-font-awesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "composeIcons" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+jetpack-compose-packages = { module = "com.github.eliezerBrasilian:jetpack-compose-packages", version.ref = "jetpackComposePackages" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -53,6 +97,10 @@ gms-google-services = { group = "com.google.gms", name = "google-services", vers
 firebase-storage = { group = "com.google.firebase", name = "firebase-storage", version.ref = "firebaseStorage" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

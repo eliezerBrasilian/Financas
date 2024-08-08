@@ -1,7 +1,6 @@
 package com.ifinancas.ui.screens.signUp
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,10 +15,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,8 +28,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.ifinancas.R
-import com.ifinancas.data.dataclass.UserAuthSignUpData
-import com.ifinancas.data.enums.FirebaseErrorCode
 import com.ifinancas.navigation.ArrowBackTop
 import com.ifinancas.ui.components.AuthButton
 import com.ifinancas.ui.components.ErrorText
@@ -42,114 +35,29 @@ import com.ifinancas.ui.components.InputText
 import com.ifinancas.ui.theme.MAINBLUE
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
-import com.ifinancas.utils.AppUtils.Companion.AppTag
-import kotlinx.coroutines.launch
-
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SignUp(
     nav: NavHostController = rememberNavController(),
     authViewModel: AuthViewModel,
-    userViewModel: UserViewModel,
+    signUpViewModel: SignUpViewModel
 ) {
 
-    val uid by userViewModel.uid.observeAsState(initial = "")
     val isLoading by authViewModel.loading.observeAsState(initial = false)
 
-    var nameInput by remember {
-        mutableStateOf("")
-    }
-    var emailInput by remember {
-        mutableStateOf("")
-    }
-    var passwordInput by remember {
-        mutableStateOf("")
-    }
+    val nameInput by signUpViewModel.nameInput
+    val emailInput by signUpViewModel.emailInput
+    val passwordInput by signUpViewModel.passwordInput
 
-    var loginError by remember {
-        mutableStateOf("")
-    }
-    var nameIsEmpty by remember {
-        mutableStateOf(false)
-    }
-    var loginIsEmpty by remember {
-        mutableStateOf(false)
-    }
-    var passwordIsEmpty by remember {
-        mutableStateOf(false)
-    }
-
-    val resetInputStates: () -> Unit = {
-        loginError = ""
-        nameIsEmpty = false
-        loginIsEmpty = false
-        passwordIsEmpty = false
-    }
-
-    val onChangeName = { it: String ->
-        nameInput = it
-    }
-    val onChangeLogin = { it: String ->
-        emailInput = it
-    }
-    val onChangePassword = { it: String ->
-        passwordInput = it
-    }
+    val nameError by signUpViewModel.nameError
+    val emailError by signUpViewModel.emailError
+    val passwordError by signUpViewModel.passwordError
 
     val storeUserData: UserViewModel = hiltViewModel()
-    val scope = rememberCoroutineScope()
 
-    val onSuccess: (user: UserAuthSignUpData) -> Unit = { user ->
-        resetInputStates()
-
-        scope.launch {
-            Log.d(AppTag, "useruid: ${user.uid}")
-            storeUserData.saveEmail(emailInput)
-            storeUserData.saveName(user.name)
-            storeUserData.savePhoto(if (user.profilePicture == null) "" else user.profilePicture)
-            storeUserData.saveUid(user.uid)
-
-            nav.navigate("appNavigation") {
-                popUpTo("authNavigation") {
-                    inclusive = true
-                }
-            }
-        }
-    }
-    val onError: (errorCode: String) -> Unit = {
-        if (it == FirebaseErrorCode.ERROR_INVALID_EMAIL.error) {
-            loginError = "Este email é inválido!"
-        } else if (it == FirebaseErrorCode.ERROR_WEAK_PASSWORD.error) {
-            loginError = "A senha está muito curta!"
-        } else if (it == FirebaseErrorCode.ERROR_EMAIL_ALREADY_IN_USE.error) {
-            loginError = "Este email já está em uso!"
-        }
-    }
-
-    val onClick: () -> Unit = {
-        resetInputStates()
-
-        if (nameInput.isNotEmpty() && emailInput.isNotEmpty() && passwordInput.isNotEmpty()) {
-            authViewModel.createUserWithEmailAndPassword(
-                emailInput.trim(),
-                passwordInput.trim(),
-                nameInput.trim(),
-                onSuccess,
-                onError
-            )
-        } else {
-            if (nameInput.isEmpty()) {
-                nameIsEmpty = true
-            }
-            if (emailInput.isEmpty()) {
-                loginIsEmpty = true
-            }
-            if (passwordInput.isEmpty()) {
-                passwordIsEmpty = true
-            }
-        }
-
+    fun handleSignUp() {
+        signUpViewModel.signUp(authViewModel, nav, storeUserData)
     }
 
     Column(
@@ -180,43 +88,38 @@ fun SignUp(
             textAlign = TextAlign.Center
         )
 
-
         Spacer(modifier = Modifier.height(50.dp))
 
-
-        if (nameIsEmpty) {
-            ErrorText(text = "Informe o seu nome")
+        if (nameError != NameInputError.IDLE) {
+            ErrorText(text = nameError.value)
         }
 
         InputText(
             value = nameInput,
             placeHolderText = "NOME COMPLETO",
-            onChangeText = onChangeName
+            onChangeText = signUpViewModel.onChangeName
         )
         Spacer(modifier = Modifier.height(20.dp))
-        if (loginIsEmpty) {
-            ErrorText(text = "Informe o email")
+        if (emailError != EmailInputError.IDLE) {
+            ErrorText(text = emailError.value)
         }
-        if (loginError.isNotEmpty()) {
-            ErrorText(text = loginError)
-        }
+
         InputText(
             value = emailInput, placeHolderText = "EMAIL",
             keyboardType = KeyboardType.Email,
-            onChangeText = onChangeLogin
+            onChangeText = signUpViewModel.onChangeLogin
         )
         Spacer(modifier = Modifier.height(20.dp))
-        if (passwordIsEmpty) {
-            ErrorText(text = "Informe a senha")
+        if (passwordError != PasswordInputError.IDLE) {
+            ErrorText(text = passwordError.value)
         }
         InputText(
             value = passwordInput,
             placeHolderText = "SENHA",
             isPassword = true,
             keyboardType = KeyboardType.Password,
-            onChangeText = onChangePassword
+            onChangeText = signUpViewModel.onChangePassword
         )
-
 
         Spacer(modifier = Modifier.height(90.dp))
 
@@ -234,6 +137,6 @@ fun SignUp(
         )
 
         Spacer(modifier = Modifier.height(40.dp))
-        AuthButton(isLoading, "CADASTRAR", onClick = onClick)
+        AuthButton(isLoading, "CADASTRAR", onClick = { handleSignUp() })
     }
 }

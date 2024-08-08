@@ -1,5 +1,5 @@
 
-package com.ifinancas.components
+package com.ifinancas.navigation
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

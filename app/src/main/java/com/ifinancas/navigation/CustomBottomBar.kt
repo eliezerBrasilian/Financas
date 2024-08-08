@@ -1,4 +1,4 @@
-package com.ifinancas.components
+package com.ifinancas.navigation
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -29,8 +29,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.ifinancas.navigation.BottomBarScreen
-import com.ifinancas.navigation.CircleBtnAdd
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
 import com.ifinancas.utils.AppUtils.Companion.AppTag
 

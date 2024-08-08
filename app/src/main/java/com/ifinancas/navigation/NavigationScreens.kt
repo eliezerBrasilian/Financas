@@ -12,5 +12,6 @@ package com.ifinancas.navigation
         val SPLASH = "Splash"
         val REGISTER = "REGISTER"
         val FINANCIAL_BALANCE_SELECTED = "FINANCIAL_BALANCE_SELECTED"
+        val SHOPSCREEN = "ShopScreen"
     }
 }

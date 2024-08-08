@@ -36,7 +36,7 @@ import com.ifinancas.utils.showInterstitial
 @Composable
 fun PatrocinadoCard(
     imageResource: Int = R.drawable.discord,
-    title: String = "Frajola comunidade ⚡",
+    title: String = "Be Dev Studios ⚡",
     description: String = "Entre se você gosta de programação e games",
     buttonText: String = "Entrar na Comunidade",
     link: String = discordGroupInviteLink,

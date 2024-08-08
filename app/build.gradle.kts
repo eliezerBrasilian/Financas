@@ -16,8 +16,8 @@ android {
         applicationId = "com.ifinancas"
         minSdk = 24
         targetSdk = 34
-        versionCode = 64
-        versionName = "1.5.6"
+        versionCode = 66
+        versionName = "1.5.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -56,55 +56,50 @@ android {
 }
 
 dependencies {
-
-    implementation("androidx.activity:activity-ktx:1.2.0")
-
-    //googgleads
-    implementation("com.google.android.gms:play-services-ads:23.1.0")
+    implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.android.ui)
+    implementation(libs.jetpack.compose.adapty)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.play.services.ads)
 
     //skeletum
-    implementation("com.valentinilk.shimmer:compose-shimmer:1.3.0")
+    implementation(libs.compose.shimmer)
     /*  implementation(libs.firebase.storage.ktx)*/
-    /*
 
     // messaging
-    implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")*/
+    implementation(libs.firebase.messaging.ktx)
 
     // Navigation Compose
-    implementation("androidx.compose.material:material:1.4.2")
-    implementation("androidx.navigation:navigation-compose:2.5.0-rc01")
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.navigation.compose.v250rc01)
 
-    //livedata
-    implementation("androidx.compose.runtime:runtime-livedata:1.7.0-alpha05")
+    implementation(libs.jetpack.compose.packages)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.auth)
 
-
-    implementation("com.github.eliezerBrasilian:jetpack-compose-packages:v1.1.0")
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
-    implementation("com.google.firebase:firebase-auth:23.0.0")
-
-    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
-    implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
-    implementation("androidx.compose.runtime:runtime-livedata:1.7.0-alpha05")
-    implementation("androidx.navigation:navigation-compose:2.7.6")
-    implementation("io.coil-kt:coil-compose:2.5.0")
-    implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.0")
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.permissions)
+    implementation(libs.runtime.livedata)
+    implementation(libs.navigation.compose)
+    implementation(libs.coil.compose)
+    implementation(libs.composeIcons.font.awesome)
 
     //datastore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.androidx.datastore.preferences)
 
     // hilt
-    implementation("com.google.dagger:hilt-android:2.50")
+    implementation(libs.hilt.android)
     implementation(libs.androidx.appcompat)
-    kapt("com.google.dagger:hilt-android-compiler:2.50")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+    kapt(libs.hilt.android.compiler)
+    kapt(libs.androidx.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.fragment)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // dagger
-    implementation("com.google.dagger:dagger:2.38.1")
-    kapt("com.google.dagger:dagger-compiler:2.38.1")
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 
-    implementation("io.github.bytebeats:compose-charts:0.2.1")
+    implementation(libs.compose.charts)
 
     implementation(libs.charty)
     implementation(libs.composeIcons.feather)

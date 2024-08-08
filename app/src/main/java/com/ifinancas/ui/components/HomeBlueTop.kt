@@ -32,12 +32,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.adapty.internal.utils.InternalAdaptyApi
 import com.ifinancas.R
 import com.ifinancas.navigation.NavigationScreens
 import com.ifinancas.ui.theme.MAINPURPLE
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
+import com.ifinancas.ui.viewModel.ShopTheme
 import com.ifinancas.ui.viewModel.UserViewModel
 
+@OptIn(InternalAdaptyApi::class)
 @Composable
 fun HomeBlueTop(
     nav: NavHostController,
@@ -49,7 +52,8 @@ fun HomeBlueTop(
     monthSelected: String,
     userViewModel: UserViewModel,
     balanceIsVisible: Boolean,
-    toogleBalanceVisibility: () -> Unit
+    toogleBalanceVisibility: () -> Unit,
+    appTheme: ShopTheme?
 ) {
 
     var isRotated by remember { mutableStateOf(false) }
@@ -59,42 +63,61 @@ fun HomeBlueTop(
         animationSpec = tween(durationMillis = 500)
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MAINPURPLE)
-            .padding(15.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+    if (appTheme != null) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(appTheme.homeTopBackgroundColor ?: MAINPURPLE)
+                .padding(15.dp)
         ) {
-            AsyncImage(model = if (photo.isNullOrEmpty()) R.drawable.user_profile else photo,
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .size(50.dp)
-                    .clip(
-                        CircleShape
-                    )
-                    .clickable {
-                        nav.navigate(NavigationScreens.PROFILE)
-                    })
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AsyncImage(model = if (photo.isNullOrEmpty()) R.drawable.user_profile else photo,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(
+                            CircleShape
+                        )
+                        .clickable {
+                            nav.navigate(NavigationScreens.PROFILE)
+                        })
 
-            Icon(imageVector = if (menuListVisibile) Icons.Default.Close else Icons.Default.Menu,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier
-                    .rotate(rotationAngle)
-                    .clickable {
-                        isRotated = !isRotated
-                        toogleMenuListVisibility()
-                    })
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(15.dp)
+                ) {
+//                    Icon(imageVector = FontAwesomeIcons.Solid.Crown,
+//                        contentDescription = null,
+//                        tint = Color.White,
+//                        modifier = Modifier
+//                            .size(21.dp)
+//                            .clickable {
+//                                nav.navigate(NavigationScreens.SHOPSCREEN)
+//                            }
+//                    )
+
+                    Icon(imageVector = if (menuListVisibile) Icons.Default.Close else Icons.Default.Menu,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier
+                            .rotate(rotationAngle)
+                            .size(21.dp)
+                            .clickable {
+                                isRotated = !isRotated
+                                toogleMenuListVisibility()
+                            })
+                }
+            }
+            MonthSelectable(toogleMonthListVisibility, monthListVisible, monthSelected)
+            Spacer(modifier = Modifier.height(10.dp))
+            SaldoComponent(financialOperationsViewModel, balanceIsVisible, toogleBalanceVisibility)
+            Spacer(modifier = Modifier.height(10.dp))
         }
-        MonthSelectable(toogleMonthListVisibility, monthListVisible, monthSelected)
-        Spacer(modifier = Modifier.height(10.dp))
-        SaldoComponent(financialOperationsViewModel, balanceIsVisible, toogleBalanceVisibility)
-        Spacer(modifier = Modifier.height(10.dp))
     }
 }
+
+

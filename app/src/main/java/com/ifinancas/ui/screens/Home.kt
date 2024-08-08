@@ -2,21 +2,14 @@ package com.ifinancas.ui.screens
 
 import android.content.Intent
 import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,29 +28,22 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.ads.AdSize
-import com.ifinancas.R
 import com.ifinancas.data.enums.MenuItem
-import com.ifinancas.data.enums.Tags
 import com.ifinancas.data.gitignore.appGooglePlayUri
-import com.ifinancas.data.gitignore.hostingerReferralLink
+import com.ifinancas.ui.components.BackgroundImage
 import com.ifinancas.ui.components.BannerAdd
-import com.ifinancas.ui.components.CardFinanceItem
 import com.ifinancas.ui.components.GraficoGeralCard
 import com.ifinancas.ui.components.HomeBlueTop
 import com.ifinancas.ui.components.HomePopUpMenu
 import com.ifinancas.ui.components.MonthListPopUpDialog
-import com.ifinancas.ui.components.PatrocinadoCard
 import com.ifinancas.ui.components.PopUpAddRegisterDialog
-import com.ifinancas.ui.components.ViewSobreposta
-import com.ifinancas.ui.theme.BACKGROUNDCARDSOBREPOSTO
-import com.ifinancas.ui.theme.BACKGROUNDHOME
 import com.ifinancas.ui.viewModel.DateTimeViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
 import com.ifinancas.ui.viewModel.PopUpOfertaViewModel
+import com.ifinancas.ui.viewModel.ShopThemeViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 import com.ifinancas.utils.AppUtils.Companion.AppTag
-import com.ifinancas.utils.showInterstitial
 
 @Composable
 fun Home(
@@ -66,8 +52,12 @@ fun Home(
     financialOperationsViewModel: FinancialOperationsViewModel,
     userViewModel: UserViewModel,
     pv: PaddingValues,
-    popUpOfertaViewModel: PopUpOfertaViewModel
+    popUpOfertaViewModel: PopUpOfertaViewModel,
+    shopThemeViewModel: ShopThemeViewModel
 ) {
+
+    val appTheme by shopThemeViewModel.appTheme.collectAsState()
+
     val visibilityState by popUpHomeViewModel.visible.collectAsState()
     val dateTimeViewModel: DateTimeViewModel = hiltViewModel()
     val givenMonthYear = dateTimeViewModel.getMonthName()
@@ -101,9 +91,9 @@ fun Home(
     val toogleMenuListVisibility = {
         menuListVisibile = !menuListVisibile
     }
+
     val toogleBalanceVisibility = {
         balanceIsVisible = !balanceIsVisible
-        showInterstitial(context)
     }
     val onChangeMonthItem: (month: String) -> Unit = {
         monthSelected = it
@@ -143,8 +133,7 @@ fun Home(
             Log.d(AppTag, "givenMonthYear: $monthSelected")
 
             financialOperationsViewModel.getTotalBalance(
-                uid.toString(),
-                monthSelected
+                uid.toString(), monthSelected
             )
         }
         Log.d(AppTag, "estou aqui----(FALSE)")
@@ -171,96 +160,58 @@ fun Home(
             .padding(pv)
             .fillMaxSize()
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Column(
-                Modifier
-                    .background(BACKGROUNDHOME)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                HomeBlueTop(
-                    nav,
-                    toogleMonthListVisibility,
-                    toogleMenuListVisibility,
-                    monthListVisible,
-                    menuListVisibile,
-                    financialOperationsViewModel,
-                    monthSelected,
-                    userViewModel,
-                    balanceIsVisible,
-                    toogleBalanceVisibility
-                )
-                ViewSobreposta {
-                    Card(
-                        modifier = Modifier.fillMaxWidth(0.95f),
-                        shape = RoundedCornerShape(12.dp),
-                        elevation = 10.dp,
-                        backgroundColor = BACKGROUNDCARDSOBREPOSTO
-                    ) {
-                        Box(modifier = Modifier.padding(10.dp)) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceAround
-                            ) {
-                                CardFinanceItem(
-                                    iconeImage = R.drawable.receita,
-                                    text = "Receitas",
-                                    valor = totalRevenues,
-                                    tag = Tags.REVENUE.tag,
-                                    nav = nav,
-                                    balanceIsVisible
-                                )
-                                CardFinanceItem(
-                                    iconeImage = R.drawable.despesa,
-                                    text = "Despesas",
-                                    valor = totalExpenses,
-                                    tag = Tags.EXPENSE.tag,
-                                    nav = nav,
-                                    balanceIsVisible
-                                )
-                                CardFinanceItem(
-                                    iconeImage = R.drawable.reserva,
-                                    text = "Reservas",
-                                    valor = totalReservations,
-                                    tag = Tags.RESERVATION.tag,
-                                    nav = nav,
-                                    balanceIsVisible
-                                )
-                            }
-                        }
-                    }
+        appTheme?.let {
+            BackgroundImage(imageResource = it.homeBackgroundResource) {
+                Column(
+                    Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    HomeBlueTop(
+                        nav,
+                        toogleMonthListVisibility,
+                        toogleMenuListVisibility,
+                        monthListVisible,
+                        menuListVisibile,
+                        financialOperationsViewModel,
+                        monthSelected,
+                        userViewModel,
+                        balanceIsVisible,
+                        toogleBalanceVisibility,
+                        appTheme
+                    )
+                    com.ifinancas.ui.components.HomeCardsList(
+                        totalRevenues,
+                        nav,
+                        balanceIsVisible,
+                        totalExpenses,
+                        totalReservations,
+                        appTheme
+                    )
+                    BannerAdd(bannerSize = AdSize.BANNER)
+//                PatrocinadoCard(
+//                    imageResource = R.drawable.hostinger,
+//                    title = "Contratar plano na Hostinger",
+//                    description = "Ganhe 25% de desconto na sua primeira compra",
+//                    buttonText = "Contratar",
+//                    link = hostingerReferralLink,
+//                    isVerified = true
+//                )
+                    GraficoGeralCard(nav)
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
-                BannerAdd(bannerSize = AdSize.BANNER)
-                PatrocinadoCard(
-                    imageResource = R.drawable.hostinger,
-                    title = "Contratar plano na Hostinger",
-                    description = "Ganhe 25% de desconto na sua primeira compra",
-                    buttonText = "Contratar",
-                    link = hostingerReferralLink,
-                    isVerified = true
+                if (menuListVisibile) HomePopUpMenu(
+                    onChangeMenuItem = onChangeMenuItem,
                 )
-                GraficoGeralCard(nav)
-                Spacer(modifier = Modifier.height(10.dp))
+                if (monthListVisible) {
+                    MonthListPopUpDialog(
+                        toogleMonthListVisibility,
+                        monthSelected,
+                        onChangeMonthItem,
+                        monthListVisible
+                    )
+                }
             }
-            if (menuListVisibile) HomePopUpMenu(
-                onChangeMenuItem = onChangeMenuItem,
-            )
-            if (monthListVisible) {
-                MonthListPopUpDialog(
-                    toogleMonthListVisibility,
-                    monthSelected,
-                    onChangeMonthItem,
-                    monthListVisible
-                )
-            }
-
-
         }
     }
-
-
 }
-

@@ -17,7 +17,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.ifinancas.components.CustomBottomBar
 import com.ifinancas.data.enums.Tags
 import com.ifinancas.screens.Splash
 import com.ifinancas.screens.welcomeLogin.WelcomeSignUp
@@ -26,16 +25,19 @@ import com.ifinancas.ui.screens.ExtrasScreen
 import com.ifinancas.ui.screens.FinancialBalanceSelected
 import com.ifinancas.ui.screens.Home
 import com.ifinancas.ui.screens.Profile
+import com.ifinancas.ui.screens.ShopScreen
 import com.ifinancas.ui.screens.login.Login
 import com.ifinancas.ui.screens.presentation.Presentation
 import com.ifinancas.ui.screens.register.RegisterScreen
 import com.ifinancas.ui.screens.signUp.SignUp
+import com.ifinancas.ui.screens.signUp.SignUpViewModel
 import com.ifinancas.ui.screens.transactionsHistory.TransactionsHistory
 import com.ifinancas.ui.screens.welcomeLogin.WelcomeLogin
 import com.ifinancas.ui.viewModel.AuthViewModel
 import com.ifinancas.ui.viewModel.FinancialOperationsViewModel
 import com.ifinancas.ui.viewModel.PopUpHomeViewModel
 import com.ifinancas.ui.viewModel.PopUpOfertaViewModel
+import com.ifinancas.ui.viewModel.ShopThemeViewModel
 import com.ifinancas.ui.viewModel.UserViewModel
 
 @SuppressLint(
@@ -50,6 +52,8 @@ fun MainAppNavigation(
     financialOperationsViewModel: FinancialOperationsViewModel,
     userViewModel: UserViewModel,
     popUpOfertaViewModel: PopUpOfertaViewModel,
+    shopThemeViewModel: ShopThemeViewModel,
+    signUpViewModel: SignUpViewModel
 ) {
 
     Scaffold(bottomBar = { CustomBottomBar(navController, popUpHomeViewModel) }) { pv ->
@@ -84,7 +88,7 @@ fun MainAppNavigation(
                         Login(nav = navController, authViewModel, userViewModel)
                     }
                     composable(route = NavigationScreens.SIGN_UP) {
-                        SignUp(nav = navController, authViewModel, userViewModel)
+                        SignUp(nav = navController, authViewModel, signUpViewModel)
                     }
                 }
 
@@ -99,7 +103,8 @@ fun MainAppNavigation(
                             financialOperationsViewModel,
                             userViewModel,
                             pv,
-                            popUpOfertaViewModel
+                            popUpOfertaViewModel,
+                            shopThemeViewModel
                         )
                     }
                     composable(NavigationScreens.PROFILE) {
@@ -176,6 +181,10 @@ fun MainAppNavigation(
 
                     composable(BottomBarScreen.Extra.route) {
                         ExtrasScreen(pv, navController)
+                    }
+
+                    composable(NavigationScreens.SHOPSCREEN) {
+                        ShopScreen()
                     }
 
                 }

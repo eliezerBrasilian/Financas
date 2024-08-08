@@ -24,8 +24,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.ifinancas.R
 import com.ifinancas.data.enums.Tags
+import com.ifinancas.navigation.BottomBarScreen
 import com.ifinancas.navigation.NavigationScreens
-
 
 @SuppressLint("NewApi")
 @Composable
@@ -47,7 +47,10 @@ fun PopUpAddRegisterDialog(
                     .fillMaxWidth()
                     .padding(15.dp)
             ) {
-                PopUpAddRegisterDialogItem(text = "Histórico", icon = R.drawable.historico_menu)
+                PopUpAddRegisterDialogItem(text = "Histórico", icon = R.drawable.historico_menu){
+                    nav.navigate(BottomBarScreen.Historico.route)
+                    onDismissRequest()
+                }
                 PopUpAddRegisterDialogItem(
                     text = "Registrar Receita",
                     icon = R.drawable.receita_menu
